@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from "react";
 
-import { API_GET_CHAPTERS } from "../../../../global/constants";
+import { API_GET_CHAPTERS } from "../../../../../global/constants";
 
 async function fetchData(setChapters) {
   const res = await fetch(API_GET_CHAPTERS);

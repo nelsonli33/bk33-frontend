@@ -7,6 +7,24 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        transparent: "rgba(255,255,255,0)",
+        brand: {
+          green: {
+            light: "rgba(126,248,184,0.18)",
+            "light-hover": "rgba(93,238,176,0.07)",
+            default: "#008563",
+            dark: "#005446",
+          },
+        },
+      },
+      spacing: {
+        13: "3.25rem",
+        15: "3.75rem",
+        90: "22.5rem",
+        128: "32rem",
+        144: "36rem",
+      },
       fontFamily: {
         serif: ["charter", ...defaultTheme.fontFamily.serif],
       },
@@ -18,6 +36,12 @@ module.exports = {
       },
       maxWidth: {
         "2xl": "44rem",
+      },
+      boxShadow: {
+        1: "0 5px 15px 0 rgba(0, 0, 0, 0.15)",
+        2: "0 5px 25px 0 rgba(0, 0, 0, 0.25)",
+        // card: "0px 0px 5px rgba(23, 24, 24, 0.05), 0px 1px 2px rgba(0, 0, 0, 0.15)",
+        card: "0 4px 8px rgba(0 ,0, 0, 0.12)",
       },
     },
   },

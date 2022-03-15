@@ -1,9 +1,9 @@
 import React from "react";
-import ChapterList from "./components/ChapterList";
 import LessonContent from "./components/LessonContent";
 import LessonToolbar from "./components/LessonToolbar";
+import ChapterList from "./components/ChapterList";
 
-export default function Book() {
+export default function Lesson() {
   return (
     <>
       <div className="flex justify-between">
@@ -16,7 +16,7 @@ export default function Book() {
           <LessonToolbar />
         </main>
         <div className="block w-[325px]">
-          <aside className="fixed top: 0; bottom: 0; bg-zinc-50 border-l border-l-zinc-300">
+          <aside className="fixed top: 0; bottom: 0; bg-zinc-50 border-l border-l-gray-200">
             <div className="h-screen overflow-y-auto">
               <div className="">
                 <ChapterList />

@@ -6,24 +6,18 @@
   h1 {
     @apply text-4xl;
     @apply font-bold;
-    @apply mt-[2em];
-    @apply mb-[-0.275em];
     @apply tracking-[-0.016em];
   }
 
   h2 {
     @apply text-3xl;
     @apply font-semibold;
-    @apply mt-[1.38em];
-    @apply mb-[-0.23em];
     @apply tracking-[-0.016em];
   }
 
   h3 {
     @apply text-2xl;
     @apply font-semibold;
-    @apply mt-[1.34em];
-    @apply mb-[-1.43em];
     @apply tracking-[-0.016em];
   }
 
@@ -42,10 +36,49 @@
     @apply font-serif;
     font-style: normal;
     font-weight: 400;
-    @apply text-xl;
     @apply break-words;
-    margin-top: 2em;
     @apply text-stone-700;
     @apply tracking-[-0.0033em];
+  }
+}
+
+@layer components {
+  .article h1 {
+    @apply mt-[2em];
+    @apply mb-[-0.275em];
+  }
+
+  .article h2 {
+    @apply mt-[1.38em];
+    @apply mb-[-0.23em];
+  }
+
+  .article h3 {
+    @apply mt-[1.34em];
+    @apply mb-[-1.43em];
+  }
+
+  .article h5 {
+    @apply mt-[1.34em];
+    @apply mb-[-1.43em];
+  }
+
+  .article p {
+    @apply text-xl;
+    margin-top: 2em;
+  }
+
+  .btn {
+    @apply inline-flex;
+    @apply items-center;
+    @apply justify-center;
+    @apply m-0;
+    @apply py-[0.7rem];
+    @apply px-[1.6rem];
+    @apply rounded;
+    @apply cursor-pointer;
+    user-select: none;
+    text-decoration: none;
+    line-height: 1;
   }
 }
