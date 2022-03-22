@@ -38,7 +38,7 @@
     font-weight: 400;
     @apply break-words;
     @apply text-stone-700;
-    @apply tracking-[-0.0033em];
+    @apply tracking-[-0.00313em];
   }
 }
 

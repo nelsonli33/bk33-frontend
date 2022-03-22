@@ -1,0 +1,92 @@
+.ProseMirror > * + * {
+  margin-top: 0.75em;
+}
+
+.ProseMirror ul,
+ol {
+  padding: 0 1rem;
+}
+
+.ProseMirror p {
+  font-size: 21px;
+  line-height: 1.58;
+}
+
+.ProseMirror h1 {
+  @apply mt-[2em];
+  @apply mb-[-0.275em];
+}
+
+.ProseMirror h2 {
+  @apply mt-[1.38em];
+  @apply mb-[-0.23em];
+}
+
+.ProseMirror h3 {
+  @apply mt-[1.34em];
+  @apply mb-[-0.65em];
+}
+
+.ProseMirror a {
+  @apply underline;
+  @apply decoration-1;
+  @apply underline-offset-2;
+}
+
+.bubble-toolbar {
+  display: block;
+  border-radius: 5px;
+}
+
+.bubble-toolbar button {
+  border: none;
+  background: none;
+  @apply text-white;
+  font-weight: 500;
+  @apply text-xl;
+  padding: 0 0.2rem;
+  opacity: 1;
+  height: 40px;
+  line-height: 44px;
+  margin: 0 3px;
+  @apply transition;
+}
+
+.bubble-toolbar button:hover,
+.bubble-toolbar button.active {
+  opacity: 0.7;
+}
+
+.bubble-toolbar-inner {
+  display: flex;
+  align-items: center;
+  position: relative;
+  background-image: linear-gradient(to bottom, #31312a, #222224);
+  border-radius: 5px;
+  padding: 0 10px;
+}
+
+.bubble-toolbar-button-divider {
+  @apply inline-block;
+  @apply align-middle;
+  width: 1px;
+  margin: 0 6px;
+  height: 23px;
+  @apply bg-white;
+  opacity: 0.23;
+}
+
+.bubble-toolbar-arrow-wrapper {
+  @apply absolute;
+  left: 50%;
+  bottom: -9px;
+  margin-left: -10px;
+}
+.bubble-toolbar-arrow {
+  display: block;
+  width: 20px;
+  height: 20px;
+  @apply bg-[#262625];
+  @apply rotate-45;
+  @apply scale-50;
+}

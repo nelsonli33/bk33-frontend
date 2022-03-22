@@ -17,6 +17,7 @@ module.exports = {
             dark: "#005446",
           },
         },
+        weak: "#444444",
       },
       spacing: {
         13: "3.25rem",
@@ -45,5 +46,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/forms")],
 };
