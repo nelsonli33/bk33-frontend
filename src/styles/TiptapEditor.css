@@ -33,7 +33,9 @@ ol {
   @apply underline-offset-2;
 }
 
-.bubble-toolbar {
+.bubble-toolbar,
+.link-edit-toolbar {
+  position: relative;
   display: block;
   border-radius: 5px;
 }
@@ -82,11 +84,64 @@ ol {
   bottom: -9px;
   margin-left: -10px;
 }
-.bubble-toolbar-arrow {
+
+.toolbar-arrow {
   display: block;
   width: 20px;
   height: 20px;
   @apply bg-[#262625];
   @apply rotate-45;
   @apply scale-50;
+}
+
+.link-edit-toolbar-inner {
+  position: relative;
+  max-width: 280px;
+  background-image: linear-gradient(to bottom, #31312a, #222224);
+  border-radius: 5px;
+  padding: 8px;
+}
+
+.toolbar-top-arrow-wrapper {
+  @apply absolute;
+  left: 50%;
+  top: -9px;
+  margin-left: -10px;
+}
+
+.tooltip {
+  position: absolute;
+  pointer-events: none;
+  z-index: 20;
+  background: white;
+  border: 1px solid silver;
+  border-radius: 2px;
+  padding: 2px 10px;
+  margin-bottom: 7px;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+.tooltip:before {
+  content: "";
+  height: 0;
+  width: 0;
+  position: absolute;
+  left: 50%;
+  margin-left: -5px;
+  bottom: -6px;
+  border: 5px solid transparent;
+  border-bottom-width: 0;
+  border-top-color: silver;
+}
+.tooltip:after {
+  content: "";
+  height: 0;
+  width: 0;
+  position: absolute;
+  left: 50%;
+  margin-left: -5px;
+  bottom: -4.5px;
+  border: 5px solid transparent;
+  border-bottom-width: 0;
+  border-top-color: white;
 }

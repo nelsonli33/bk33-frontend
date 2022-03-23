@@ -5,6 +5,7 @@ import { GrBold } from "react-icons/gr";
 import { BsInfoLg } from "react-icons/bs";
 import { RiDoubleQuotesR } from "react-icons/ri";
 import { FaLink } from "react-icons/fa";
+import { createLinkTooltip } from "../../extensions/LinkTooltip";
 
 export default function BubbleToolbar({ editor }) {
   const [showLinkInput, setShowLinkInput] = useState(false);
@@ -88,7 +89,10 @@ export default function BubbleToolbar({ editor }) {
         .setLink({ href: e.target.value })
         .setTextSelection(editor.state.selection.to)
         .run();
+
       setShowLinkInput(false);
+
+      createLinkTooltip();
     }
   };
 
@@ -102,7 +106,12 @@ export default function BubbleToolbar({ editor }) {
       {editor && (
         <BubbleMenu
           className="bubble-toolbar"
-          tippyOptions={{ duration: 100 }}
+          tippyOptions={{
+            duration: 100,
+            theme: "menu",
+            offset: [0, 10],
+            animation: "scale-subtle",
+          }}
           editor={editor}
         >
           <div className="bubble-toolbar-inner">
@@ -191,9 +200,6 @@ export default function BubbleToolbar({ editor }) {
                 </button>
               </>
             )}
-          </div>
-          <div className="bubble-toolbar-arrow-wrapper">
-            <span className="bubble-toolbar-arrow"></span>
           </div>
         </BubbleMenu>
       )}
