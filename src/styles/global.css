@@ -40,6 +40,18 @@
     @apply text-stone-700;
     @apply tracking-[-0.00313em];
   }
+
+  ul,
+  ol {
+    padding: 0 1rem;
+  }
+  ul {
+    @apply list-disc;
+  }
+
+  ol {
+    @apply list-decimal;
+  }
 }
 
 @layer components {

@@ -7,8 +7,11 @@ import CustomClass from "./extensions/CustomClass";
 import CustomTextStyle from "./extensions/CustomTextStyle";
 import Abbreviation from "./extensions/Abbreviation";
 import LinkTooltip from "./extensions/LinkTooltip";
+import Commands from "./extensions/Command";
 import "tippy.js/dist/tippy.css";
 import "tippy.js/animations/scale-subtle.css";
+import getSuggestionItems from "./extensions/Command/suggestion/items";
+import renderItems from "./extensions/Command/suggestion/renderItems";
 
 export default function TiptapEditor() {
   const editor = useEditor({
@@ -32,17 +35,33 @@ export default function TiptapEditor() {
       CustomClass,
       Abbreviation,
       LinkTooltip,
+      Commands.configure({
+        suggestion: {
+          items: getSuggestionItems,
+          render: renderItems,
+        },
+      }),
     ],
     content: `
     <p>
-        Wow, this editor has support for links to the whole <a href="https://en.wikipedia.org/wiki/World_Wide_Web">world wide web</a>. We tested a lot of URLs and I think you can add *every URL* you want. Isn’t that cool? Let’s try <a href="https://statamic.com/">another one!</a> Yep, seems to work.
-    </p>
-    <p>
-      Neat, isn’t it? Add an empty paragraph to see the floating menu.
-    </p>
-    <p>Hello <span class="rainbow">World</span>. :-)</p>
-
-    <p>You can use <abbr title="Cascading Style Sheets">CSS</abbr> style your website.</p>
+          I like lists. Let’s add one:
+        </p>
+        <ul>
+          <li>This is a bullet list.</li>
+          <li>And it has three list items.</li>
+          <li>Here is the third one.</li>
+        </ul>
+        <p>
+          Do you want to see one more? I bet! Here is another one:
+        </p>
+        <ol>
+          <li>That’s a different list, actually it’s an ordered list.</li>
+          <li>It also has three list items.</li>
+          <li>And all of them are numbered.</li>
+        </ol>
+        <p>
+          Lists would be nothing without list items.
+        </p>
     `,
     editorProps: {
       attributes: {
@@ -92,6 +111,17 @@ export default function TiptapEditor() {
         }
         .tippy-box[data-theme~="link"] > .tippy-arrow::before {
           transform: scale(1.2);
+        }
+
+        .tippy-box[data-theme~="slash"] {
+          position: relative;
+          background-color: #ffffff;
+          border-radius: 4px;
+          font-size: inherit;
+          line-height: inherit;
+        }
+        .tippy-box[data-theme~="slash"] > .tippy-content {
+          padding: 0;
         }
       `}</style>
     </div>

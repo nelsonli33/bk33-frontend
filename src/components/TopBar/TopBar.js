@@ -15,7 +15,7 @@ export default function TopBar() {
         <div className=" flex justify-between items-center ">
           <div className="flex items-center">
             <span>LOGO</span>
-            <ul className="flex items-center ml-10 space-x-6 list-style-none">
+            <ul className="flex items-center ml-10 space-x-6 list-none">
               {navigation.map((item) => (
                 <li key={item.id}>
                   <a

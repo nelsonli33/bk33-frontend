@@ -12,8 +12,8 @@ export default function BubbleToolbar({ editor }) {
 
   const bigTitleIconMarkup = (
     <svg
-      width="18"
-      height="18"
+      width="16"
+      height="16"
       viewBox="0 0 18 18"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -23,15 +23,15 @@ export default function BubbleToolbar({ editor }) {
         fillOpacity="1"
         fill="#ffffff"
         stroke="#ffffff"
-        strokeWidth="0.75"
+        strokeWidth="1.7"
       ></path>
     </svg>
   );
 
   const subTitleIconMarkup = (
     <svg
-      width="14"
-      height="14"
+      width="13"
+      height="13"
       viewBox="0 0 18 18"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -41,7 +41,7 @@ export default function BubbleToolbar({ editor }) {
         fillOpacity="1"
         fill="#ffffff"
         stroke="#ffffff"
-        strokeWidth="1"
+        strokeWidth="2"
       ></path>
     </svg>
   );
@@ -150,7 +150,7 @@ export default function BubbleToolbar({ editor }) {
                     "btn"
                   )}
                 >
-                  <GrBold />
+                  <GrBold className="stroke-1" />
                 </button>
                 <button
                   onClick={() => editor.chain().focus().toggleItalic().run()}
@@ -159,7 +159,7 @@ export default function BubbleToolbar({ editor }) {
                     "btn"
                   )}
                 >
-                  <BsInfoLg size={16} />
+                  <BsInfoLg size={16} className="stroke-1" />
                 </button>
                 <button
                   onClick={toggleLink}
