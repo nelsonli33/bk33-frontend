@@ -105,22 +105,14 @@ export default function BubbleToolbar({ editor }) {
   const toggleCustomBlockquote = () => {
     const { quoteType } = editor.getAttributes("customBlockquote");
 
-    switch (quoteType) {
+    let nextQuoteType =
+      quoteType === undefined || quoteType === null ? 1 : (quoteType + 1) % 3;
+
+    switch (nextQuoteType) {
       case 0:
         editor.chain().focus().unsetBlockquote().run();
         break;
       case 1:
-        editor
-          .chain()
-          .focus()
-          .unsetBlockquote()
-          .wrapIn("customBlockquote", {
-            class: "p-0 pl-[50px] quote-2",
-          })
-          .updateAttributes("customBlockquote", { quoteType: 0 })
-          .run();
-        break;
-      default:
         editor
           .chain()
           .focus()
@@ -129,6 +121,17 @@ export default function BubbleToolbar({ editor }) {
               "pl-5 border-l-[3px] border-solid border-slate-900 -ml-[23px]",
           })
           .updateAttributes("customBlockquote", { quoteType: 1 })
+          .run();
+        break;
+      case 2:
+        editor
+          .chain()
+          .focus()
+          .unsetBlockquote()
+          .wrapIn("customBlockquote", {
+            class: "p-0 pl-[50px] quote-2",
+          })
+          .updateAttributes("customBlockquote", { quoteType: 2 })
           .run();
         break;
     }
