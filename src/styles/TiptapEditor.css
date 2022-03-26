@@ -28,6 +28,79 @@
   @apply underline-offset-2;
 }
 
+.ProseMirror img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.ProseMirror-selectednode {
+  @apply outline-2;
+  @apply outline;
+  @apply outline-emerald-500;
+}
+
+.ProseMirror figure {
+  max-width: 46rem;
+  margin: 1rem 0;
+}
+
+.ProseMirror figcaption {
+  text-align: center;
+  @apply text-gray-500;
+  @apply text-base;
+}
+
+/* Placeholder (at the top) */
+.ProseMirror p.is-editor-empty:first-child::before {
+  @apply text-slate-400;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+.ProseMirror blockquote p {
+  font-weight: 400;
+  font-style: italic;
+  font-size: 21px;
+  line-height: 1.58;
+}
+.ProseMirror blockquote.quote-2 {
+  @apply my-[45px];
+}
+.ProseMirror blockquote.quote-2 p {
+  @apply text-[rgba(0,0,0,.675)] text-left;
+  font-size: 26px;
+  line-height: 1.68;
+  letter-spacing: -0.013em;
+  text-indent: -5.5px;
+}
+
+.has-no-content::before {
+  min-width: 100%;
+  content: attr(data-placeholder);
+  cursor: text;
+  position: absolute;
+  top: 0;
+  left: 0;
+  @apply text-slate-400;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  height: 100%;
+}
+
+/* Placeholder (on every new line) */
+/*.ProseMirror p.is-empty::before {
+  color: #adb5bd;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}*/
+
 .bubble-toolbar,
 .link-edit-toolbar {
   position: relative;

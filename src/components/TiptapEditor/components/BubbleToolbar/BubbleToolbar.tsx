@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from "react";
 import { BubbleMenu } from "@tiptap/react";
+import { isTextSelection } from "@tiptap/core";
 import { classNames } from "../../../../utilities/css";
 import { GrBold } from "react-icons/gr";
 import { BsInfoLg } from "react-icons/bs";
@@ -101,6 +102,38 @@ export default function BubbleToolbar({ editor }) {
     editor.chain().focus().extendMarkRange("link").run();
   };
 
+  const toggleCustomBlockquote = () => {
+    const { quoteType } = editor.getAttributes("customBlockquote");
+
+    switch (quoteType) {
+      case 0:
+        editor.chain().focus().unsetBlockquote().run();
+        break;
+      case 1:
+        editor
+          .chain()
+          .focus()
+          .unsetBlockquote()
+          .wrapIn("customBlockquote", {
+            class: "p-0 pl-[50px] quote-2",
+          })
+          .updateAttributes("customBlockquote", { quoteType: 0 })
+          .run();
+        break;
+      default:
+        editor
+          .chain()
+          .focus()
+          .wrapIn("customBlockquote", {
+            class:
+              "pl-5 border-l-[3px] border-solid border-slate-900 -ml-[23px]",
+          })
+          .updateAttributes("customBlockquote", { quoteType: 1 })
+          .run();
+        break;
+    }
+  };
+
   return (
     <>
       {editor && (
@@ -113,6 +146,34 @@ export default function BubbleToolbar({ editor }) {
             animation: "scale-subtle",
           }}
           editor={editor}
+          shouldShow={({ editor, view, state, from, to }) => {
+            const { doc, selection } = state;
+            const { empty } = selection;
+
+            // Sometime check for `empty` is not enough.
+            // Doubleclick an empty paragraph returns a node size of 2.
+            // So we check also for an empty text size.
+            const isEmptyTextBlock =
+              !doc.textBetween(from, to).length &&
+              isTextSelection(state.selection);
+
+            const isImage = editor.isActive("image");
+            const isFigcaption = editor.isActive("figureImage")
+              ? editor.isActive("figcaption")
+              : false;
+
+            if (
+              !view.hasFocus() ||
+              empty ||
+              isEmptyTextBlock ||
+              isImage ||
+              isFigcaption
+            ) {
+              return false;
+            }
+
+            return true;
+          }}
         >
           <div className="bubble-toolbar-inner">
             {showLinkInput ? (
@@ -163,41 +224,54 @@ export default function BubbleToolbar({ editor }) {
                 </button>
                 <button
                   onClick={toggleLink}
-                  className={editor.isActive("link") ? "active" : ""}
+                  className={classNames(
+                    editor.isActive("link") ? "active" : "",
+                    "btn"
+                  )}
                 >
                   <FaLink size={15} />
                 </button>
-                <div className="bubble-toolbar-button-divider"></div>
-                <button
-                  onClick={() =>
-                    editor.chain().focus().toggleHeading({ level: 2 }).run()
-                  }
-                  className={classNames(
-                    editor.isActive("heading", { level: 2 }) ? "active" : "",
-                    "btn"
-                  )}
-                >
-                  {bigTitleIconMarkup}
-                </button>
-                <button
-                  onClick={() =>
-                    editor.chain().focus().toggleHeading({ level: 3 }).run()
-                  }
-                  className={classNames(
-                    editor.isActive("heading", { level: 3 }) ? "active" : "",
-                    "btn"
-                  )}
-                >
-                  {subTitleIconMarkup}
-                </button>
-                <button
-                  onClick={() =>
-                    editor.chain().focus().toggleBlockquote().run()
-                  }
-                  className={editor.isActive("blockquote") ? "active" : ""}
-                >
-                  <RiDoubleQuotesR />
-                </button>
+
+                {!editor.isActive("figcaption") && (
+                  <>
+                    <div className="bubble-toolbar-button-divider"></div>
+                    <button
+                      onClick={() =>
+                        editor.chain().focus().toggleHeading({ level: 2 }).run()
+                      }
+                      className={classNames(
+                        editor.isActive("heading", { level: 2 })
+                          ? "active"
+                          : "",
+                        "btn"
+                      )}
+                    >
+                      {bigTitleIconMarkup}
+                    </button>
+                    <button
+                      onClick={() =>
+                        editor.chain().focus().toggleHeading({ level: 3 }).run()
+                      }
+                      className={classNames(
+                        editor.isActive("heading", { level: 3 })
+                          ? "active"
+                          : "",
+                        "btn"
+                      )}
+                    >
+                      {subTitleIconMarkup}
+                    </button>
+                    <button
+                      onClick={toggleCustomBlockquote}
+                      className={classNames(
+                        editor.isActive("customBlockquote") ? "active" : "",
+                        "btn"
+                      )}
+                    >
+                      <RiDoubleQuotesR />
+                    </button>
+                  </>
+                )}
               </>
             )}
           </div>

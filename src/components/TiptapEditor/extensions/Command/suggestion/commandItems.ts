@@ -1,4 +1,5 @@
 import { PencilAltIcon } from "@heroicons/react/outline";
+import { MdOutlineHorizontalRule } from "react-icons/md";
 
 const getSuggestionItems = ({ query }) => {
   return [
@@ -42,6 +43,14 @@ const getSuggestionItems = ({ query }) => {
       icon: PencilAltIcon,
       command: ({ editor, range }) => {
         editor.chain().focus().deleteRange(range).setMark("italic").run();
+      },
+    },
+    {
+      title: "分隔線",
+      description: "隔開文字",
+      icon: MdOutlineHorizontalRule,
+      command: ({ editor, range }) => {
+        editor.chain().focus().deleteRange(range).setHorizontalRule().run();
       },
     },
   ]

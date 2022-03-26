@@ -3,15 +3,20 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import BubbleToolbar from "./components/BubbleToolbar";
 import Link from "@tiptap/extension-link";
+import Image from "@tiptap/extension-image";
+import Placeholder from "@tiptap/extension-placeholder";
 import CustomClass from "./extensions/CustomClass";
 import CustomTextStyle from "./extensions/CustomTextStyle";
+import CustomBlockquote from "./extensions/CustomBlockquote";
 import Abbreviation from "./extensions/Abbreviation";
 import LinkTooltip from "./extensions/LinkTooltip";
 import Commands from "./extensions/Command";
+import Figcaption from "./extensions/Figcaption";
+import FigureImageNodeView from "./extensions/FigureImageNodeView";
+import getSuggestionItems from "./extensions/Command/suggestion/commandItems";
+import renderItems from "./extensions/Command/suggestion/renderItems";
 import "tippy.js/dist/tippy.css";
 import "tippy.js/animations/scale-subtle.css";
-import getSuggestionItems from "./extensions/Command/suggestion/items";
-import renderItems from "./extensions/Command/suggestion/renderItems";
 
 export default function TiptapEditor() {
   const editor = useEditor({
@@ -19,6 +24,8 @@ export default function TiptapEditor() {
       StarterKit.configure({
         // Disable an included extension
         strike: false,
+        gapcursor: false,
+        blockquote: false,
         // Configure an included extension
         heading: {
           levels: [2, 3],
@@ -35,15 +42,22 @@ export default function TiptapEditor() {
       CustomClass,
       Abbreviation,
       LinkTooltip,
+      Image,
+      Figcaption,
+      FigureImageNodeView,
       Commands.configure({
         suggestion: {
           items: getSuggestionItems,
           render: renderItems,
         },
       }),
+      Placeholder.configure({
+        placeholder: "Write something …",
+      }),
+      CustomBlockquote,
     ],
     content: `
-    <p>
+       <p>
           I like lists. Let’s add one:
         </p>
         <ul>
@@ -59,8 +73,12 @@ export default function TiptapEditor() {
           <li>It also has three list items.</li>
           <li>And all of them are numbered.</li>
         </ol>
+      
         <p>
           Lists would be nothing without list items.
+        </p>
+        <p>
+        "微笑是我們心靈的最真誠傾訴，是在困難面前最好的良藥。" — 王鍾偉
         </p>
     `,
     editorProps: {
@@ -74,13 +92,15 @@ export default function TiptapEditor() {
       const json = editor.getJSON();
       //send the content to an API here
     },
+
+    editable: true,
   });
 
   return (
     <div>
       <BubbleToolbar editor={editor} />
       <EditorContent editor={editor} />
-      <div id="myTooltip"></div>
+
       <style jsx global>{`
         .tippy-box[data-theme~="menu"] > .tippy-content {
           padding: 0;
@@ -116,7 +136,6 @@ export default function TiptapEditor() {
         .tippy-box[data-theme~="slash"] {
           position: relative;
           background-color: #ffffff;
-          border-radius: 4px;
           font-size: inherit;
           line-height: inherit;
         }
@@ -127,9 +146,7 @@ export default function TiptapEditor() {
     </div>
   );
 }
-// .tippy-content {
-//   padding: 9px 12px;
-// }
-// .tippy-box[data-placement^="bottom"] > .tippy-arrow:before {
-//   transform: scale(1.2);
-// }
+
+// <div data-type="figureImage" src="https://source.unsplash.com/random/738x415" alt="alt test" title="great">
+// <figcaption>This is editable.</figcaption>
+// </div>

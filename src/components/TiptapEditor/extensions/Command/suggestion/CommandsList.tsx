@@ -1,4 +1,3 @@
-import { Editor } from "@tiptap/core";
 import React, { Component } from "react";
 import { classNames } from "../../../../../utilities/css";
 
@@ -72,7 +71,7 @@ class CommandList extends Component<CommandListProps, CommandListState> {
     const { items } = this.props;
 
     return (
-      <div className="max-h-96 w-64 scroll-py-3 overflow-y-auto rounded-md bg-white shadow-md ring-1 ring-black ring-opacity-5 focus:outline-none">
+      <div className="max-h-96 w-64 scroll-py-3 overflow-y-auto bg-white shadow-md ring-1 ring-black ring-opacity-5 focus:outline-none">
         {items.map((item, index) => {
           const active = index === this.state.selectedIndex;
           return (

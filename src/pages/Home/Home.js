@@ -15,7 +15,7 @@ export default function Home() {
       <div>
         <TopBar />
         <div className="flex min-h-screen h-full">
-          <div className="mt-20 ml-20 w-full">
+          <div className="container max-w-[700px] mx-auto px-5 pt-10">
             <TiptapEditor />
           </div>
         </div>

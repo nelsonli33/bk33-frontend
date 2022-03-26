@@ -7,7 +7,7 @@ export const CustomClass = Extension.create({
     return [
       {
         // which type get apply
-        types: ["textStyle", "link"],
+        types: ["textStyle", "link", "customBlockquote"],
         attributes: {
           class: {
             default: "",
