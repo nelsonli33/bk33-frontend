@@ -52,6 +52,31 @@
   ol {
     @apply list-decimal;
   }
+
+  code {
+    @apply border border-solid border-slate-300 rounded-sm text-gray-800 bg-gray-100 font-mono;
+    font-size: 0.8em;
+    line-height: 1em;
+    padding: 0.4rem 0.4rem 0.2rem;
+    vertical-align: middle;
+    white-space: pre-wrap;
+  }
+
+  pre {
+    background: #0d0d0d;
+    border-radius: 0.5rem;
+    color: #fff;
+    font-family: "JetBrainsMono", monospace;
+    padding: 0.75rem 1rem;
+  }
+
+  pre code {
+    @apply rounded-none p-0;
+    background: none;
+    border: none;
+    color: inherit;
+    font-size: 0.8rem;
+  }
 }
 
 @layer components {

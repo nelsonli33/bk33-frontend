@@ -80,6 +80,9 @@ export default function TiptapEditor() {
         <p>
         "微笑是我們心靈的最真誠傾訴，是在困難面前最好的良藥。" — 王鍾偉
         </p>
+        <p>
+        That’s a boring paragraph followed by a fenced code block:
+      </p>
     `,
     editorProps: {
       attributes: {

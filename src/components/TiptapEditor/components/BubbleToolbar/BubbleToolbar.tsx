@@ -161,16 +161,17 @@ export default function BubbleToolbar({ editor }) {
               isTextSelection(state.selection);
 
             const isImage = editor.isActive("image");
-            const isFigcaption = editor.isActive("figureImage")
-              ? editor.isActive("figcaption")
-              : false;
+            const isFigureImage =
+              editor.isActive("figureImage") && !editor.isActive("figcaption");
+            const isHorizontalRule = editor.isActive("horizontalRule");
 
             if (
               !view.hasFocus() ||
               empty ||
               isEmptyTextBlock ||
               isImage ||
-              isFigcaption
+              isFigureImage ||
+              isHorizontalRule
             ) {
               return false;
             }

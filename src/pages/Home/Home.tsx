@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Head from "next/head";
 import TopBar from "../../components/TopBar";
-import TiptapEditor from "../../components/TiptapEditor";
+import Register from "../../components/Register";
 
 export default function Home() {
   return (
@@ -15,8 +15,8 @@ export default function Home() {
       <div>
         <TopBar />
         <div className="flex min-h-screen h-full">
-          <div className="container max-w-[700px] mx-auto px-5 pt-10">
-            <TiptapEditor />
+          <div className="container max-w-[560px] mx-auto px-5 pt-10">
+            <Register />
           </div>
         </div>
       </div>
