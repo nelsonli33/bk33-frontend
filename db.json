@@ -93,5 +93,109 @@
                 }
             ]
         }
+    ],
+    "topics": [
+        {
+            "id": 1,
+            "name": "文學小說",
+            "parent_id": null
+        },
+        {
+            "id": 2,
+            "name": "商業理財",
+            "parent_id": null
+        },
+        {
+            "id": 3,
+            "name": "領導管理",
+            "parent_id": null
+        },
+        {
+            "id": 4,
+            "name": "個人成長",
+            "parent_id": null
+        },
+        {
+            "id": 5,
+            "name": "UI/UX 設計",
+            "parent_id": null
+        },
+        {
+            "id": 6,
+            "name": "職場經驗",
+            "parent_id": null
+        },
+        {
+            "id": 7,
+            "name": "人文社會",
+            "parent_id": null
+        },
+        {
+            "id": 8,
+            "name": "兩性關係",
+            "parent_id": null
+        },
+        {
+            "id": 9,
+            "name": "電腦科學",
+            "parent_id": null
+        },
+        {
+            "id": 10,
+            "name": "溝通表達",
+            "parent_id": null
+        },
+        {
+            "id": 11,
+            "name": "生產力效率",
+            "parent_id": null
+        }
+    ],
+    "books": [
+        {
+            "id": 1,
+            "title": "圖像資訊表達課",
+            "author": "文森說書",
+            "genre": "大腦科學",
+            "cover_url": "https://s3.ap-northeast-1.amazonaws.com/s3.sat/course/1648608896_re-lab%E8%A6%96%E8%A6%BA_%E5%B7%A5%E4%BD%9C%E5%8D%80%E5%9F%9F%201.jpg",
+            "price": 500,
+            "reading_count": 1009
+        },
+        {
+            "id": 2,
+            "title": "Redis 實戰手冊",
+            "author": "Nelson Wu",
+            "genre": "電腦科學",
+            "cover_url": "https://s3.ap-northeast-1.amazonaws.com/s3.sat/course/1647924019_%E5%8A%89%E5%8D%9A%E4%BB%81%EF%BD%9C%E4%B8%BB%E8%A6%96%E8%A6%BA%E6%8E%92%E7%89%88%20_%20872%20x%20480_v7.jpg",
+            "price": 369,
+            "reading_count": 109
+        },
+        {
+            "id": 3,
+            "title": "大數據網關 Apache Kyuubi 架構與實戰",
+            "author": "王小明",
+            "genre": "電腦科學",
+            "cover_url": "https://s3.ap-northeast-1.amazonaws.com/s3.sat/course/1629348348_%E8%91%89%E6%80%A1%E8%98%AD%E7%94%9F%E6%B4%BB%E7%BE%8E%E5%AD%B8KV.jpg",
+            "price": 340,
+            "reading_count": 129
+        },
+        {
+            "id": 4,
+            "title": "網路排查案例課",
+            "author": "楊勝輝",
+            "genre": "電腦科學",
+            "cover_url": "https://www.educative.io/cdn-cgi/image/f=auto,fit=cover,w=620/v2api/collection/4668316850323456/6499762311266304/image/5881154233696256",
+            "price": 269,
+            "reading_count": 3
+        },
+        {
+            "id": 5,
+            "title": "郭東白的架構課",
+            "author": "郭東白",
+            "genre": "電腦科學",
+            "cover_url": "https://www.educative.io/cdn-cgi/image/f=auto,fit=cover,w=620/v2api/collection/10370001/5065513538945024/image/4862456811225088",
+            "price": 650,
+            "reading_count": 22
+        }
     ]
   }

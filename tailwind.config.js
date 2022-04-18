@@ -17,6 +17,7 @@ module.exports = {
             dark: "#005446",
           },
         },
+        "gray-light": "#f5f5f5",
         weak: "#444444",
       },
       spacing: {

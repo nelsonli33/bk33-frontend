@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import Head from "next/head";
 import TopBar from "../../components/TopBar";
-import Register from "../../components/Register";
+import Catalog from "../../components/Catalog";
+import { useForm } from "react-hook-form";
+import TextField from "../../components/TextField";
 
 export default function Home() {
+  const { register, handleSubmit } = useForm();
   return (
     <div>
       <Head>
@@ -15,8 +18,15 @@ export default function Home() {
       <div>
         <TopBar />
         <div className="flex min-h-screen h-full">
-          <div className="container max-w-[560px] mx-auto px-5 pt-10">
-            <Register />
+          <div className="container max-w-[63rem] mx-auto px-5 pt-10">
+            <Catalog />
+            <TextField
+              id="invoice_title"
+              type="text"
+              label="發票抬頭"
+              error=""
+              register={register}
+            />
           </div>
         </div>
       </div>
