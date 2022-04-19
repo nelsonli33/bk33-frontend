@@ -161,51 +161,53 @@ export default function CheckoutInvoice() {
 
   return (
     <div className="bg-white shadow rounded">
-      <div className="text-xl font-medium px-6 py-2 mb-1">發票資訊</div>
-      <div className="bg-white rounded-md space-y-3 px-6 pb-4">
-        {invoiceTypes.map((invType) => (
-          <div key={invType.code}>
-            <div
-              className={classNames(
-                invoiceType && invType.code === invoiceType.code
-                  ? "bg-[#F5FBF8] border-[#52BD95] z-10"
-                  : "border-gray-200",
-                "relative border rounded-lg p-4 flex cursor-pointer focus:outline-none"
-              )}
-              onClick={() => setInvoiceType(invType)}
-            >
-              <span
+      <div className="text-xl font-medium px-8 pt-3 h-13">發票資訊</div>
+      <div className="mt-1">
+        <div className="bg-white rounded-md space-y-3 px-8 pb-4">
+          {invoiceTypes.map((invType) => (
+            <div key={invType.code}>
+              <div
                 className={classNames(
                   invoiceType && invType.code === invoiceType.code
-                    ? "bg-[#52BD95] border-transparent"
-                    : "bg-white border-gray-300",
-                  "h-4 w-4 mt-0.5 cursor-pointer rounded-full border flex items-center justify-center"
+                    ? "bg-[#F5FBF8] border-[#52BD95] z-10"
+                    : "border-gray-200",
+                  "relative border rounded-lg p-4 flex cursor-pointer focus:outline-none"
                 )}
-                aria-hidden="true"
+                onClick={() => setInvoiceType(invType)}
               >
-                <span className="rounded-full bg-white w-1.5 h-1.5" />
-              </span>
-              <div className="ml-3 flex flex-col">
                 <span
                   className={classNames(
-                    "block text-sm font-medium text-gray-900"
+                    invoiceType && invType.code === invoiceType.code
+                      ? "bg-[#52BD95] border-transparent"
+                      : "bg-white border-gray-300",
+                    "h-4 w-4 mt-0.5 cursor-pointer rounded-full border flex items-center justify-center"
                   )}
+                  aria-hidden="true"
                 >
-                  {invType.name}
+                  <span className="rounded-full bg-white w-1.5 h-1.5" />
                 </span>
+                <div className="ml-3 flex flex-col">
+                  <span
+                    className={classNames(
+                      "block text-sm font-medium text-gray-900"
+                    )}
+                  >
+                    {invType.name}
+                  </span>
+                </div>
               </div>
+              {invType.code === "personal" &&
+                invoiceType.code === "personal" &&
+                personalInvoiceDataMarkup}
+              {invType.code === "company" &&
+                invoiceType.code === "company" &&
+                companyInvoiceDataMarkup}
+              {invType.code === "donation" &&
+                invoiceType.code === "donation" &&
+                donationDataMarkup}
             </div>
-            {invType.code === "personal" &&
-              invoiceType.code === "personal" &&
-              personalInvoiceDataMarkup}
-            {invType.code === "company" &&
-              invoiceType.code === "company" &&
-              companyInvoiceDataMarkup}
-            {invType.code === "donation" &&
-              invoiceType.code === "donation" &&
-              donationDataMarkup}
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );
