@@ -20,13 +20,6 @@ export default function Home() {
         <div className="flex min-h-screen h-full">
           <div className="container max-w-[63rem] mx-auto px-5 pt-10">
             <Catalog />
-            <TextField
-              id="invoice_title"
-              type="text"
-              label="發票抬頭"
-              error=""
-              register={register}
-            />
           </div>
         </div>
       </div>

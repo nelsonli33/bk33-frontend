@@ -20,9 +20,9 @@ export default function SecondCategoryFilter() {
           href={item.href}
           className={classNames(
             item.current
-              ? "border-gray-800 text-gray-900 "
+              ? "border-gray-700 text-gray-900 shadow-[0_0_0_1px] shadow-gray-700"
               : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
-            "group flex items-center py-1.5 px-4 text-sm font-medium border border-gray-300 rounded"
+            "group flex items-center py-1.5 px-4 text-sm font-medium border border-gray-300 rounded-[1.5rem]"
           )}
           aria-current={item.current ? "page" : undefined}
         >

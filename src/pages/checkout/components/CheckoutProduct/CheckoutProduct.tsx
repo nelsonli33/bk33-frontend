@@ -30,8 +30,11 @@ export default function CheckoutProduct() {
         </div>
         <div className="border-b-2 border-dashed">
           {books.map((book) => (
-            <div className="flex items-center py-3 px-8" key={book.id}>
-              <div className="flex-[12_1_0%] text-[#212529]">{book.name}</div>
+            <div
+              className="flex items-center py-3 px-8 text-[#212529]"
+              key={book.id}
+            >
+              <div className="flex-[12_1_0%]">{book.name}</div>
               <div className="flex-[4_1_0%]">NT${book.price}</div>
               <div className="flex-[4_1_0%]"></div>
               <div className="flex-[4_1_0%] flex justify-end">

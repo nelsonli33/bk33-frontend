@@ -12,12 +12,12 @@ const takeawaySkills = [
 export default function TakeawaySkill() {
   return (
     <div>
-      <h3 className="text-left mb-3">你會學到</h3>
-      <div className="lg:columns-2 mr-44 space-y-2">
+      <h3 className="text-lg font-bold mb-3 ">你會學到</h3>
+      <div className="lg:columns-2 mr-44 space-y-4">
         {takeawaySkills.map((item, index) => (
           <div className="flex flex-row space-x-2" key={index}>
             <BsCheck2 className="mt-1" />
-            <span className="text-sm">{item}</span>
+            <span className="text-md">{item}</span>
           </div>
         ))}
       </div>

@@ -27,6 +27,10 @@
     @apply tracking-[-0.016em];
   }
 
+  html {
+    @apply text-brand-black;
+  }
+
   body {
     text-rendering: optimizeLegibility;
     @apply antialiased;
@@ -36,8 +40,10 @@
     @apply font-serif;
     font-style: normal;
     font-weight: 400;
+    @apply text-base;
+    line-height: 30px;
     @apply break-words;
-    @apply text-stone-700;
+    @apply text-brand-black;
     @apply tracking-[-0.00313em];
   }
 

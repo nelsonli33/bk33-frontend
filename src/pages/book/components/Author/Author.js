@@ -4,10 +4,20 @@ import Avatar from "../../../../components/Avatar";
 export default function Author() {
   return (
     <div>
-      <div className="flex flex-row items-center">
-        <Avatar width={36} height={36} />
-        <div className="ml-2">
-          <span className="font-medium">王小明</span>
+      <h3 className="my-6">作者介紹</h3>
+      <div className="sm:flex mb-3">
+        <div className="mb-4 flex-shrink-0 sm:mb-0 sm:mr-4">
+          <img
+            className="inline-block h-12 w-12 rounded-full"
+            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+            alt=""
+          />
+        </div>
+        <div>
+          <h4 className="text-lg font-bold">王磊</h4>
+          <span className="inline-block mt-1 text-sm text-gray-500">
+            Thoughtworks 中國區 CTO
+          </span>
         </div>
       </div>
       <div>

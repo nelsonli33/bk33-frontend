@@ -157,7 +157,8 @@
             "title": "圖像資訊表達課",
             "author": "文森說書",
             "genre": "大腦科學",
-            "cover_url": "https://s3.ap-northeast-1.amazonaws.com/s3.sat/course/1648608896_re-lab%E8%A6%96%E8%A6%BA_%E5%B7%A5%E4%BD%9C%E5%8D%80%E5%9F%9F%201.jpg",
+            "short_description": "我在十年內經營過兩個超過月瀏覽人次超過百萬的網站，花了十年時間萃取20個方法，並以終身更新的方式每個月提供內容更新，讓學習者可以跟著我終身學習成長。",
+            "cover_url": "https://cdn.readmoo.com/cover/8e/9d7bld6_460x580.jpg?v=1649749231",
             "price": 500,
             "reading_count": 1009
         },
@@ -166,7 +167,8 @@
             "title": "Redis 實戰手冊",
             "author": "Nelson Wu",
             "genre": "電腦科學",
-            "cover_url": "https://s3.ap-northeast-1.amazonaws.com/s3.sat/course/1647924019_%E5%8A%89%E5%8D%9A%E4%BB%81%EF%BD%9C%E4%B8%BB%E8%A6%96%E8%A6%BA%E6%8E%92%E7%89%88%20_%20872%20x%20480_v7.jpg",
+            "short_description": "22堂課教會35個facebook小編工具，教你運用工具快速完成消費者研究、影片製作、貼文圖片、行動直播、社群管理、成效追蹤、競品分析",
+            "cover_url": "https://cdn.readmoo.com/cover/8d/6c9clfd_210x315.jpg?v=1648463757g",
             "price": 369,
             "reading_count": 109
         },
@@ -175,16 +177,18 @@
             "title": "大數據網關 Apache Kyuubi 架構與實戰",
             "author": "王小明",
             "genre": "電腦科學",
-            "cover_url": "https://s3.ap-northeast-1.amazonaws.com/s3.sat/course/1629348348_%E8%91%89%E6%80%A1%E8%98%AD%E7%94%9F%E6%B4%BB%E7%BE%8E%E5%AD%B8KV.jpg",
+            "short_description": "讓你的文案不只吸睛，還能吸金",
+            "cover_url": "https://cdn.readmoo.com/cover/ci/ald6jcf_210x315.jpg?v=1649228887",
             "price": 340,
             "reading_count": 129
         },
         {
             "id": 4,
-            "title": "網路排查案例課",
+            "title": "銷售文案進擊",
             "author": "楊勝輝",
             "genre": "電腦科學",
-            "cover_url": "https://www.educative.io/cdn-cgi/image/f=auto,fit=cover,w=620/v2api/collection/4668316850323456/6499762311266304/image/5881154233696256",
+            "short_description": "讓你的文案不只吸睛，還能吸金",
+            "cover_url": "https://cdn.readmoo.com/cover/lg/fehfqid_210x315.jpg?v=1648710874",
             "price": 269,
             "reading_count": 3
         },
@@ -193,7 +197,7 @@
             "title": "郭東白的架構課",
             "author": "郭東白",
             "genre": "電腦科學",
-            "cover_url": "https://www.educative.io/cdn-cgi/image/f=auto,fit=cover,w=620/v2api/collection/10370001/5065513538945024/image/4862456811225088",
+            "cover_url": "https://cdn.readmoo.com/cover/fg/8einmi9_210x315.jpg?v=1635911435",
             "price": 650,
             "reading_count": 22
         }

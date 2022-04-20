@@ -1,14 +1,11 @@
 import React, { useState } from "react";
 import Head from "next/head";
 import TopBar from "../../components/TopBar";
-import Catalog from "../../components/Catalog";
 import CategoryFilter from "./components/CategoryFilter";
 import SecondCategoryFilter from "./components/SecondCategoryFilter";
+import CatalogList from "../../components/CatalogList";
 
 export default function Explore() {
-  const dividerMarkup = (
-    <div className="w-full border-t border-gray-300 mb-6" />
-  );
   return (
     <div>
       <Head>
@@ -19,16 +16,14 @@ export default function Explore() {
 
       <div>
         <TopBar />
-        <div className="flex min-h-screen h-full">
-          <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
-            <div className="flex my-10">
-              <div className="flex-[0_0_auto] w-48 pr-8">
-                <CategoryFilter />
-              </div>
-              <div className="flex-1 flex-col px-8">
-                <SecondCategoryFilter />
-                <Catalog />
-              </div>
+        <div className="max-w-6xl mx-auto px-2 sm:px-6 lg:px-8">
+          <div className="flex my-10">
+            <div className="flex-[0_0_auto] w-48 pr-8">
+              <CategoryFilter />
+            </div>
+            <div className="flex-1 flex-col px-14">
+              <SecondCategoryFilter />
+              <CatalogList />
             </div>
           </div>
         </div>

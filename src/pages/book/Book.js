@@ -4,10 +4,9 @@ import TopBar from "../../components/TopBar";
 
 import TableOfContent from "./components/TableOfContent";
 import Author from "./components/Author";
-import BookTitle from "./components/BookTitle";
-import TakeawaySkill from "./components/TakeawaySkill";
+import BookHero from "./components/BookHero";
 import AboutBook from "./components/AboutBook";
-import BookCard from "./components/BookCard";
+import CustomerReview from "./components/CustomerReview";
 
 export default function Book() {
   return (
@@ -20,18 +19,17 @@ export default function Book() {
 
       <div>
         <TopBar />
-        <BookTitle />
-        <div className="w-full">
-          <div className="max-w-5xl mx-auto py-10">
-            <div className="flex flex-col sm:flex-row">
-              <div className="flex flex-col lg:mr-16 space-y-9 max-w-[calc(100%_-_theme('spacing.90'))]">
-                <TakeawaySkill />
-                <AboutBook />
-                <TableOfContent />
-                <Author />
-              </div>
-              <div className="flex">
-                <BookCard />
+        <BookHero />
+        <div className="w-full relative">
+          <div className="before:absolute before:top-0 before:left-0 before:content-[''] before:z-10 before:w-full before:h-36 before:bg-brand-linen">
+            <div className="max-w-5xl mx-auto p-12 relative z-20 bg-white rounded-t-2xl">
+              <div className="flex flex-col sm:flex-row">
+                <div className="flex flex-col lg:mr-16 space-y-9 max-w-[calc(100%_-_theme('spacing.90'))] divide-y-2 divide-gray-100">
+                  <AboutBook />
+                  <TableOfContent />
+                  <Author />
+                  <CustomerReview />
+                </div>
               </div>
             </div>
           </div>

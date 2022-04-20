@@ -61,8 +61,8 @@ export default function Cart() {
       </Head>
 
       <div className="bg-gray-light">
-        <TopBar />
-        <div className="flex min-h-screen h-full">
+        <TopBar title="購物車" />
+        <div className="flex h-full">
           <div className="max-w-5xl mx-auto w-full px-2 sm:px-6 lg:px-8">
             <div className="-mx-4 mt-10 sm:-mx-6 md:mx-0 flex flex-col">
               {tabsMarkup}
