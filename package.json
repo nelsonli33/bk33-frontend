@@ -11,6 +11,7 @@
   "dependencies": {
     "@headlessui/react": "^1.5.0",
     "@heroicons/react": "^1.0.6",
+    "@reduxjs/toolkit": "^1.8.1",
     "@tippyjs/react": "^4.2.6",
     "@tiptap/extension-blockquote": "^2.0.0-beta.26",
     "@tiptap/extension-floating-menu": "^2.0.0-beta.50",
@@ -36,6 +37,7 @@
     "react-hook-form": "^7.29.0",
     "react-icons": "^4.3.1",
     "react-rating-stars-component": "^2.2.0",
+    "react-redux": "^8.0.1",
     "react-textarea-autosize": "^8.3.3",
     "slate": "^0.75.0",
     "slate-history": "^0.66.0",
@@ -50,6 +52,7 @@
     "@types/is-url": "^1.2.30",
     "@types/node": "^17.0.21",
     "@types/react": "^17.0.40",
+    "@types/react-redux": "^7.1.24",
     "autoprefixer": "^10.4.2",
     "eslint": "8.10.0",
     "eslint-config-next": "12.1.0",

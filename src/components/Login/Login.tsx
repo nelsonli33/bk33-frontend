@@ -1,29 +1,28 @@
 import React from "react";
-import SignupForm from "./components/SignupForm";
-
+import { APP_NAME } from "../../global/constants";
 import Divider from "../Divider";
 import SocialAuth from "../SocialAuth";
 import { useAppDispatch } from "../../store/hooks";
 import { showModal } from "../../store/modal/slice";
-
-export default function Register() {
+import LoginForm from "./components/LoginForm";
+export default function Login() {
   const dispatch = useAppDispatch();
 
-  const goToLoginMarkup = (
+  const goToRegisterMarkup = (
     <div className="mt-3">
       <span className="text-sm">
-        已經註冊了嗎？
+        {APP_NAME} 新朋友？
         <button
           onClick={() =>
             dispatch(
               showModal({
-                modalType: "LOGIN",
+                modalType: "REGISTER",
               })
             )
           }
           className="underline ml-2"
         >
-          立即登入
+          立即註冊
         </button>
       </span>
     </div>
@@ -31,11 +30,11 @@ export default function Register() {
 
   return (
     <>
-      <h1 className="flex mb-6 w-full text-2xl">註冊</h1>
+      <h1 className="flex mb-6 w-full text-2xl">登入</h1>
       <SocialAuth />
       <Divider />
-      <SignupForm />
-      {goToLoginMarkup}
+      <LoginForm />
+      {goToRegisterMarkup}
     </>
   );
 }

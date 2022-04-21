@@ -4,7 +4,7 @@ import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
 
-export default function SocialSignup() {
+export default function SocialAuth() {
   const responseGoogle = (response) => {
     console.log(response);
   };
@@ -20,8 +20,8 @@ export default function SocialSignup() {
         render={(renderProps) => (
           <button
             className="inline-flex w-full items-center cursor-pointer
-            px-6 py-3 border border-black text-base font-semibold rounded-md
-            hover:bg-gray-100"
+              px-6 py-3 border border-black text-base font-semibold rounded-md
+              hover:bg-gray-100"
             onClick={renderProps.onClick}
             disabled={renderProps.disabled}
           >
@@ -40,15 +40,14 @@ export default function SocialSignup() {
 
       <FacebookLogin
         appId="1088597931155576"
-        autoLoad
         fields="name,email,picture"
         callback={responseFacebook}
         language="zh_TW"
         render={(renderProps) => (
           <button
             className="inline-flex w-full items-center cursor-pointer
-            px-6 py-3 border border-black text-base font-semibold rounded-md
-            hover:bg-gray-100"
+              px-6 py-3 border border-black text-base font-semibold rounded-md
+              hover:bg-gray-100"
             onClick={renderProps.onClick}
             disabled={renderProps.isDisabled}
           >

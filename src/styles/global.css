@@ -112,16 +112,15 @@
   }
 
   .btn {
-    @apply inline-flex;
-    @apply items-center;
-    @apply justify-center;
-    @apply m-0;
-    @apply py-[0.7rem];
-    @apply px-[1.6rem];
-    @apply rounded;
-    @apply cursor-pointer;
-    user-select: none;
-    text-decoration: none;
-    line-height: 1;
+    @apply flex justify-center items-center px-6 py-3 rounded shadow-sm cursor-pointer text-base 
+    text-brand-black font-medium no-underline;
+  }
+
+  .btn-secondary {
+    @apply btn border font-semibold border-brand-black hover:shadow-[0_0_0_1px] bg-transparent;
+  }
+
+  .btn-primary {
+    @apply btn font-bold border border-transparent text-white bg-slate-900 hover:bg-slate-700;
   }
 }
