@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import Head from "next/head";
-import TopBar from "../../components/TopBar";
-import CheckoutInvoice from "./components/CheckoutInvoice";
-import CheckoutProduct from "./components/CheckoutProduct";
-import CheckoutPayment from "./components/CheckoutPayment";
+import TopBar from "../../components/elements/TopBar";
+import CheckoutInvoice from "../../components/modules/checkout/CheckoutInvoice";
+import CheckoutPayment from "../../components/modules/checkout/CheckoutPayment";
+import CheckoutProduct from "../../components/modules/checkout/CheckoutProduct";
 
 export default function Checkout() {
   const checkoutPriceMarkup = (

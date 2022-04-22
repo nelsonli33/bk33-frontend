@@ -1,9 +1,8 @@
-import React, { useState } from "react";
-import Head from "next/head";
-import CategoryFilter from "./components/CategoryFilter";
-import SecondCategoryFilter from "./components/SecondCategoryFilter";
-import CatalogList from "../../components/CatalogList";
-import Frame from "../../components/Frame";
+import React from "react";
+import Frame from "../../components/elements/Frame";
+import SecondCategoryFilter from "../../components/modules/explore/SecondCategoryFilter";
+import CategoryFilter from "../../components/modules/explore/CategoryFilter";
+import CatalogList from "../../components/elements/CatalogList";
 
 export default function Explore() {
   return (

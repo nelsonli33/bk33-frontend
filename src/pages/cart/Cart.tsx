@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { XIcon, InboxIcon } from "@heroicons/react/outline";
 import Head from "next/head";
 import Link from "next/link";
-import TopBar from "../../components/TopBar";
+import TopBar from "../../components/elements/TopBar";
 import { classNames } from "../../utilities/css";
 
 const tabs = [
