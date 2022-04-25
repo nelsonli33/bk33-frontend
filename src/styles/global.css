@@ -111,16 +111,53 @@
     margin-top: 2em;
   }
 
+  .article2 h1 {
+    @apply mt-[2em];
+    @apply mb-[-0.275em];
+  }
+
+  .article2 h2 {
+    @apply mb-[-0.23em];
+  }
+
+  .article2 h3 {
+    @apply mt-[1.34em];
+    @apply mb-[-1.23rem];
+  }
+
+  .article2 h5 {
+    @apply mt-[1.34em];
+    @apply mb-[-1.43em];
+  }
+
+  .article2 p {
+    font-size: 19.134px;
+    line-height: 32.345px;
+    margin-top: 1.432em;
+  }
+
+  .page {
+    transition: box-shadow 100ms linear;
+  }
+
+  .text-overflow {
+    @apply overflow-hidden whitespace-nowrap text-ellipsis;
+  }
+
   .btn {
-    @apply flex justify-center items-center px-6 py-3 rounded shadow-sm cursor-pointer text-base 
+    @apply flex justify-center items-center px-[1.15rem] py-[0.4375rem] rounded shadow-sm cursor-pointer text-sm 
     text-brand-black font-medium no-underline;
+  }
+
+  .btn-primary {
+    @apply btn font-bold border border-transparent text-white bg-slate-900 hover:bg-slate-700;
   }
 
   .btn-secondary {
     @apply btn border font-semibold border-brand-black hover:shadow-[0_0_0_1px] bg-transparent;
   }
 
-  .btn-primary {
-    @apply btn font-bold border border-transparent text-white bg-slate-900 hover:bg-slate-700;
+  .btn-tertiary {
+    @apply btn-secondary font-medium border-neutral-300;
   }
 }

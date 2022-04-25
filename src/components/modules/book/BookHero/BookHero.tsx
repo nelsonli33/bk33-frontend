@@ -54,10 +54,12 @@ export default function BookHero() {
             <div className="space-y-3">
               <div className="card-section flex flex-col my-3 space-y-5 px-8 py-2">
                 <Price price="$179" />
-                <button className="btn-secondary w-full text-sm">
+                <button className="btn-secondary w-full text-sm py-[0.6564rem]">
                   加入購物車
                 </button>
-                <button className="btn-primary w-full text-sm">直接購買</button>
+                <button className="btn-primary w-full text-sm py-[0.6564rem]">
+                  直接購買
+                </button>
               </div>
             </div>
           </div>

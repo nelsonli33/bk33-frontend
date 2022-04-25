@@ -21,6 +21,8 @@ export default function ModalRoot() {
 
   const SpecificModal = MODAL_COMPONENTS[modal.modalType];
 
+  console.log(SpecificModal);
+
   return (
     <Modal
       visible={modal.modalVisibility}

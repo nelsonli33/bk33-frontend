@@ -1,1 +1,1 @@
-export { default } from "./NewBook";
+export { default } from "./NewCotent";

@@ -57,7 +57,7 @@ export default function CustomerReview() {
     <div className="my-5 space-y-4">
       {comments.map((comment) => {
         return (
-          <div className="flex bg-[#f4f4f4] p-4 rounded-md">
+          <div className="flex bg-[#f4f4f4] p-4 rounded-md" key={comment.id}>
             <div className="w-16">
               <img
                 className="inline-block h-10 w-10 rounded-full"

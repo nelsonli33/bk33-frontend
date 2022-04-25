@@ -7,7 +7,6 @@ import {
   InboxIcon,
   UsersIcon,
 } from "@heroicons/react/outline";
-import AppFrame from "../../../../../components/modules/studio/home/StudioFrame";
 import Catalog from "../../../../../components/modules/studio/page/Catalog";
 
 const navigation = [
@@ -80,7 +79,7 @@ export default function Page() {
     </div>
   );
   return (
-    <AppFrame>
+    <div>
       {TopBarMarkup}
       <div className="flex h-full">
         <div className="flex flex-col bg-gray-50 w-[300px] border-r border-gray-200 items-stretch">
@@ -88,6 +87,6 @@ export default function Page() {
         </div>
         <div className="flex-1"></div>
       </div>
-    </AppFrame>
+    </div>
   );
 }
