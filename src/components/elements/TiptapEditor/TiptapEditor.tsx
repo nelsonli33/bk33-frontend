@@ -1,22 +1,24 @@
-import React from "react";
+import React, { useRef } from "react";
+// TODO: change all package into case-camel
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import BubbleToolbar from "./components/BubbleToolbar";
 import Link from "@tiptap/extension-link";
 import Image from "@tiptap/extension-image";
 import Placeholder from "@tiptap/extension-placeholder";
-import CustomClass from "./extensions/CustomClass";
-import CustomTextStyle from "./extensions/CustomTextStyle";
-import CustomBlockquote from "./extensions/CustomBlockquote";
-import Abbreviation from "./extensions/Abbreviation";
-import LinkTooltip from "./extensions/LinkTooltip";
-import Commands from "./extensions/Command";
-import Figcaption from "./extensions/Figcaption";
-import FigureImageNodeView from "./extensions/FigureImageNodeView";
-import getSuggestionItems from "./extensions/Command/suggestion/commandItems";
-import renderItems from "./extensions/Command/suggestion/renderItems";
+import BubbleToolbar from "./components/BubbleToolbar";
+import CustomClass from "./extensions/custom-class";
+import CustomBlockquote from "./extensions/custom-blockquote";
+import Abbreviation from "./extensions/abbreviation";
+import LinkTooltip from "./extensions/link-tooltip";
+import Commands from "./extensions/command";
+import Figcaption from "./extensions/figcaption";
+import FigureImage from "./extensions/figure-image";
+import getSuggestionItems from "./extensions/command/suggestion/commandItems";
+import renderItems from "./extensions/command/suggestion/renderItems";
 import "tippy.js/dist/tippy.css";
 import "tippy.js/animations/scale-subtle.css";
+import Summary from "./extensions/summary";
+import { TiptapEditorContext } from "./context/TipTapEditorContext";
 
 export default function TiptapEditor() {
   const editor = useEditor({
@@ -38,13 +40,12 @@ export default function TiptapEditor() {
           class: "js-link-tooltip",
         },
       }),
-      CustomTextStyle,
       CustomClass,
       Abbreviation,
       LinkTooltip,
       Image,
       Figcaption,
-      FigureImageNodeView,
+      FigureImage,
       Commands.configure({
         suggestion: {
           items: getSuggestionItems,
@@ -52,41 +53,17 @@ export default function TiptapEditor() {
         },
       }),
       Placeholder.configure({
-        placeholder: "Write something …",
+        placeholder: "內文 …",
       }),
       CustomBlockquote,
+      Summary,
     ],
     content: `
-       <p>
-          I like lists. Let’s add one:
-        </p>
-        <ul>
-          <li>This is a bullet list.</li>
-          <li>And it has three list items.</li>
-          <li>Here is the third one.</li>
-        </ul>
-        <p>
-          Do you want to see one more? I bet! Here is another one:
-        </p>
-        <ol>
-          <li>That’s a different list, actually it’s an ordered list.</li>
-          <li>It also has three list items.</li>
-          <li>And all of them are numbered.</li>
-        </ol>
-      
-        <p>
-          Lists would be nothing without list items.
-        </p>
-        <p>
-        "微笑是我們心靈的最真誠傾訴，是在困難面前最好的良藥。" — 王鍾偉
-        </p>
-        <p>
-        That’s a boring paragraph followed by a fenced code block:
-      </p>
+      <p>測試</p>
     `,
     editorProps: {
       attributes: {
-        class: "mx-auto focus:outline-none",
+        class: "focus:outline-none",
       },
     },
 
@@ -99,10 +76,25 @@ export default function TiptapEditor() {
     editable: true,
   });
 
+  const inputFileRef = useRef();
+
   return (
-    <div>
+    <TiptapEditorContext.Provider value={{ inputFileRef: inputFileRef }}>
       <BubbleToolbar editor={editor} />
       <EditorContent editor={editor} />
+
+      {editor && editor.isEditable && (
+        <input
+          type="file"
+          name="file"
+          className="hidden"
+          ref={inputFileRef}
+          onChange={(event) => {
+            console.log(event.target.files[0]);
+          }}
+          hidden={true}
+        />
+      )}
 
       <style jsx global>{`
         .tippy-box[data-theme~="menu"] > .tippy-content {
@@ -146,7 +138,7 @@ export default function TiptapEditor() {
           padding: 0;
         }
       `}</style>
-    </div>
+    </TiptapEditorContext.Provider>
   );
 }
 

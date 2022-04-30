@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { NodeViewWrapper, NodeViewContent } from "@tiptap/react";
-import { classNames } from "../../../../utilities/css";
+import { classNames } from "../../../../../utilities/css";
 
 export default function FigureImageView(props) {
-  const { editor, node, updateAttributes, getPos, selected, extension } = props;
+  const { editor, node, updateAttributes, getPos, selected } = props;
 
   const isEmptyContent = node.content.size === 2;
 

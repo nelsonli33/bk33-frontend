@@ -7,6 +7,7 @@ import {
   MenuIcon,
   XIcon,
   CollectionIcon,
+  CurrencyDollarIcon,
 } from "@heroicons/react/outline";
 
 import { classNames } from "../../../../../utilities/css";
@@ -23,6 +24,12 @@ const navigation = [
     name: "內容",
     href: "/studio/contents",
     icon: CollectionIcon,
+  },
+  {
+    code: "income",
+    name: "營利",
+    href: "/studio/income",
+    icon: CurrencyDollarIcon,
   },
 ];
 

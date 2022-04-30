@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { classNames } from "../../../../../utilities/css";
+import { classNames } from "../../../../../../utilities/css";
+import { TiptapEditorContext } from "../../../context/TipTapEditorContext";
 
 type CommandListProps = {
   items: any[];
@@ -10,6 +11,8 @@ type CommandListState = {
 };
 
 class CommandList extends Component<CommandListProps, CommandListState> {
+  static contextType = TiptapEditorContext;
+
   state = {
     selectedIndex: 0,
   };
@@ -42,16 +45,21 @@ class CommandList extends Component<CommandListProps, CommandListState> {
   }
 
   upHandler() {
+    const computedSelectedIndex =
+      (this.state.selectedIndex + this.props.items.length - 1) %
+      this.props.items.length;
+
     this.setState({
-      selectedIndex:
-        (this.state.selectedIndex + this.props.items.length - 1) %
-        this.props.items.length,
+      selectedIndex: computedSelectedIndex,
     });
   }
 
   downHandler() {
+    const computedSelectedIndex =
+      (this.state.selectedIndex + 1) % this.props.items.length;
+
     this.setState({
-      selectedIndex: (this.state.selectedIndex + 1) % this.props.items.length,
+      selectedIndex: computedSelectedIndex,
     });
   }
 
@@ -63,26 +71,30 @@ class CommandList extends Component<CommandListProps, CommandListState> {
     const item = this.props.items[index];
 
     if (item) {
+      switch (item.code) {
+        case "upload":
+          this.context?.inputFileRef?.current.click();
+          break;
+      }
       this.props.command(item);
     }
   }
 
   render() {
-    const { items } = this.props;
-
     return (
       <div className="max-h-96 w-64 scroll-py-3 overflow-y-auto bg-white shadow-md ring-1 ring-black ring-opacity-5 focus:outline-none">
-        {items.map((item, index) => {
+        {this.props.items.map((item, index) => {
           const active = index === this.state.selectedIndex;
           return (
             <div
-              key={item.id}
+              key={item.code}
               className={classNames(
                 "flex cursor-pointer select-none px-4 py-3 hover:bg-gray-100",
                 active && "bg-gray-100"
               )}
               role="button"
               onClick={() => this.selectItem(index)}
+              tabIndex={index}
             >
               <div className={classNames("flex-shrink-0 self-center")}>
                 <item.icon

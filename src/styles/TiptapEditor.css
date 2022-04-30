@@ -34,6 +34,10 @@
   height: auto;
 }
 
+.ProseMirror li p {
+  @apply text-base font-sans my-3;
+}
+
 .ProseMirror-selectednode {
   @apply outline-2;
   @apply outline;

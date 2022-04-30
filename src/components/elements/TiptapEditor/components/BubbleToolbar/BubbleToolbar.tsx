@@ -1,12 +1,12 @@
 import React, { useState, useCallback } from "react";
 import { BubbleMenu } from "@tiptap/react";
 import { isTextSelection } from "@tiptap/core";
-import { classNames } from "../../../../utilities/css";
+import { classNames } from "../../../../../utilities/css";
 import { GrBold } from "react-icons/gr";
 import { BsInfoLg } from "react-icons/bs";
 import { RiDoubleQuotesR } from "react-icons/ri";
 import { FaLink } from "react-icons/fa";
-import { createLinkTooltip } from "../../extensions/LinkTooltip";
+import { createLinkTooltip } from "../../extensions/link-tooltip";
 
 export default function BubbleToolbar({ editor }) {
   const [showLinkInput, setShowLinkInput] = useState(false);
@@ -164,14 +164,15 @@ export default function BubbleToolbar({ editor }) {
             const isFigureImage =
               editor.isActive("figureImage") && !editor.isActive("figcaption");
             const isHorizontalRule = editor.isActive("horizontalRule");
+            const isSummary = editor.isActive("summary");
 
             if (
-              !view.hasFocus() ||
               empty ||
               isEmptyTextBlock ||
               isImage ||
               isFigureImage ||
-              isHorizontalRule
+              isHorizontalRule ||
+              isSummary
             ) {
               return false;
             }

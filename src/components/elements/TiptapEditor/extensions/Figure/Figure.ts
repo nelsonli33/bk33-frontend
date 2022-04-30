@@ -84,7 +84,6 @@ export const Figure = Node.create<FigureOptions>({
               const $pos = view.state.doc.resolve(pos);
 
               if ($pos.parent.type === this.type) {
-                console.log($pos.parent.type);
                 event.preventDefault();
               }
 

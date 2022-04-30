@@ -13,7 +13,6 @@ const renderItems = () => {
         editor: props.editor,
       });
 
-      console.log(props);
       popup = tippy("body", {
         getReferenceClientRect: props.clientRect,
         appendTo: () => document.body,

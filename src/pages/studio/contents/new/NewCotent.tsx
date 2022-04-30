@@ -11,7 +11,8 @@ export default function NewBook() {
         <div className="sm:flex sm:items-center">
           <button
             type="button"
-            className="group border border-gray-300 mr-4 rounded p-1 text-gray-400 hover:text-gray-900"
+            className="group border border-gray-300 mr-4 rounded p-1 
+            text-gray-400 hover:text-gray-900 hover:bg-gray-150"
             onClick={() => {
               router.push("/studio/contents");
             }}

@@ -27,7 +27,7 @@ export default function StudioFrame({
         {/* Main column */}
         <div className="md:pl-64 flex flex-col flex-1 h-full">
           <main className="flex-1">
-            <section className="max-w-7xl max-auto px-4 sm:px-6 md:px-12 md:pb-12 ">
+            <section className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 md:pb-12 ">
               <div>{children}</div>
             </section>
           </main>

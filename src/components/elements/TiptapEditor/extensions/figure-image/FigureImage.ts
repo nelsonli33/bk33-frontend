@@ -2,7 +2,7 @@ import { Node, mergeAttributes } from "@tiptap/core";
 import { ReactNodeViewRenderer } from "@tiptap/react";
 import FigureImageView from "./FigureImageView";
 
-export const FigureImageNodeView = Node.create({
+export const FigureImage = Node.create({
   name: "figureImage",
 
   group: "block",

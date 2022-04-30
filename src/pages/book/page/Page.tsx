@@ -1,8 +1,8 @@
 import React, { useLayoutEffect, useRef } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import Div from "../../../components/elements/TiptapEditor/extensions/Div";
-import CustomClass from "../../../components/elements/TiptapEditor/extensions/CustomClass";
+import Div from "../../../components/elements/TiptapEditor/extensions/div";
+import CustomClass from "../../../components/elements/TiptapEditor/extensions/custom-class";
 
 export default function Page() {
   const editorContainerRef = useRef(null);

@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import CategorySelector from "../CategorySelector";
+import ContentEditCatalog from "../ContentEditCatalog";
 import TakeawaySkillEdit from "../TakeawaySkillEdit";
 export default function NewContentForm() {
   const {
@@ -63,7 +64,9 @@ export default function NewContentForm() {
               目錄
             </h3>
           </div>
-          <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6"></div>
+          <div>
+            <ContentEditCatalog />
+          </div>
         </div>
 
         <div className="pt-8">
@@ -115,13 +118,16 @@ export default function NewContentForm() {
               >
                 售價
               </label>
-              <div className="mt-1">
+              <div className="mt-1 relative rounded-md shadow-sm">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <span className="text-gray-500 sm:text-sm">NT$</span>
+                </div>
                 <input
-                  id="price"
-                  name="price"
                   type="text"
-                  autoComplete="off"
-                  className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded"
+                  name="price"
+                  id="price"
+                  className="focus:ring-indigo-500 focus:border-indigo-500 block w-full px-12 sm:text-sm border-gray-300 rounded-md"
+                  placeholder="0.00"
                 />
               </div>
             </div>
@@ -131,17 +137,14 @@ export default function NewContentForm() {
 
       <div className="pt-5">
         <div className="flex justify-end">
-          <button
-            type="button"
-            className="bg-white py-2 px-4 border border-gray-300 rounded shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          >
-            Cancel
+          <button type="button" className="py-2 px-4 btn-secondary">
+            捨棄
           </button>
           <button
             type="submit"
-            className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="ml-3 inline-flex justify-center py-2 px-4 btn-primary"
           >
-            Save
+            儲存
           </button>
         </div>
       </div>
