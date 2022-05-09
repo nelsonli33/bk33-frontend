@@ -41,10 +41,9 @@
   }
 
   p {
-    @apply font-serif;
     font-style: normal;
     font-weight: 400;
-    @apply text-base leading-[30px];
+    @apply text-base leading-7;
     @apply break-words;
     @apply text-brand-black;
     @apply tracking-[-0.00313em];
@@ -149,7 +148,7 @@
 
   .btn {
     @apply flex justify-center items-center px-[1.15rem] py-[0.4375rem] rounded shadow-sm cursor-pointer text-sm 
-    text-brand-black font-medium no-underline;
+    text-brand-black font-medium no-underline disabled:opacity-70 disabled:pointer-events-none;
   }
 
   .btn-primary {
@@ -161,6 +160,22 @@
   }
 
   .btn-tertiary {
-    @apply btn-secondary font-medium border-neutral-300;
+    @apply btn-secondary font-normal border-neutral-300;
+  }
+
+  .base-disabled {
+    @apply shadow-none transition-none border-gray-300 bg-gray-300 text-gray-200;
+  }
+
+  .visually-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    clip-path: inset(50%) !important;
+    border: 0 !important;
+    white-space: nowrap !important;
   }
 }

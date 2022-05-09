@@ -33,7 +33,7 @@ export default function Register() {
     <>
       <h1 className="flex mb-6 w-full text-2xl">註冊</h1>
       <SocialAuth />
-      <Divider />
+      <Divider text={"或"} />
       <SignupForm />
       {goToLoginMarkup}
     </>

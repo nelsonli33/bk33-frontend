@@ -14,7 +14,7 @@ export default function Modal({ visible, children, onClose }: ModalProps) {
   const cancelButtonMarkup = (
     <button
       type="button"
-      className="inline-flex justify-center px-1 py-1 text-sm font-medium text-slate-900 hover:bg-gray-100 hover:rounded-full focus:outline-none absolute top-2 right-1"
+      className="inline-flex justify-center px-1 py-1 text-sm font-medium text-slate-900 hover:bg-gray-150 hover:rounded-full focus:outline-none absolute top-2 right-1"
       onClick={onClose}
       ref={cancelButtonRef}
     >

@@ -19,15 +19,15 @@ export default function CatalogList() {
     <>
       <div>
         <div className="flex w-full h-full">
-          <div className="flex-[0_0_7rem]">
+          <div className="flex-[0_0_112.5px]">
             <Link href={`/book`}>
               <a
                 href="#"
-                className="block group relative w-[7rem]  overflow-hidden h-auto after:content-[''] after:transition
+                className="block group relative w-full  overflow-hidden h-auto after:content-[''] after:transition
         after:absolute after:inset-0 after:z-20 after:h-full after:w-full after:bg-black after:opacity-[0%] hover:after:opacity-[15%]"
               >
                 <img
-                  className="group-hover:scale-105 transition-transform overflow-hidden"
+                  className="group-hover:scale-105 transition-transform overflow-hidden rounded"
                   src={book.cover_url}
                   alt="product image"
                 />
@@ -37,17 +37,19 @@ export default function CatalogList() {
           <div className="flex-[1_1_0%] mx-6 flex flex-col justify-between">
             <div>
               <div className="pb-2">
-                <h2 className="text-xl leading-5 font-bold">{book.title}</h2>
+                <h2 className="text-[19px] leading-5 font-bold">
+                  {book.title}
+                </h2>
               </div>
               <div>
-                <p>{book.short_description}</p>
+                <p className="leading-6">{book.short_description}</p>
               </div>
-              <div>
+              <div className="mt-1">
                 <span className="text-sm text-gray-600">{book.author}</span>
               </div>
             </div>
             <div>
-              <div className="flex items-center mt-2">
+              <div className="flex items-center mt-1">
                 <svg
                   className="w-5 h-5 text-yellow-400"
                   fill="currentColor"
@@ -92,7 +94,7 @@ export default function CatalogList() {
                   4.95 (1862)
                 </span>
               </div>
-              <div className="flex items-center mt-4">
+              <div className="flex items-center mt-1">
                 <span className="text-sm text-gray-500">{`${book.reading_count} 人閱讀`}</span>
               </div>
             </div>

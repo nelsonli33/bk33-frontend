@@ -10,6 +10,7 @@ module.exports = {
       colors: {
         gray: {
           150: "#ebeef0",
+          350: "#b0b0b0",
         },
         transparent: "rgba(255,255,255,0)",
         brand: {
@@ -20,10 +21,21 @@ module.exports = {
             "light-hover": "rgba(93,238,176,0.07)",
             default: "#008563",
             dark: "#005446",
+            50: "#f2f9f7",
+            100: "#e6f3ef",
+            200: "#bfe1d8",
+            300: "#99cec1",
+            400: "#4daa92",
+            500: "#008563",
+            600: "#007859",
+            700: "#00644a",
+            800: "#00503b",
+            900: "#004131",
           },
         },
         "gray-light": "#f5f5f5",
         weak: "#444444",
+        danger: "#d72c0d",
       },
       spacing: {
         13: "3.25rem",
@@ -40,6 +52,7 @@ module.exports = {
         xl: ["1.25rem", { lineHeight: "2.146rem" }],
       },
       flex: {
+        0: "0 0 auto",
         "auto-no-shrink": "1 0 auto",
       },
       maxWidth: {
@@ -50,6 +63,12 @@ module.exports = {
         2: "0 5px 25px 0 rgba(0, 0, 0, 0.25)",
         3: "0 0 16px 0 rgb(0,0,0, 0.10), 0 8px 16px 0 rgb(0,0,0,0.06)",
         card: "0 4px 8px rgba(0 ,0, 0, 0.12)",
+      },
+      aspectRatio: {
+        portrait: "4 / 5",
+      },
+      animation: {
+        "spin-fast": "spin 0.5s linear infinite",
       },
     },
   },

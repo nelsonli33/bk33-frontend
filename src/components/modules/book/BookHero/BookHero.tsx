@@ -48,8 +48,11 @@ export default function BookHero() {
             </div>
           </div>
           <div className="col-span-4">
-            <div className="max-w-[215px] mx-auto">
-              <img src="https://iodglobal.com/newweb/uploads/handsbook/cover_page/1566969561atthegoingdownofthesun_mockup.png" />
+            <div className="max-w-[200px] mx-auto">
+              <img
+                src="https://avenuesingapore.com/wp-content/uploads/2019/09/AVENUE-HALLOWEEN-20191026-KV-1080x1350.jpg"
+                className="rounded"
+              />
             </div>
             <div className="space-y-3">
               <div className="card-section flex flex-col my-3 space-y-5 px-8 py-2">

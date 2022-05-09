@@ -54,7 +54,7 @@ export default function Books() {
               type="button"
               className="btn-primary"
               onClick={() => {
-                router.push("/studio/contents/new");
+                router.push("/studio/contents/basic");
               }}
             >
               新增內容

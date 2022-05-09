@@ -1,6 +1,13 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { RegisterUserRequest } from "../../../../../api/models/types";
+import { useRegister } from "../../../../../hooks/api/auth";
+import { ServerErrorResponse } from "../../../../types";
+import InlineError from "../../../InlineError";
+import Spinner from "../../../Spinner";
 import TextField from "../../../TextField";
+
+type FormData = RegisterUserRequest & {};
 
 export default function SignupForm() {
   const {
@@ -11,7 +18,13 @@ export default function SignupForm() {
     mode: "onTouched",
   });
 
-  const onSubmit = (data) => console.log(data);
+  const { isLoading, isError, error, mutate } = useRegister();
+
+  const onSubmit = (formData: FormData) => {
+    mutate({
+      ...formData,
+    });
+  };
 
   const registerValidation = {
     name: {
@@ -40,11 +53,19 @@ export default function SignupForm() {
   return (
     <form method="post" onSubmit={handleSubmit(onSubmit)} autoComplete="off">
       <div className="space-y-4">
+        {isError && (
+          <InlineError
+            error={
+              error?.response && (error.response?.data as ServerErrorResponse)
+            }
+          />
+        )}
         <div>
           <TextField
             id="name"
             type="text"
             label="使用者名稱"
+            labelType="floating-label"
             error={errors?.name && errors.name.message}
             register={register}
             registerOptions={registerValidation.name}
@@ -55,6 +76,7 @@ export default function SignupForm() {
             id="email"
             type="email"
             label="電子郵件"
+            labelType="floating-label"
             error={errors?.email && errors.email.message}
             register={register}
             registerOptions={registerValidation.email}
@@ -65,6 +87,7 @@ export default function SignupForm() {
             id="password"
             type="password"
             label="密碼"
+            labelType="floating-label"
             error={errors?.password && errors.password.message}
             register={register}
             registerOptions={registerValidation.password}
@@ -73,11 +96,10 @@ export default function SignupForm() {
         <div>
           <button
             type="submit"
-            className="w-full flex justify-center px-6 py-3 border 
-        border-transparent rounded-md shadow-sm text-sm font-medium text-white 
-        bg-slate-900 hover:bg-slate-700 "
+            className="w-full btn-primary px-6 py-3"
+            disabled={isLoading}
           >
-            註冊
+            {isLoading ? <Spinner /> : "註冊"}
           </button>
         </div>
       </div>

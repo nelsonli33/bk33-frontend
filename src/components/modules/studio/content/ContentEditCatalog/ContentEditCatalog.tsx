@@ -42,7 +42,7 @@ export default function ContentEditCatalog() {
       <Disclosure
         as="div"
         key={item.id}
-        className="space-y-1 max-w-xl "
+        className="space-y-1"
         defaultOpen={true}
       >
         {({ open }) => (
@@ -82,7 +82,7 @@ export default function ContentEditCatalog() {
 
   return (
     <>
-      <div className="space-y-4 border border-gray-200 rounded mt-4 p-8">
+      <div className="space-y-4 border border-brand-black rounded p-4 max-w-[683px]">
         {chapterMarkup}
       </div>
     </>

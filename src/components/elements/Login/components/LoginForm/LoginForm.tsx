@@ -1,6 +1,14 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { LoginRequest } from "../../../../../api/models/types";
 import TextField from "../../../TextField";
+import { useLogin } from "../../../../../hooks/api/auth";
+import InlineError from "../../../InlineError";
+import { ServerErrorResponse } from "../../../../types";
+import Spinner from "../../../Spinner/Spinner";
+
+type FormData = LoginRequest & {};
+
 export default function LoginForm() {
   const {
     register,
@@ -10,7 +18,13 @@ export default function LoginForm() {
     mode: "onTouched",
   });
 
-  const onSubmit = (data) => console.log(data);
+  const { isLoading, isError, error, mutate } = useLogin();
+
+  const onSubmit = (formData: FormData) => {
+    mutate({
+      ...formData,
+    });
+  };
 
   const loginValidation = {
     uid: {
@@ -28,22 +42,30 @@ export default function LoginForm() {
   return (
     <form method="post" onSubmit={handleSubmit(onSubmit)} autoComplete="off">
       <div className="space-y-4">
+        {isError && (
+          <InlineError
+            error={
+              error?.response && (error.response?.data as ServerErrorResponse)
+            }
+          />
+        )}
         <div>
           <TextField
             id="uid"
             type="text"
             label="電子郵件"
+            labelType="floating-label"
             error={errors?.uid && errors.uid.message}
             register={register}
             registerOptions={loginValidation.uid}
           />
         </div>
-
         <div>
           <TextField
             id="password"
             type="password"
             label="密碼"
+            labelType="floating-label"
             error={errors?.password && errors.password.message}
             register={register}
             registerOptions={loginValidation.password}
@@ -52,11 +74,10 @@ export default function LoginForm() {
         <div>
           <button
             type="submit"
-            className="w-full flex justify-center px-6 py-3 border 
-          border-transparent rounded-md shadow-sm text-sm font-medium text-white 
-          bg-slate-900 hover:bg-slate-700 "
+            className="w-full btn-primary px-6 py-3"
+            disabled={isLoading}
           >
-            登入
+            {isLoading ? <Spinner /> : "登入"}
           </button>
         </div>
       </div>

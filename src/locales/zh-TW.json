@@ -1,5 +1,38 @@
 {
   "App": {
+    "DropZone": {
+      "errorOverlayTextFile": "檔案類型無效",
+      "errorOverlayTextImage": "圖片類型無效",
+      "single": {
+        "overlayTextFile": "拖放檔案以上傳",
+        "overlayTextImage": "拖放圖片以上傳",
+        "actionTitleFile": "新增檔案",
+        "actionTitleImage": "新增圖片",
+        "actionHintFile": "或拖放檔案即可上傳",
+        "actionHintImage": "或拖放圖像即可上傳",
+        "labelFile": "上傳檔案",
+        "labelImage": "上傳圖片",
+        "overlayTextVideo": "拖放影片以上傳",
+        "actionTitleVideo": "新增影片",
+        "actionHintVideo": "或拖放影片即可上傳",
+        "labelVideo": "上傳影片"
+      },
+      "allowMultiple": {
+        "overlayTextFile": "拖放檔案以上傳",
+        "overlayTextImage": "拖放圖片以上傳",
+        "actionTitleFile": "新增檔案",
+        "actionTitleImage": "新增圖片",
+        "actionHintFile": "或拖放檔案以上傳",
+        "actionHintImage": "或拖放圖像即可上傳",
+        "labelFile": "上傳檔案",
+        "labelImage": "上傳圖片",
+        "overlayTextVideo": "拖放影片以上傳",
+        "actionTitleVideo": "新增影片",
+        "actionHintVideo": "或拖放影片以上傳",
+        "labelVideo": "上傳影片"
+      },
+      "errorOverlayTextVideo": "影片類型無效"
+    },
     "DatePicker": {
       "previousMonth": "顯示上個月，{showPreviousYear} {previousMonthName}",
       "nextMonth": "顯示下個月，{nextYear} {nextMonth}",

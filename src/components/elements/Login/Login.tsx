@@ -33,7 +33,7 @@ export default function Login() {
     <>
       <h1 className="flex mb-6 w-full text-2xl">登入</h1>
       <SocialAuth />
-      <Divider />
+      <Divider text={"或"} />
       <LoginForm />
       {goToRegisterMarkup}
     </>

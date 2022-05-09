@@ -1,8 +1,8 @@
 import React, { Fragment, useEffect } from "react";
-import { MdOutlineDragIndicator } from "react-icons/md";
 import { BiTrash } from "react-icons/bi";
 import { AiOutlineConsoleSql, AiOutlineDrag } from "react-icons/ai";
 import { useFieldArray } from "react-hook-form";
+import TextField from "../../../../elements/TextField";
 
 export default function TakeawaySkillEdit({
   register,
@@ -37,29 +37,26 @@ export default function TakeawaySkillEdit({
   };
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-2">
       {controlledFields.map((field, index) => (
         <Fragment key={field.id}>
           <div className="grid grid-cols-[1fr_2rem_minmax(1.75rem,min-content)] gap-1.5 items-center">
             <div className="col-start-1">
-              {index !== controlledFields.length - 1 ? (
-                <input
-                  type="text"
-                  {...register(`takeaway_skill.${index}.value`)}
-                  autoComplete="off"
-                  onKeyDown={(e) => handleEnter(e, index)}
-                  className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded"
-                />
-              ) : (
-                <input
-                  type="text"
-                  {...register(`takeaway_skill.${index}.value`)}
-                  autoComplete="off"
-                  placeholder="新增其他值"
-                  onKeyDown={(e) => handleEnter(e, index)}
-                  className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded"
-                />
-              )}
+              <TextField
+                label=""
+                labelHidden={true}
+                type="text"
+                id={`takeaway_skill.${index}.value`}
+                register={register}
+                watch={watch}
+                showCharacterCount
+                maxLength={100}
+                onKeyDown={(e) => handleEnter(e, index)}
+                placeholder={
+                  index !== controlledFields.length - 1 ? "" : "新增其他值"
+                }
+                autoComplete="off"
+              />
             </div>
             {index !== controlledFields.length - 1 && (
               <>

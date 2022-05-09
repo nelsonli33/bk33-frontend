@@ -8,12 +8,12 @@ export default function Explore() {
   return (
     <Frame title="探索">
       <div className="my-10">
-        <div className="max-w-6xl mx-auto px-2 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto px-2">
           <div className="flex">
             <div className="flex-[0_0_auto] w-48 pr-8">
               <CategoryFilter />
             </div>
-            <div className="flex-1 flex-col px-14">
+            <div className="flex-1 flex-col pl-10">
               <SecondCategoryFilter />
               <CatalogList />
             </div>

@@ -2,8 +2,9 @@ import React from "react";
 import { useRouter } from "next/router";
 import StudioFrame from "../../../../components/modules/studio/home/StudioFrame";
 import { ArrowLeftIcon } from "@heroicons/react/outline";
-import NewContentForm from "../../../../components/modules/studio/content/NewContentForm/NewContentForm";
-export default function NewBook() {
+import ContentEditStepTabs from "../../../../components/modules/studio/content/NewContentStepTabs";
+
+const NewCotent = () => {
   const router = useRouter();
   return (
     <StudioFrame title="新增內容">
@@ -23,9 +24,11 @@ export default function NewBook() {
           <h1 className="text-3xl font-semibold">新增內容</h1>
         </div>
         <div className="mt-12 flex flex-col">
-          <NewContentForm />
+          <ContentEditStepTabs />
         </div>
       </div>
     </StudioFrame>
   );
-}
+};
+
+export default NewCotent;

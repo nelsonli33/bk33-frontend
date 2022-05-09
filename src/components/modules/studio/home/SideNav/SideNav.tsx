@@ -28,7 +28,7 @@ const navigation = [
   {
     code: "income",
     name: "營利",
-    href: "/studio/income",
+    href: "/studio/monetization",
     icon: CurrencyDollarIcon,
   },
 ];
@@ -187,7 +187,10 @@ export default function SideNav() {
             </nav>
           </div>
           <div className="flex-shrink-0 flex border-t border-gray-200 p-4">
-            <a href="#" className="flex-shrink-0 w-full group block">
+            <a
+              href="/studio/user/profile"
+              className="flex-shrink-0 w-full group block"
+            >
               <div className="flex items-center">
                 <div>
                   <img

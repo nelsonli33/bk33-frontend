@@ -22,7 +22,7 @@ export default function Frame({
   footer = initFooters,
   children,
   title,
-}) {
+}: FrameProps) {
   return (
     <>
       <Head>
