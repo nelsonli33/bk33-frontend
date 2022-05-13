@@ -22,7 +22,7 @@ export interface TopBarProps {
 
 export default function TopBar({ sticky, title }: TopBarProps) {
   const dispatch = useAppDispatch();
-  const isLoggedIn = true;
+  const isLoggedIn = false;
 
   const authMarkup = (
     <div className="flex items-center space-x-4">
@@ -98,7 +98,7 @@ export default function TopBar({ sticky, title }: TopBarProps) {
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                {!isLoggedIn ? { authMarkup } : <UserProfileMenu />}
+                {!isLoggedIn ? authMarkup : <UserProfileMenu />}
               </div>
             </div>
           </div>

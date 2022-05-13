@@ -41,8 +41,7 @@
   }
 
   p {
-    font-style: normal;
-    font-weight: 400;
+    @apply font-normal;
     @apply text-base leading-7;
     @apply break-words;
     @apply text-brand-black;
@@ -148,7 +147,7 @@
 
   .btn {
     @apply flex justify-center items-center px-[1.15rem] py-[0.4375rem] rounded shadow-sm cursor-pointer text-sm 
-    text-brand-black font-medium no-underline disabled:opacity-70 disabled:pointer-events-none;
+    text-brand-black font-medium no-underline disabled:opacity-45 disabled:pointer-events-none;
   }
 
   .btn-primary {
@@ -165,6 +164,10 @@
 
   .base-disabled {
     @apply shadow-none transition-none border-gray-300 bg-gray-300 text-gray-200;
+  }
+
+  .skeleton {
+    @apply flex animate-pulse bg-skeleton rounded;
   }
 
   .visually-hidden {

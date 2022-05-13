@@ -8,6 +8,7 @@ import {
 import { twMerge } from "tailwind-merge";
 import { classNames } from "../../../utilities/css";
 import { Error } from "../../types";
+import Label from "../Label";
 
 type Type =
   | "text"
@@ -158,7 +159,7 @@ export default function TextField({
   const floatingLabelMarkup =
     labelType === "floating-label" ? (
       <span
-        className={classNames(
+        className={twMerge(
           error ? "text-red-600" : "text-gray-500",
           `peer-placeholder-shown:text-base
             peer-placeholder-shown:top-[${ptOffset}]
@@ -166,7 +167,8 @@ export default function TextField({
             peer-focus:top-[0.35882rem]
             transition-all
             duration-[125ms]
-            block pointer-events-none whitespace-nowrap overflow-hidden sm:text-xs absolute px-4 left-0 top-[0.35882rem]`
+            block pointer-events-none whitespace-nowrap overflow-hidden 
+            sm:text-xs absolute px-4 left-0 top-[0.35882rem]`
         )}
       >
         {label}
@@ -175,19 +177,11 @@ export default function TextField({
 
   const LabelMarkup =
     labelType === "normal" ? (
-      <label
-        htmlFor={id}
-        className={classNames(
-          "block font-medium ",
-          error ? "text-red-600" : "text-gray-700"
-        )}
-      >
-        {label}
-      </label>
+      <Label id={id} name={label} error={error} />
     ) : null;
 
   const wrapperClassName = twMerge(
-    `block w-full focus-within:ring-1 relative flex items-center mt-1.5 overflow-hidden 
+    `block w-full focus-within:ring-1 relative flex items-center overflow-hidden 
     border border-gray-350 rounded`,
     error
       ? "border-red-500 focus-within:ring-red-600 focus-within:border-red-600"

@@ -6,9 +6,16 @@ export const customHeaders = {
 };
 
 export const baseUrl = `${baseDomain}/api`;
+export const baseAuthorUrl = `${baseDomain}/author/api`;
 
 export const client = axios.create({
   baseURL: baseUrl,
+  headers: customHeaders,
+  withCredentials: true,
+});
+
+export const authorClient = axios.create({
+  baseURL: baseAuthorUrl,
   headers: customHeaders,
   withCredentials: true,
 });

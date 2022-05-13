@@ -1,10 +1,15 @@
 .ProseMirror > * + * {
-  margin-top: 0.75em;
+  margin-top: 30px;
 }
 
 .ProseMirror p {
-  font-size: 21px;
-  line-height: 1.58;
+  line-height: 32px;
+  font-size: 20px;
+  @apply font-normal;
+  @apply break-words;
+  @apply text-brand-black;
+  @apply tracking-[-0.003em];
+  @apply font-serif;
 }
 
 .ProseMirror h1 {

@@ -85,6 +85,7 @@ export default function CheckoutInvoice() {
             id="mobile_barcode"
             type="text"
             label="手機條碼載具"
+            labelType="floating-label"
             error=""
             maxLength={8}
             register={register}
@@ -100,6 +101,7 @@ export default function CheckoutInvoice() {
             id="cititzen_digital_cert"
             type="text"
             label="自然人憑證載具"
+            labelType="floating-label"
             error=""
             register={register}
           />
@@ -117,6 +119,7 @@ export default function CheckoutInvoice() {
         id="invoice_title"
         type="text"
         label="發票抬頭"
+        labelType="floating-label"
         error=""
         register={register}
       />
@@ -124,6 +127,7 @@ export default function CheckoutInvoice() {
         id="business_number"
         type="text"
         label="統一編號"
+        labelType="floating-label"
         error=""
         register={register}
       />
@@ -131,6 +135,7 @@ export default function CheckoutInvoice() {
         id="contact_email"
         type="text"
         label="接收發票的電子郵件"
+        labelType="floating-label"
         error=""
         register={register}
       />
@@ -151,6 +156,7 @@ export default function CheckoutInvoice() {
           id="love_code"
           type="text"
           label="捐贈碼"
+          labelType="floating-label"
           maxLength={10}
           error=""
           register={register}

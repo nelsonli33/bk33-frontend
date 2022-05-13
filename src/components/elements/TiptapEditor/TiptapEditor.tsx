@@ -1,6 +1,6 @@
-import React, { useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 // TODO: change all package into case-camel
-import { useEditor, EditorContent } from "@tiptap/react";
+import { useEditor, EditorContent, EditorEvents } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Link from "@tiptap/extension-link";
 import Image from "@tiptap/extension-image";
@@ -20,7 +20,14 @@ import "tippy.js/animations/scale-subtle.css";
 import Summary from "./extensions/summary";
 import { TiptapEditorContext } from "./context/TipTapEditorContext";
 
-export default function TiptapEditor() {
+import deepEqual from "deep-equal";
+
+interface TiptapEditorProps {
+  content?: object | string;
+  onUpdate?: (props: EditorEvents["update"]) => void;
+}
+
+const TiptapEditor = ({ content, onUpdate }: TiptapEditorProps) => {
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -58,23 +65,22 @@ export default function TiptapEditor() {
       CustomBlockquote,
       Summary,
     ],
-    content: `
-      <p>測試</p>
-    `,
     editorProps: {
       attributes: {
         class: "focus:outline-none",
       },
     },
-
     // triggered on every change
-    onUpdate: ({ editor }) => {
-      const json = editor.getJSON();
-      //send the content to an API here
-    },
+    onUpdate: onUpdate,
 
     editable: true,
   });
+
+  useEffect(() => {
+    if (editor && !deepEqual(content, editor.getJSON())) {
+      editor.commands.setContent(content);
+    }
+  }, [editor, content]);
 
   const inputFileRef = useRef();
 
@@ -140,8 +146,9 @@ export default function TiptapEditor() {
       `}</style>
     </TiptapEditorContext.Provider>
   );
-}
+};
 
+export default TiptapEditor;
 // <div data-type="figureImage" src="https://source.unsplash.com/random/738x415" alt="alt test" title="great">
 // <figcaption>This is editable.</figcaption>
 // </div>

@@ -4,17 +4,21 @@ import {
   GetUserProfileResponse,
   UpdateUserProfileRequest,
   UpdateUserProfileResponse,
+  ServerErrorResponse,
 } from "../../api/models/types";
 import UserApi from "../../api/UserApi";
-import { ServerErrorResponse } from "../../components/types";
 
-export enum ServerStateKeys {
-  UserProfile = "user-profile",
-}
+export const userKeys = {
+  profile: ["user", "profile"] as const,
+  // lists: () => [...todoKeys.all, 'list'] as const,
+  // list: (filters: string) => [...todoKeys.lists(), { filters }] as const,
+  // details: () => [...todoKeys.all, 'detail'] as const,
+  // detail: (id: number) => [...todoKeys.details(), id] as const,
+};
 
 export const useGetUserProfile = () =>
   useQuery<GetUserProfileResponse, ServerErrorResponse>(
-    ServerStateKeys.UserProfile,
+    userKeys.profile,
     () => UserApi.getUserProfile(),
     {
       staleTime: Infinity,
@@ -28,6 +32,6 @@ export const useUpdateUserProfile = () => {
     AxiosError,
     UpdateUserProfileRequest
   >((body) => UserApi.updateUserProfile(body), {
-    onSuccess: () => queryClient.invalidateQueries(ServerStateKeys.UserProfile),
+    onSuccess: () => queryClient.invalidateQueries(userKeys.profile),
   });
 };

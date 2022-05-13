@@ -1,1 +1,1 @@
-export { default } from "./NewContentBasic";
+export { default } from "./NewContentEditBasic";

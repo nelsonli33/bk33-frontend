@@ -104,6 +104,7 @@ export default function BubbleToolbar({ editor }) {
 
   const toggleCustomBlockquote = () => {
     const { quoteType } = editor.getAttributes("customBlockquote");
+    console.log(quoteType);
 
     let nextQuoteType =
       quoteType === undefined || quoteType === null ? 1 : (quoteType + 1) % 3;

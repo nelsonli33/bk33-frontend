@@ -1,55 +1,26 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 import { classNames } from "../../../../../utilities/css";
 import { ChevronRightIcon, PlusSmIcon } from "@heroicons/react/outline";
 import { BsLayoutSidebar } from "react-icons/bs";
-
-const catalog = [
-  {
-    name: "基本原理：為何細微改變",
-    current: false,
-    children: [
-      { name: "1 原子習慣的驚人力量", href: "#" },
-      { name: "2 改變習慣最有效的方法，是改變身分認同", href: "#" },
-      { name: "3 四個簡單的步驟，讓你建立更好的習慣", href: "#" },
-    ],
-  },
-  {
-    name: "法則1：讓提示顯而易見",
-    current: true,
-    children: [
-      { name: "4 行為改變的過程始於覺察", href: "#" },
-      { name: "5 開始一個新習慣最好的方法", href: "#" },
-      { name: "6 激勵被高估了，環境往往更重要", href: "#" },
-      { name: "7 自制力的祕密", href: "#" },
-    ],
-  },
-  {
-    name: "法則2：讓習慣有吸引力",
-    current: false,
-    children: [
-      { name: "8 如何讓習慣變得難以抗拒", href: "#" },
-      { name: "9 家人與朋友如何形塑你的習慣", href: "#" },
-      { name: "10 如何找出並解決壞習慣的成因", href: "#" },
-    ],
-  },
-  {
-    name: "法則3：讓行動輕而易舉",
-    current: false,
-    children: [
-      { name: "11 精通習慣由重複開始，而非完美", href: "#" },
-      { name: "12 最小努力原則", href: "#" },
-      { name: "13 如何運用「兩分鐘法則」停止拖延", href: "#" },
-      { name: "14 如何讓好習慣變得無可避免，讓壞習慣不可能發生", href: "#" },
-    ],
-  },
-];
+import { twMerge } from "tailwind-merge";
+import Link from "../../../../elements/Link";
+import { Book } from "../../../../../api/models/types";
+import { useRouter } from "next/router";
 
 const items = [{ name: "新增群組", href: "#" }];
 
-export default function PageEditCatalog({ toggleSideBar }) {
+export interface PageEditCatalogProps {
+  book: Book;
+  toggleSideBar: () => void;
+}
+
+const PageEditCatalog = ({ book, toggleSideBar }: PageEditCatalogProps) => {
+  const router = useRouter();
+  const [activeItem, setActiveItem] = useState<any>();
+
   const contentTitleMarkup = (
     <div className="flex items-start mt-7 mb-3">
       <div className="pl-3">
@@ -61,7 +32,7 @@ export default function PageEditCatalog({ toggleSideBar }) {
           <BsLayoutSidebar className="w-5 h-5" />
         </button>
       </div>
-      <h3 className="text-xl leading-8 flex-1 pl-3">原子習慣</h3>
+      <h3 className="text-xl leading-8 flex-1 pl-3">{book?.title}</h3>
     </div>
   );
 
@@ -118,41 +89,62 @@ export default function PageEditCatalog({ toggleSideBar }) {
 
   const catalogMarkup = (
     <div className="flex flex-col space-y-4 overflow-auto my-3 max-h-[calc(100vh_-_9rem)]">
-      {catalog.map((item) => (
+      {book?.toc?.chapters.map((item) => (
         <Disclosure
           as="div"
-          key={item.name}
+          key={item.title}
           className="space-y-1"
           defaultOpen={true}
         >
           {({ open }) => (
             <>
-              <Disclosure.Button
-                className={classNames(
-                  "bg-white text-brand-black hover:bg-gray-100 ",
-                  "group w-full flex items-center px-3 py-2 text-left rounded-md"
+              <div
+                className={twMerge(
+                  `w-full flex items-center px-3 py-2 text-left text-brand-black hover:bg-gray-100 cursor-default`,
+                  activeItem &&
+                    activeItem.type === "chapter" &&
+                    activeItem.id === item.id &&
+                    "bg-gray-150 hover:bg-gray-150"
                 )}
+                onClick={() => setActiveItem({ ...item, type: "chapter" })}
               >
-                <ChevronRightIcon
-                  className={classNames(
-                    open && "rotate-90",
-                    "h-5 w-8 transform text-gray-600 transition-colors ease-in-out duration-150 stroke-1"
-                  )}
-                />
-                <span>{item.name}</span>
-              </Disclosure.Button>
+                <Disclosure.Button className="p-1 ml-[2.23px] mr-1">
+                  <ChevronRightIcon
+                    className={classNames(
+                      open && "rotate-90",
+                      "h-5 w-5 transform text-gray-600 transition-colors ease-in-out duration-150 stroke-1"
+                    )}
+                  />
+                </Disclosure.Button>
+                <span>{item.title}</span>
+              </div>
               <Disclosure.Panel className="space-y-1 ml-7 relative">
                 <div className="border-r border-slate-300 -left-[0.453847px] w-px absolute inset-y-0 z-10"></div>
-                {item.children.map((subItem) => (
-                  <Disclosure.Button
-                    key={subItem.name}
-                    as="a"
-                    href={subItem.href}
-                    className="group w-full flex items-center px-6 py-2 text-sm text-brand-black
-                       hover:bg-gray-100"
+                {item?.pages.map((subItem) => (
+                  <a
+                    key={subItem.title}
+                    className={twMerge(
+                      "group w-full flex items-center px-6 py-2 text-sm text-brand-black hover:bg-gray-100 cursor-pointer",
+                      activeItem &&
+                        activeItem.type === "page" &&
+                        activeItem.id === subItem.id &&
+                        "bg-gray-150 hover:bg-gray-150"
+                    )}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setActiveItem({ ...subItem, type: "page" });
+                      router.push({
+                        pathname: `/studio/contents/[content_id]/pages/[page_id]`,
+                        query: {
+                          content_id: subItem.book_id,
+                          page_id: subItem.id,
+                        },
+                      });
+                    }}
                   >
-                    {subItem.name}
-                  </Disclosure.Button>
+                    {subItem.title}
+                  </a>
                 ))}
               </Disclosure.Panel>
             </>
@@ -169,4 +161,6 @@ export default function PageEditCatalog({ toggleSideBar }) {
       {catalogMarkup}
     </div>
   );
-}
+};
+
+export default PageEditCatalog;

@@ -1,7 +1,5 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import CategorySelector from "../CategorySelector";
-import ContentEditCatalog from "../ContentEditCatalog";
 import TakeawaySkillEdit from "../TakeawaySkillEdit";
 export default function NewContentForm() {
   const {
@@ -27,9 +25,6 @@ export default function NewContentForm() {
             <h3 className="text-xl leading-6 font-medium text-brand-black">
               目錄
             </h3>
-          </div>
-          <div>
-            <ContentEditCatalog />
           </div>
         </div>
 
