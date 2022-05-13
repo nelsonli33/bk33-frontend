@@ -1,4 +1,10 @@
-import React, { useCallback, memo, useState, useEffect } from "react";
+import React, {
+  useCallback,
+  memo,
+  useState,
+  useEffect,
+  useContext,
+} from "react";
 import debounce from "debounce";
 import TextareaAutosize from "react-textarea-autosize";
 import {
@@ -8,6 +14,7 @@ import {
 import { UseMutateFunction, useQueryClient } from "react-query";
 import { AxiosError } from "axios";
 import { authorBookKeys } from "../../../../../hooks/api/author/book";
+import { PageEditContext } from "../../../../../api/context/PageEditContext";
 
 export interface PageEditTitleProps {
   title?: string;
@@ -26,6 +33,8 @@ const PageEditTitle = ({
   savePage,
 }: PageEditTitleProps) => {
   const queryClient = useQueryClient();
+
+  const { setEditingTrue, setEditingFalse } = useContext(PageEditContext);
   const [pageTitle, setPageTitle] = useState(title);
   const [pageDescription, setPageDescription] = useState(description);
 
@@ -36,6 +45,7 @@ const PageEditTitle = ({
 
   const debounceTitleChange = useCallback(
     debounce((event) => {
+      setEditingFalse();
       savePage(
         {
           title: event.target.value,
@@ -54,6 +64,7 @@ const PageEditTitle = ({
 
   const debounceDescriptionChange = useCallback(
     debounce((event) => {
+      setEditingFalse();
       savePage({
         description: event.target.value,
       });
@@ -75,6 +86,7 @@ const PageEditTitle = ({
         value={pageTitle}
         onChange={(e) => {
           setPageTitle(e.target.value);
+          setEditingTrue();
           debounceTitleChange(e);
         }}
       />
@@ -90,6 +102,7 @@ const PageEditTitle = ({
         value={pageDescription}
         onChange={(e) => {
           setPageDescription(e.target.value);
+          setEditingTrue();
           debounceDescriptionChange(e);
         }}
       />

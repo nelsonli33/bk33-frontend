@@ -22,7 +22,7 @@ const PageEditCatalog = ({ book, toggleSideBar }: PageEditCatalogProps) => {
   const [activeItem, setActiveItem] = useState<any>();
 
   const contentTitleMarkup = (
-    <div className="flex items-start mt-7 mb-3">
+    <div className="flex items-center h-16 ">
       <div className="pl-3">
         <button
           className="py-0 px-2 h-8 leading-8 text-gray-500 

@@ -14,6 +14,7 @@ import {
   useSavePage,
 } from "../../../../../../hooks/api/author/page";
 import PageEditTitle from "../../../../../../components/modules/studio/page-edit/PageEditTitle";
+import { PageEditContext } from "../../../../../../api/context/PageEditContext";
 
 const PageEdit = () => {
   const router = useRouter();
@@ -57,6 +58,7 @@ const PageEdit = () => {
     setTrue: setEditingTrue,
     setFalse: setEditingFalse,
   } = useToggle(false);
+
   const debounceAutoSave = useCallback(
     debounce((body) => {
       setEditingFalse();
@@ -74,36 +76,43 @@ const PageEdit = () => {
   }, []);
 
   const rightPanelMarkup = (
-    <div
-      className={classNames(" flex flex-col flex-1", open ? "pl-76" : "pl-0")}
+    <PageEditContext.Provider
+      value={{
+        isEditing,
+        setEditingTrue,
+        setEditingFalse,
+      }}
     >
-      {isGetBookLoading || !bookData ? null : (
-        <ContextualPageEditBar
-          sideBarOpen={open}
-          toggleSideBar={toggle}
-          isSaving={isSavePageLoading}
-          isEditing={isEditing}
-          bookId={bookData.book.id}
-        />
-      )}
-      <main className="max-w-3xl mx-auto px-4 py-6 sm:px-6 md:px-12 w-full">
-        {isGetPageLoading || !pageData ? null : (
-          <>
-            <PageEditTitle
-              savePage={savePage}
-              title={pageData.page?.title}
-              description={pageData.page?.description}
-            />
-            <div className="my-8">
-              <TiptapEditor
-                content={pageData.page?.body || ""}
-                onUpdate={handlePageBodyUpdate}
-              />
-            </div>
-          </>
+      <div
+        className={classNames("flex flex-col flex-1", open ? "pl-76" : "pl-0")}
+      >
+        {isGetBookLoading || !bookData ? null : (
+          <ContextualPageEditBar
+            sideBarOpen={open}
+            toggleSideBar={toggle}
+            isSaving={isSavePageLoading}
+            bookId={bookData.book.id}
+          />
         )}
-      </main>
-    </div>
+        <main className="max-w-3xl mx-auto px-4 py-12 sm:px-6 md:px-11 w-full">
+          {isGetPageLoading || !pageData ? null : (
+            <>
+              <PageEditTitle
+                savePage={savePage}
+                title={pageData.page?.title}
+                description={pageData.page?.description}
+              />
+              <div className="my-8">
+                <TiptapEditor
+                  content={pageData.page?.body || ""}
+                  onUpdate={handlePageBodyUpdate}
+                />
+              </div>
+            </>
+          )}
+        </main>
+      </div>
+    </PageEditContext.Provider>
   );
 
   return (
