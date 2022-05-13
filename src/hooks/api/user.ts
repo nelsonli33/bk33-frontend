@@ -6,7 +6,7 @@ import {
   UpdateUserProfileResponse,
   ServerErrorResponse,
 } from "../../api/models/types";
-import UserApi from "../../api/UserApi";
+import UserApi from "../../api/user-api";
 
 export const userKeys = {
   profile: ["user", "profile"] as const,

@@ -1,4 +1,4 @@
-import { client } from "./AxiosClient";
+import { client } from "./axios-client";
 import { LoginRequest, RegisterUserRequest } from "./models/types";
 
 class AuthApi {

@@ -1,7 +1,7 @@
 import { AxiosError } from "axios";
 import { useRouter } from "next/router";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import AuthorBookApi from "../../../api/author/AuthorBookApi";
+import AuthorBookApi from "../../../api/author/author-book-api";
 import {
   CreateBookRequest,
   CreateBookResponse,

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { NodeViewWrapper, NodeViewContent } from "@tiptap/react";
 import { NodeSelection } from "prosemirror-state";
-import { useToggle } from "../../../../../hooks/useToggle";
+import { useToggle } from "../../../../../hooks/use-toggle";
 import { classNames } from "../../../../../utilities/css";
 export default function SummaryView({
   editor,

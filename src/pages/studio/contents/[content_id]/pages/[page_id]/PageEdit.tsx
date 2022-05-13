@@ -5,7 +5,7 @@ import { classNames } from "../../../../../../utilities/css";
 import TiptapEditor from "../../../../../../components/elements/TiptapEditor";
 import ContextualPageEditBar from "../../../../../../components/modules/studio/page-edit/ContextualPageEditBar";
 import PageEditCatalog from "../../../../../../components/modules/studio/page-edit/PageEditCatalog";
-import { useToggle } from "../../../../../../hooks/useToggle";
+import { useToggle } from "../../../../../../hooks/use-toggle";
 import { useRouter } from "next/router";
 import { useGetBook } from "../../../../../../hooks/api/author/book";
 import debounce from "debounce";
@@ -14,7 +14,7 @@ import {
   useSavePage,
 } from "../../../../../../hooks/api/author/page";
 import PageEditTitle from "../../../../../../components/modules/studio/page-edit/PageEditTitle";
-import { PageEditContext } from "../../../../../../api/context/PageEditContext";
+import { PageEditContext } from "../../../../../../api/context/page-edit-context";
 
 const PageEdit = () => {
   const router = useRouter();

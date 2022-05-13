@@ -1,6 +1,6 @@
 import { useRef } from "react";
 
-import { useIsAfterInitialMount } from "./useIsAfterInitialMount";
+import { useIsAfterInitialMount } from "./use-is-after-initial-mount";
 
 /**
  * Similarly to the life-cycle method componentDidMount, useComponentDidMount

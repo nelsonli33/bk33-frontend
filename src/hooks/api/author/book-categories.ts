@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import AuthorBookCategoryApi from "../../../api/author/AuthorBookCategoryApi";
+import AuthorBookCategoryApi from "../../../api/author/author-book-category-api";
 import {
   GetAuthorBookCategoriesResponse,
   ServerErrorResponse,

@@ -1,4 +1,4 @@
-import { client } from "./AxiosClient";
+import { client } from "./axios-client";
 import { UpdateUserProfileRequest } from "./models/types";
 
 class UserApi {

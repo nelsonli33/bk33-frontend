@@ -3,7 +3,7 @@ import { BsLayoutSidebar } from "react-icons/bs";
 import { ArrowLeftIcon } from "@heroicons/react/outline";
 import Link from "../../../../elements/Link";
 import { useSpinDelay } from "spin-delay";
-import { PageEditContext } from "../../../../../api/context/PageEditContext";
+import { PageEditContext } from "../../../../../api/context/page-edit-context";
 
 interface ContextualPageEditBarProps {
   sideBarOpen: boolean;

@@ -1,6 +1,6 @@
 import { AxiosError } from "axios";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import AuthorPageApi from "../../../api/author/AuthorPageApi";
+import AuthorPageApi from "../../../api/author/author-page-api";
 import {
   GetPageResponse,
   SavePageRequest,

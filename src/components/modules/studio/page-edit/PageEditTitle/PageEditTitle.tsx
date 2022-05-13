@@ -14,7 +14,7 @@ import {
 import { UseMutateFunction, useQueryClient } from "react-query";
 import { AxiosError } from "axios";
 import { authorBookKeys } from "../../../../../hooks/api/author/book";
-import { PageEditContext } from "../../../../../api/context/PageEditContext";
+import { PageEditContext } from "../../../../../api/context/page-edit-context";
 
 export interface PageEditTitleProps {
   title?: string;

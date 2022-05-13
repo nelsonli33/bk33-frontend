@@ -1,6 +1,6 @@
 import { AxiosError } from "axios";
 import { useMutation } from "react-query";
-import AuthApi from "../../api/AuthApi";
+import AuthApi from "../../api/auth-api";
 import { LoginRequest, RegisterUserRequest } from "../../api/models/types";
 import { useAppDispatch } from "../../store/hooks";
 import { hideModal } from "../../store/modal/slice";

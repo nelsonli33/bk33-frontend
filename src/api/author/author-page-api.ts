@@ -1,4 +1,4 @@
-import { authorClient } from "../AxiosClient";
+import { authorClient } from "../axios-client";
 import { SavePageRequest } from "../models/types";
 
 class AuthorPageApi {

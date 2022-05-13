@@ -1,5 +1,5 @@
 import { CreateBookRequest, UpdateBookRequest } from "../models/types";
-import { authorClient } from "../AxiosClient";
+import { authorClient } from "../axios-client";
 
 class AuthorBookApi {
   async getBookById(payload: number) {
