@@ -72,6 +72,18 @@ const PageEditTitle = ({
     []
   );
 
+  const handlePageTitleChange = useCallback((e) => {
+    setPageTitle(e.target.value);
+    setEditingTrue();
+    debounceTitleChange(e);
+  }, []);
+
+  const handlePageDescriptionChange = useCallback((e) => {
+    setPageDescription(e.target.value);
+    setEditingTrue();
+    debounceDescriptionChange(e);
+  }, []);
+
   return (
     <div>
       <label htmlFor="title" className="sr-only">
@@ -80,15 +92,11 @@ const PageEditTitle = ({
       <TextareaAutosize
         id="title"
         name="title"
-        className="block w-full border-0 px-0 py-2 resize-none placeholder-gray-500 focus:ring-0 text-[41px] leading-tight"
+        className="block w-full border-0 px-0 py-2 resize-none placeholder-gray-500 focus:ring-0 text-[41px] text-brand-black leading-tight"
         placeholder="標題"
         maxLength={50}
         value={pageTitle}
-        onChange={(e) => {
-          setPageTitle(e.target.value);
-          setEditingTrue();
-          debounceTitleChange(e);
-        }}
+        onChange={handlePageTitleChange}
       />
       <label htmlFor="description" className="sr-only">
         頁面描述(選填)
@@ -96,15 +104,11 @@ const PageEditTitle = ({
       <TextareaAutosize
         id="description"
         name="description"
-        className="block w-full border-0 p-0 resize-none placeholder-gray-500 focus:ring-0 text-gray-900 font-normal leading-7 font-serif"
+        className="block w-full border-0 p-0 resize-none placeholder-gray-500 focus:ring-0 text-brand-black text-lg leading-8 font-serif"
         placeholder="頁面描述(選填)"
         maxLength={150}
         value={pageDescription}
-        onChange={(e) => {
-          setPageDescription(e.target.value);
-          setEditingTrue();
-          debounceDescriptionChange(e);
-        }}
+        onChange={handlePageDescriptionChange}
       />
     </div>
   );

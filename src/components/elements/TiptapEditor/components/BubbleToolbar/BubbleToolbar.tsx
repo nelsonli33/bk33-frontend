@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from "react";
-import { BubbleMenu } from "@tiptap/react";
+import { BubbleMenu } from "../../extensions/custom-bubble-menu/BubbleMenu";
 import { isTextSelection } from "@tiptap/core";
 import { classNames } from "../../../../../utilities/css";
 import { GrBold } from "react-icons/gr";
@@ -147,7 +147,7 @@ export default function BubbleToolbar({ editor }) {
             duration: 100,
             theme: "menu",
             offset: [0, 10],
-            animation: "scale-subtle",
+            animation: "shift-away-subtle",
           }}
           editor={editor}
           shouldShow={({ editor, view, state, from, to }) => {

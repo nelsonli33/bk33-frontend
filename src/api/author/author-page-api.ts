@@ -2,12 +2,10 @@ import { authorClient } from "../axios-client";
 import { SavePageRequest } from "../models/types";
 
 class AuthorPageApi {
-  async getPageById(bookId: number, pageId: number) {
-    return await authorClient
-      .get(`/v1/books/${bookId}/pages/${pageId}`)
-      .then((response) => {
-        return response.data;
-      });
+  async getPageById(pageId: number) {
+    return await authorClient.get(`/v1/pages/${pageId}`).then((response) => {
+      return response.data;
+    });
   }
 
   // async createBook(payload: CreateBookRequest) {
@@ -16,9 +14,9 @@ class AuthorPageApi {
   //   });
   // }
 
-  async savePage(bookId: number, pageId: number, payload: SavePageRequest) {
+  async savePage(pageId: number, payload: SavePageRequest) {
     return await authorClient
-      .put(`/v1/books/${bookId}/pages/${pageId}/save`, payload)
+      .put(`/v1/pages/${pageId}/save`, payload)
       .then((response) => {
         return response.data;
       });

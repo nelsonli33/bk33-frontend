@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
@@ -6,7 +6,6 @@ import { classNames } from "../../../../../utilities/css";
 import { ChevronRightIcon, PlusSmIcon } from "@heroicons/react/outline";
 import { BsLayoutSidebar } from "react-icons/bs";
 import { twMerge } from "tailwind-merge";
-import Link from "../../../../elements/Link";
 import { Book } from "../../../../../api/models/types";
 import { useRouter } from "next/router";
 
@@ -14,6 +13,7 @@ const items = [{ name: "新增群組", href: "#" }];
 
 export interface PageEditCatalogProps {
   book: Book;
+
   toggleSideBar: () => void;
 }
 
@@ -21,6 +21,7 @@ const PageEditCatalog = ({ book, toggleSideBar }: PageEditCatalogProps) => {
   const router = useRouter();
   const [activeItem, setActiveItem] = useState<any>();
 
+  console.info("rerender");
   const contentTitleMarkup = (
     <div className="flex items-center h-16 ">
       <div className="pl-3">
@@ -163,4 +164,4 @@ const PageEditCatalog = ({ book, toggleSideBar }: PageEditCatalogProps) => {
   );
 };
 
-export default PageEditCatalog;
+export default React.memo(PageEditCatalog);

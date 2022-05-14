@@ -15,6 +15,7 @@ import {
 } from "../../../../../../hooks/api/author/page";
 import PageEditTitle from "../../../../../../components/modules/studio/page-edit/PageEditTitle";
 import { PageEditContext } from "../../../../../../api/context/page-edit-context";
+import { useSpinDelay } from "spin-delay";
 
 const PageEdit = () => {
   const router = useRouter();
@@ -23,15 +24,15 @@ const PageEdit = () => {
   const pageId = router.query?.page_id ? +router.query.page_id : 0;
 
   const { data: bookData, isLoading: isGetBookLoading } = useGetBook(contentId);
-  const { data: pageData, isLoading: isGetPageLoading } = useGetPage(
-    contentId,
-    pageId
-  );
+  const { data: pageData, isLoading: isGetPageLoading } = useGetPage(pageId);
 
-  const { mutate: savePage, isLoading: isSavePageLoading } = useSavePage(
-    contentId,
-    pageId
-  );
+  const isGetPageLoadingDelay = useSpinDelay(isGetPageLoading, {
+    delay: 0,
+    minDuration: 400,
+  });
+
+  const { mutate: savePage, isLoading: isSavePageLoading } =
+    useSavePage(pageId);
 
   const { open, toggle } = useToggle(true);
   const leftPanelMarkup = (
@@ -76,6 +77,41 @@ const PageEdit = () => {
   }, []);
 
   const rightPanelMarkup = (
+    <div
+      className={classNames(
+        "flex flex-col flex-1 min-h-full",
+        open ? "pl-76" : "pl-0"
+      )}
+    >
+      {isGetBookLoading || !bookData ? null : (
+        <ContextualPageEditBar
+          sideBarOpen={open}
+          toggleSideBar={toggle}
+          isSaving={isSavePageLoading}
+          bookId={bookData.book.id}
+        />
+      )}
+      <main className="max-w-3xl mx-auto px-4 py-12 sm:px-6 md:px-11 w-full">
+        {isGetPageLoadingDelay || !pageData ? null : (
+          <>
+            <PageEditTitle
+              savePage={savePage}
+              title={pageData.page?.title}
+              description={pageData.page?.description}
+            />
+            <div className="my-6">
+              <TiptapEditor
+                content={pageData.page?.body || ""}
+                onUpdate={handlePageBodyUpdate}
+              />
+            </div>
+          </>
+        )}
+      </main>
+    </div>
+  );
+
+  return (
     <PageEditContext.Provider
       value={{
         isEditing,
@@ -83,56 +119,24 @@ const PageEdit = () => {
         setEditingFalse,
       }}
     >
-      <div
-        className={classNames("flex flex-col flex-1", open ? "pl-76" : "pl-0")}
-      >
-        {isGetBookLoading || !bookData ? null : (
-          <ContextualPageEditBar
-            sideBarOpen={open}
-            toggleSideBar={toggle}
-            isSaving={isSavePageLoading}
-            bookId={bookData.book.id}
-          />
-        )}
-        <main className="max-w-3xl mx-auto px-4 py-12 sm:px-6 md:px-11 w-full">
-          {isGetPageLoading || !pageData ? null : (
-            <>
-              <PageEditTitle
-                savePage={savePage}
-                title={pageData.page?.title}
-                description={pageData.page?.description}
-              />
-              <div className="my-8">
-                <TiptapEditor
-                  content={pageData.page?.body || ""}
-                  onUpdate={handlePageBodyUpdate}
-                />
-              </div>
-            </>
-          )}
-        </main>
+      <div>
+        {leftPanelMarkup}
+        {rightPanelMarkup}
+        <style global jsx>{`
+          html,
+          body,
+          body > div:first-child,
+          div#__next,
+          div#__next > div {
+            height: 100%;
+          }
+
+          body {
+            background-color: #ffffff;
+          }
+        `}</style>
       </div>
     </PageEditContext.Provider>
-  );
-
-  return (
-    <div>
-      {leftPanelMarkup}
-      {rightPanelMarkup}
-      <style global jsx>{`
-        html,
-        body,
-        body > div:first-child,
-        div#__next,
-        div#__next > div {
-          height: 100%;
-        }
-
-        body {
-          background-color: #ffffff;
-        }
-      `}</style>
-    </div>
   );
 };
 
