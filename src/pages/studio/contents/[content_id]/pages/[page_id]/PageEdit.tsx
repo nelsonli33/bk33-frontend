@@ -14,7 +14,7 @@ import {
   useSavePage,
 } from "../../../../../../hooks/api/author/page";
 import PageEditTitle from "../../../../../../components/modules/studio/page-edit/PageEditTitle";
-import { PageEditContext } from "../../../../../../api/context/page-edit-context";
+import { PageEditContext } from "../../../../../../context/page-edit-context";
 import { useSpinDelay } from "spin-delay";
 
 const PageEdit = () => {
@@ -47,8 +47,12 @@ const PageEdit = () => {
           "flex-1 flex flex-col min-h-0 border-r border-gray-200 bg-white"
         )}
       >
-        {isGetBookLoading || !bookData ? null : (
-          <PageEditCatalog book={bookData.book} toggleSideBar={toggle} />
+        {isGetBookLoading || !bookData || pageId === 0 ? null : (
+          <PageEditCatalog
+            book={bookData.book}
+            pageId={pageId}
+            toggleSideBar={toggle}
+          />
         )}
       </div>
     </div>
@@ -58,6 +62,12 @@ const PageEdit = () => {
     open: isEditing,
     setTrue: setEditingTrue,
     setFalse: setEditingFalse,
+  } = useToggle(false);
+
+  const {
+    open: isEditorFocus,
+    setTrue: setEditorFocusTrue,
+    setFalse: setEditorFocusFalse,
   } = useToggle(false);
 
   const debounceAutoSave = useCallback(
@@ -83,12 +93,12 @@ const PageEdit = () => {
         open ? "pl-76" : "pl-0"
       )}
     >
-      {isGetBookLoading || !bookData ? null : (
+      {isGetBookLoading || contentId === 0 ? null : (
         <ContextualPageEditBar
           sideBarOpen={open}
           toggleSideBar={toggle}
           isSaving={isSavePageLoading}
-          bookId={bookData.book.id}
+          bookId={contentId}
         />
       )}
       <main className="max-w-3xl mx-auto px-4 py-12 sm:px-6 md:px-11 w-full">
@@ -103,6 +113,7 @@ const PageEdit = () => {
               <TiptapEditor
                 content={pageData.page?.body || ""}
                 onUpdate={handlePageBodyUpdate}
+                onFocus={setEditorFocusTrue}
               />
             </div>
           </>
@@ -117,6 +128,9 @@ const PageEdit = () => {
         isEditing,
         setEditingTrue,
         setEditingFalse,
+        isEditorFocus,
+        setEditorFocusTrue,
+        setEditorFocusFalse,
       }}
     >
       <div>

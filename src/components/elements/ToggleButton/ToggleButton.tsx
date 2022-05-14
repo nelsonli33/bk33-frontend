@@ -1,6 +1,6 @@
 import React from "react";
-import { BaseButton } from "../../global/types";
-import { classNames } from "../../utilities/css";
+import { twMerge } from "tailwind-merge";
+import { BaseButton } from "../../../global/types";
 
 export interface ToggleButtonProps extends BaseButton {
   value?: string;
@@ -14,7 +14,7 @@ export default function ToggleButton({
   children,
   ...props
 }: ToggleButtonProps) {
-  const className = classNames("btn", selected && "text-brand-green-default");
+  const className = twMerge("btn", selected && "text-brand-green");
 
   return (
     <button className={className} {...props}>

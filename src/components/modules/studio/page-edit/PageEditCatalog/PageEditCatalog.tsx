@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState, useMemo } from "react";
 
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
@@ -8,20 +8,63 @@ import { BsLayoutSidebar } from "react-icons/bs";
 import { twMerge } from "tailwind-merge";
 import { Book } from "../../../../../api/models/types";
 import { useRouter } from "next/router";
+import { PageEditContext } from "../../../../../context/page-edit-context";
+import { useContext } from "react";
+import { useCreateChapter } from "../../../../../hooks/api/author/chapter";
 
-const items = [{ name: "新增群組", href: "#" }];
-
+type SelectedItem = {
+  bookId: number;
+  chapterId: number;
+  pageId: number;
+};
 export interface PageEditCatalogProps {
   book: Book;
-
+  pageId: number;
   toggleSideBar: () => void;
 }
 
-const PageEditCatalog = ({ book, toggleSideBar }: PageEditCatalogProps) => {
+const PageEditCatalog = ({
+  book,
+  pageId,
+  toggleSideBar,
+}: PageEditCatalogProps) => {
   const router = useRouter();
-  const [activeItem, setActiveItem] = useState<any>();
+  const [selectedItem, setSelectedItem] = useState<SelectedItem>();
+  const { isEditorFocus, setEditorFocusFalse } = useContext(PageEditContext);
 
-  console.info("rerender");
+  const { mutate: createChapter, isLoading: isCreateChapterLoading } =
+    useCreateChapter(book.id);
+
+  const toolbarItems = useMemo(() => {
+    return [
+      {
+        name: "新增章節",
+        onAction: ({ activeItem }: { activeItem: SelectedItem }) => {
+          createChapter({
+            title: "未命名分類",
+            below_chapter_id: activeItem.chapterId,
+          });
+        },
+      },
+    ];
+  }, []);
+
+  useEffect(() => {
+    if (book && pageId) {
+      const currentChapterForPage = book?.toc?.chapters.find((c) =>
+        c.pages.some((p) => p.id === pageId)
+      );
+
+      if (currentChapterForPage) {
+        setSelectedItem({
+          bookId: book.id,
+          chapterId: currentChapterForPage.id,
+          pageId: pageId,
+        });
+      }
+    }
+  }, [book, pageId]);
+
   const contentTitleMarkup = (
     <div className="flex items-center h-16 ">
       <div className="pl-3">
@@ -61,22 +104,29 @@ const PageEditCatalog = ({ book, toggleSideBar }: PageEditCatalogProps) => {
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="origin-top-right absolute right-0 mt-2 -mr-1 w-56 rounded shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+            <Menu.Items
+              className="origin-top-right absolute right-0 translate-x-[81%]
+               mt-2 -mr-1 w-56 rounded shadow-3 bg-white ring-1 ring-black 
+            ring-opacity-5 focus:outline-none"
+              static
+            >
               <div className="py-1">
-                {items.map((item) => (
-                  <Menu.Item key={item.name}>
+                {toolbarItems.map((item) => (
+                  <Menu.Item key={item.name} as={Fragment}>
                     {({ active }) => (
-                      <a
-                        href={item.href}
-                        className={classNames(
+                      <div
+                        className={twMerge(
                           active
                             ? "bg-gray-100 text-gray-900"
                             : "text-gray-700",
-                          "block px-4 py-2 text-sm"
+                          "block py-2 px-4 cursor-pointer"
                         )}
+                        onClick={() =>
+                          item.onAction({ activeItem: selectedItem })
+                        }
                       >
                         {item.name}
-                      </a>
+                      </div>
                     )}
                   </Menu.Item>
                 ))}
@@ -88,53 +138,56 @@ const PageEditCatalog = ({ book, toggleSideBar }: PageEditCatalogProps) => {
     </div>
   );
 
+  const selectedClassName = twMerge(
+    "bg-brand-green hover:bg-brand-green text-white font-medium rounded-tr rounded-br",
+    isEditorFocus &&
+      "bg-gray-300 hover:bg-gray-300 text-brand-black font-normal"
+  );
+
   const catalogMarkup = (
     <div className="flex flex-col space-y-4 overflow-auto my-3 max-h-[calc(100vh_-_9rem)]">
       {book?.toc?.chapters.map((item) => (
         <Disclosure
           as="div"
-          key={item.title}
-          className="space-y-1"
+          key={item.id}
+          className="flex flex-col w-full space-y-1"
           defaultOpen={true}
         >
           {({ open }) => (
             <>
-              <div
-                className={twMerge(
-                  `w-full flex items-center px-3 py-2 text-left text-brand-black hover:bg-gray-100 cursor-default`,
-                  activeItem &&
-                    activeItem.type === "chapter" &&
-                    activeItem.id === item.id &&
-                    "bg-gray-150 hover:bg-gray-150"
-                )}
-                onClick={() => setActiveItem({ ...item, type: "chapter" })}
+              <Disclosure.Button
+                className={twMerge(`flex items-center w-full px-3 py-0.5`)}
               >
-                <Disclosure.Button className="p-1 ml-[2.23px] mr-1">
+                <span className="inline-block p-1 ml-[2.03px] mr-1">
                   <ChevronRightIcon
                     className={classNames(
                       open && "rotate-90",
-                      "h-5 w-5 transform text-gray-600 transition-colors ease-in-out duration-150 stroke-1"
+                      "h-5 w-5  stroke-1 stroke-current "
                     )}
                   />
-                </Disclosure.Button>
-                <span>{item.title}</span>
-              </div>
-              <Disclosure.Panel className="space-y-1 ml-7 relative">
+                </span>
+                <span className="inline-flex flex-1 ">{item.title}</span>
+              </Disclosure.Button>
+              <Disclosure.Panel className="space-y-1 ml-7 mr-2 relative">
                 <div className="border-r border-slate-300 -left-[0.453847px] w-px absolute inset-y-0 z-10"></div>
                 {item?.pages.map((subItem) => (
                   <a
-                    key={subItem.title}
+                    key={subItem.id}
                     className={twMerge(
-                      "group w-full flex items-center px-6 py-2 text-sm text-brand-black hover:bg-gray-100 cursor-pointer",
-                      activeItem &&
-                        activeItem.type === "page" &&
-                        activeItem.id === subItem.id &&
-                        "bg-gray-150 hover:bg-gray-150"
+                      "block  m-0 mr-2 px-4 py-2 text-sm text-brand-black hover:bg-gray-100 cursor-pointer",
+                      selectedItem &&
+                        selectedItem.pageId === subItem.id &&
+                        selectedClassName
                     )}
                     onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
-                      setActiveItem({ ...subItem, type: "page" });
+                      setEditorFocusFalse();
+                      setSelectedItem({
+                        bookId: book.id,
+                        chapterId: subItem.chapter_id,
+                        pageId: subItem.id,
+                      });
                       router.push({
                         pathname: `/studio/contents/[content_id]/pages/[page_id]`,
                         query: {

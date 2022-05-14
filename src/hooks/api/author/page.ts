@@ -1,4 +1,5 @@
 import { AxiosError } from "axios";
+import { useRouter } from "next/router";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import AuthorPageApi from "../../../api/author/author-page-api";
 import {

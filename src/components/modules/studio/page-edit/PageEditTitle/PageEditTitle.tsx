@@ -14,7 +14,7 @@ import {
 import { UseMutateFunction, useQueryClient } from "react-query";
 import { AxiosError } from "axios";
 import { authorBookKeys } from "../../../../../hooks/api/author/book";
-import { PageEditContext } from "../../../../../api/context/page-edit-context";
+import { PageEditContext } from "../../../../../context/page-edit-context";
 
 export interface PageEditTitleProps {
   title?: string;
@@ -34,7 +34,8 @@ const PageEditTitle = ({
 }: PageEditTitleProps) => {
   const queryClient = useQueryClient();
 
-  const { setEditingTrue, setEditingFalse } = useContext(PageEditContext);
+  const { setEditingTrue, setEditingFalse, setEditorFocusTrue } =
+    useContext(PageEditContext);
   const [pageTitle, setPageTitle] = useState(title);
   const [pageDescription, setPageDescription] = useState(description);
 
@@ -97,6 +98,7 @@ const PageEditTitle = ({
         maxLength={50}
         value={pageTitle}
         onChange={handlePageTitleChange}
+        onFocus={setEditorFocusTrue}
       />
       <label htmlFor="description" className="sr-only">
         頁面描述(選填)
@@ -109,6 +111,7 @@ const PageEditTitle = ({
         maxLength={150}
         value={pageDescription}
         onChange={handlePageDescriptionChange}
+        onFocus={setEditorFocusTrue}
       />
     </div>
   );

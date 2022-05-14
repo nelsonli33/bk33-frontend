@@ -181,9 +181,6 @@ export class BubbleMenuView {
     const from = Math.min(...ranges.map((range) => range.$from.pos));
     const to = Math.max(...ranges.map((range) => range.$to.pos));
 
-    if (!this.enabled) return;
-    this.enabled = false;
-
     const shouldShow = this.shouldShow?.({
       editor: this.editor,
       view,
@@ -195,9 +192,11 @@ export class BubbleMenuView {
 
     if (!shouldShow) {
       this.hide();
-
+      this.enabled = false;
       return;
     }
+
+    if (!this.enabled) return;
 
     this.tippy?.setProps({
       getReferenceClientRect:

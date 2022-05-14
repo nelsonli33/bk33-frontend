@@ -25,9 +25,16 @@ import deepEqual from "deep-equal";
 interface TiptapEditorProps {
   content?: object | string;
   onUpdate?: (props: EditorEvents["update"]) => void;
+  onFocus?: (props: EditorEvents["focus"]) => void;
+  onBlur?: (props: EditorEvents["blur"]) => void;
 }
 
-const TiptapEditor = ({ content, onUpdate }: TiptapEditorProps) => {
+const TiptapEditor = ({
+  content,
+  onUpdate,
+  onFocus,
+  onBlur,
+}: TiptapEditorProps) => {
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -81,10 +88,12 @@ const TiptapEditor = ({ content, onUpdate }: TiptapEditorProps) => {
   }, [editor, content]);
 
   useEffect(() => {
-    if (editor && onUpdate) {
-      editor.on("update", onUpdate);
+    if (editor) {
+      onUpdate && editor.on("update", onUpdate);
+      onFocus && editor.on("focus", onFocus);
+      onBlur && editor.on("blur", onBlur);
     }
-  }, [editor, onUpdate]);
+  }, [editor, onUpdate, onBlur, onFocus]);
 
   const inputFileRef = useRef();
 

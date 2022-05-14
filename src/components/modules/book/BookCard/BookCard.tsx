@@ -18,12 +18,12 @@ export default function BookCard() {
           <Price price="$179" />
           <div className="space-y-3">
             <button
-              className="btn bg-brand-green-default w-full shadow-1 transition text-white font-bold border border-solid border-transparent
+              className="btn bg-brand-green w-full shadow-1 transition text-white font-bold border border-solid border-transparent
           hover:bg-brand-green-dark hover:shadow-2 focus:bg-brand-green-dark"
             >
               加入購物車
             </button>
-            <button className="btn w-full transition bg-brand-green-light hover:bg-brand-green-light-hover font-medium border text-brand-green-default border-solid border-brand-green-default">
+            <button className="btn w-full transition bg-brand-green-light hover:bg-brand-green-light-hover font-medium border text-brand-green border-solid border-brand-green">
               直接購買
             </button>
           </div>

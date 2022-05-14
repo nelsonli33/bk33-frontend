@@ -148,7 +148,7 @@ const RevenueDataTable = () => {
                     >
                       <button
                         type="button"
-                        className="inline-flex items-center px-2 py-3 hover:bg-gray-150 rounded active:ring-1 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-brand-green-default"
+                        className="inline-flex items-center px-2 py-3 hover:bg-gray-150 rounded active:ring-1 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-brand-green"
                       >
                         {transaction.order_income}
                         <BsFillCaretDownFill className="ml-2" />

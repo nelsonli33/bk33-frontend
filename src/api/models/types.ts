@@ -73,6 +73,7 @@ export type TableOfContent = {
 
 export type Chapter = {
   id: number;
+  bookId: number;
   title: string;
   pages: Page[];
 };
@@ -135,6 +136,16 @@ export type UpdateBookRequest = {
 
 export type UpdateBookResponse = {
   book_id: number;
+};
+
+export type CreateChapterRequest = {
+  title: string;
+  below_chapter_id?: number;
+};
+
+export type CreateChapterResponse = {
+  chapter: Chapter;
+  page: Page;
 };
 
 export type GetPageResponse = {

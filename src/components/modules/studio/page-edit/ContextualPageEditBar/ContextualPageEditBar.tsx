@@ -1,9 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { BsLayoutSidebar } from "react-icons/bs";
 import { ArrowLeftIcon } from "@heroicons/react/outline";
 import Link from "../../../../elements/Link";
 import { useSpinDelay } from "spin-delay";
-import { PageEditContext } from "../../../../../api/context/page-edit-context";
+import { PageEditContext } from "../../../../../context/page-edit-context";
+import { twMerge } from "tailwind-merge";
 
 interface ContextualPageEditBarProps {
   sideBarOpen: boolean;
@@ -41,8 +42,11 @@ const ContextualPageEditBar = ({
         <div className="mx-12 px-8 h-16 flex items-center relative">
           <div className="flex items-center text-[15px]">
             <Link
-              className="py-0 px-2 h-8 leading-8 text-gray-600 hover:text-brand-black hover:bg-gray-150  rounded
-           inline-flex items-center space-x-2"
+              className={twMerge(
+                `py-0 px-2 h-8 leading-8 
+              text-gray-600 hover:text-brand-black hover:bg-gray-150  rounded
+           inline-flex items-center space-x-2`
+              )}
               url={`/studio/contents/${bookId}/detail`}
             >
               <ArrowLeftIcon className="w-4 h-4" />

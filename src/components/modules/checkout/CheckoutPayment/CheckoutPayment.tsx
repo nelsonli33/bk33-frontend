@@ -63,9 +63,7 @@ export default function CheckoutPayment() {
                       <RadioGroup.Description
                         as="span"
                         className={classNames(
-                          checked
-                            ? "text-brand-green-default"
-                            : "text-gray-500",
+                          checked ? "text-brand-green" : "text-gray-500",
                           "block text-sm"
                         )}
                       >
