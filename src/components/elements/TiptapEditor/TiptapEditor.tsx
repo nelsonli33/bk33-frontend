@@ -2,10 +2,12 @@ import React, { useCallback, useEffect, useRef } from "react";
 // TODO: change all package into case-camel
 import { useEditor, EditorContent, EditorEvents } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
+
 import Link from "@tiptap/extension-link";
 import Image from "@tiptap/extension-image";
 import Placeholder from "@tiptap/extension-placeholder";
 import BubbleToolbar from "./components/BubbleToolbar";
+import CustomParagraph from "./extensions/custom-paragraph";
 import CustomClass from "./extensions/custom-class";
 import CustomBlockquote from "./extensions/custom-blockquote";
 import Abbreviation from "./extensions/abbreviation";
@@ -19,8 +21,6 @@ import "tippy.js/dist/tippy.css";
 import "tippy.js/animations/shift-away-subtle.css";
 import Summary from "./extensions/summary";
 import { TiptapEditorContext } from "./context/TipTapEditorContext";
-
-import deepEqual from "deep-equal";
 
 interface TiptapEditorProps {
   content?: object | string;
@@ -42,11 +42,13 @@ const TiptapEditor = ({
         strike: false,
         gapcursor: false,
         blockquote: false,
+        paragraph: false,
         // Configure an included extension
         heading: {
           levels: [2, 3],
         },
       }),
+      CustomParagraph,
       Link.configure({
         openOnClick: false,
         HTMLAttributes: {
@@ -77,12 +79,12 @@ const TiptapEditor = ({
         class: "focus:outline-none",
       },
     },
-
+    injectCSS: false,
     editable: true,
   });
 
   useEffect(() => {
-    if (editor && content && !deepEqual(content, editor.getJSON())) {
+    if (editor && content) {
       editor.commands.setContent(content);
     }
   }, [editor, content]);
@@ -99,66 +101,64 @@ const TiptapEditor = ({
 
   return (
     <TiptapEditorContext.Provider value={{ inputFileRef }}>
-      <div>
-        <BubbleToolbar editor={editor} />
-        <EditorContent editor={editor} />
+      <BubbleToolbar editor={editor} />
+      <EditorContent editor={editor} />
 
-        {editor && editor.isEditable && (
-          <input
-            type="file"
-            name="file"
-            className="hidden"
-            ref={inputFileRef}
-            onChange={(event) => {
-              console.log(event.target.files[0]);
-            }}
-            hidden={true}
-          />
-        )}
+      {editor && editor.isEditable && (
+        <input
+          type="file"
+          name="file"
+          className="hidden"
+          ref={inputFileRef}
+          onChange={(event) => {
+            console.log(event.target.files[0]);
+          }}
+          hidden={true}
+        />
+      )}
 
-        <style jsx global>{`
-          .tippy-box[data-theme~="menu"] > .tippy-content {
-            padding: 0;
-          }
+      <style jsx global>{`
+        .tippy-box[data-theme~="menu"] > .tippy-content {
+          padding: 0;
+        }
 
-          .tippy-box[data-theme~="link"] {
-            background-image: linear-gradient(to bottom, #31312a, #222224);
-            color: #ffffff;
-          }
-          .tippy-box[data-theme~="link"] > .tippy-content {
-            padding: 9px 12px;
-          }
-          .tippy-box[data-theme~="link"][data-placement^="top"]
-            > .tippy-arrow::before {
-            border-top-color: #222224;
-          }
-          .tippy-box[data-theme~="link"][data-placement^="bottom"]
-            > .tippy-arrow::before {
-            border-bottom-color: #222224;
-          }
-          .tippy-box[data-theme~="link"][data-placement^="left"]
-            > .tippy-arrow::before {
-            border-left-color: #222224;
-          }
-          .tippy-box[data-theme~="link"][data-placement^="right"]
-            > .tippy-arrow::before {
-            border-right-color: #222224;
-          }
-          .tippy-box[data-theme~="link"] > .tippy-arrow::before {
-            transform: scale(1.2);
-          }
+        .tippy-box[data-theme~="link"] {
+          background-image: linear-gradient(to bottom, #31312a, #222224);
+          color: #ffffff;
+        }
+        .tippy-box[data-theme~="link"] > .tippy-content {
+          padding: 9px 12px;
+        }
+        .tippy-box[data-theme~="link"][data-placement^="top"]
+          > .tippy-arrow::before {
+          border-top-color: #222224;
+        }
+        .tippy-box[data-theme~="link"][data-placement^="bottom"]
+          > .tippy-arrow::before {
+          border-bottom-color: #222224;
+        }
+        .tippy-box[data-theme~="link"][data-placement^="left"]
+          > .tippy-arrow::before {
+          border-left-color: #222224;
+        }
+        .tippy-box[data-theme~="link"][data-placement^="right"]
+          > .tippy-arrow::before {
+          border-right-color: #222224;
+        }
+        .tippy-box[data-theme~="link"] > .tippy-arrow::before {
+          transform: scale(1.2);
+        }
 
-          .tippy-box[data-theme~="slash"] {
-            position: relative;
-            background-color: #ffffff;
-            font-size: inherit;
-            line-height: inherit;
-          }
-          .tippy-box[data-theme~="slash"] > .tippy-content {
-            padding: 0;
-          }
-        `}</style>
-      </div>
+        .tippy-box[data-theme~="slash"] {
+          position: relative;
+          background-color: #ffffff;
+          font-size: inherit;
+          line-height: inherit;
+        }
+        .tippy-box[data-theme~="slash"] > .tippy-content {
+          padding: 0;
+        }
+      `}</style>
     </TiptapEditorContext.Provider>
   );
 };

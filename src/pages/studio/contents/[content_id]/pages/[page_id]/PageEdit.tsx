@@ -1,10 +1,7 @@
-import React, { useCallback, useState, useEffect } from "react";
+import React, { useCallback } from "react";
 
-import { classNames } from "../../../../../../utilities/css";
-
-import TiptapEditor from "../../../../../../components/elements/TiptapEditor";
 import ContextualPageEditBar from "../../../../../../components/modules/studio/page-edit/ContextualPageEditBar";
-import PageEditCatalog from "../../../../../../components/modules/studio/page-edit/PageEditCatalog";
+
 import { useToggle } from "../../../../../../hooks/use-toggle";
 import { useRouter } from "next/router";
 import { useGetBook } from "../../../../../../hooks/api/author/book";
@@ -15,7 +12,10 @@ import {
 } from "../../../../../../hooks/api/author/page";
 import PageEditTitle from "../../../../../../components/modules/studio/page-edit/PageEditTitle";
 import { PageEditContext } from "../../../../../../context/page-edit-context";
-import { useSpinDelay } from "spin-delay";
+import PageEditLeftPanel from "../../../../../../components/modules/studio/page-edit/PageEditLeftPanel";
+import PageBodyEditor from "../../../../../../components/modules/studio/page-edit/PageBodyEditor";
+import { twMerge } from "tailwind-merge";
+import StudioFrame from "../../../../../../components/modules/studio/home/StudioFrame";
 
 const PageEdit = () => {
   const router = useRouter();
@@ -25,38 +25,10 @@ const PageEdit = () => {
 
   const { data: bookData, isLoading: isGetBookLoading } = useGetBook(contentId);
   const { data: pageData, isLoading: isGetPageLoading } = useGetPage(pageId);
-
-  const isGetPageLoadingDelay = useSpinDelay(isGetPageLoading, {
-    delay: 0,
-    minDuration: 400,
-  });
-
   const { mutate: savePage, isLoading: isSavePageLoading } =
     useSavePage(pageId);
 
   const { open, toggle } = useToggle(true);
-  const leftPanelMarkup = (
-    <div
-      className={classNames(
-        "hidden  md:fixed md:inset-y-0 md:w-76",
-        open ? "md:flex md:flex-col" : "md:hidden"
-      )}
-    >
-      <div
-        className={classNames(
-          "flex-1 flex flex-col min-h-0 border-r border-gray-200 bg-white"
-        )}
-      >
-        {isGetBookLoading || !bookData || pageId === 0 ? null : (
-          <PageEditCatalog
-            book={bookData.book}
-            pageId={pageId}
-            toggleSideBar={toggle}
-          />
-        )}
-      </div>
-    </div>
-  );
 
   const {
     open: isEditing,
@@ -69,6 +41,35 @@ const PageEdit = () => {
     setTrue: setEditorFocusTrue,
     setFalse: setEditorFocusFalse,
   } = useToggle(false);
+
+  const {
+    open: frozen,
+    setTrue: setFrozenTrue,
+    setFalse: setFrozenFalse,
+  } = useToggle(false);
+
+  const leftPanelMarkup = (
+    <div
+      className={twMerge(
+        "hidden  md:fixed md:inset-y-0 md:w-76",
+        open ? "md:flex md:flex-col" : "md:hidden"
+      )}
+    >
+      <div
+        className={twMerge(
+          "flex-1 flex flex-col min-h-0 border-r border-gray-200 bg-white"
+        )}
+      >
+        {isGetBookLoading || !bookData || pageId === 0 ? null : (
+          <PageEditLeftPanel
+            book={bookData.book}
+            pageId={pageId}
+            toggleSideBar={toggle}
+          />
+        )}
+      </div>
+    </div>
+  );
 
   const debounceAutoSave = useCallback(
     debounce((body) => {
@@ -88,9 +89,9 @@ const PageEdit = () => {
 
   const rightPanelMarkup = (
     <div
-      className={classNames(
-        "flex flex-col flex-1 min-h-full",
-        open ? "pl-76" : "pl-0"
+      className={twMerge(
+        "flex flex-col flex-1 min-h-full pl-0",
+        open ? "sm:pl-76" : "sm:pl-0"
       )}
     >
       {isGetBookLoading || contentId === 0 ? null : (
@@ -102,7 +103,7 @@ const PageEdit = () => {
         />
       )}
       <main className="max-w-3xl mx-auto px-4 py-12 sm:px-6 md:px-11 w-full">
-        {isGetPageLoadingDelay || !pageData ? null : (
+        {isGetPageLoading || !pageData ? null : (
           <>
             <PageEditTitle
               savePage={savePage}
@@ -110,7 +111,8 @@ const PageEdit = () => {
               description={pageData.page?.description}
             />
             <div className="my-6">
-              <TiptapEditor
+              <PageBodyEditor
+                pageId={pageId}
                 content={pageData.page?.body || ""}
                 onUpdate={handlePageBodyUpdate}
                 onFocus={setEditorFocusTrue}
@@ -123,19 +125,24 @@ const PageEdit = () => {
   );
 
   return (
-    <PageEditContext.Provider
-      value={{
-        isEditing,
-        setEditingTrue,
-        setEditingFalse,
-        isEditorFocus,
-        setEditorFocusTrue,
-        setEditorFocusFalse,
-      }}
-    >
-      <div>
+    <StudioFrame title="" empty>
+      <PageEditContext.Provider
+        value={{
+          isEditing,
+          setEditingTrue,
+          setEditingFalse,
+          isEditorFocus,
+          setEditorFocusTrue,
+          setEditorFocusFalse,
+          frozen,
+          setFrozenTrue,
+          setFrozenFalse,
+        }}
+      >
         {leftPanelMarkup}
         {rightPanelMarkup}
+        {frozen && <div className="overlay"></div>}
+
         <style global jsx>{`
           html,
           body,
@@ -149,8 +156,8 @@ const PageEdit = () => {
             background-color: #ffffff;
           }
         `}</style>
-      </div>
-    </PageEditContext.Provider>
+      </PageEditContext.Provider>
+    </StudioFrame>
   );
 };
 

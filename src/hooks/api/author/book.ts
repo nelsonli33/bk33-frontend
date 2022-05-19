@@ -53,11 +53,14 @@ export const useUpdateBook = (bookId: number) => {
 
     {
       onSuccess(response) {
-        router.push({
-          pathname: "/studio/contents/[content_id]/detail",
-          query: { content_id: response.book_id },
-        });
-        queryClient.invalidateQueries(authorBookKeys.detail(response.book_id));
+        queryClient
+          .invalidateQueries(authorBookKeys.detail(response.book_id))
+          .then(() => {
+            router.push({
+              pathname: "/studio/contents/[content_id]/detail",
+              query: { content_id: response.book_id },
+            });
+          });
       },
     }
   );

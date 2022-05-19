@@ -93,7 +93,8 @@ const PageEditTitle = ({
       <TextareaAutosize
         id="title"
         name="title"
-        className="block w-full border-0 px-0 py-2 resize-none placeholder-gray-500 focus:ring-0 text-[41px] text-brand-black leading-tight"
+        className="block w-full border-0 px-0 py-2 resize-none overflow-hidden
+        placeholder-gray-500 focus:ring-0 text-[41px] text-brand-black leading-tight"
         placeholder="標題"
         maxLength={50}
         value={pageTitle}
@@ -106,7 +107,7 @@ const PageEditTitle = ({
       <TextareaAutosize
         id="description"
         name="description"
-        className="block w-full border-0 p-0 resize-none placeholder-gray-500 focus:ring-0 text-brand-black text-lg leading-8 font-serif"
+        className="block w-full border-0 p-0 resize-none overflow-hidden placeholder-gray-500 focus:ring-0 text-brand-black text-lg leading-8 font-serif"
         placeholder="頁面描述(選填)"
         maxLength={150}
         value={pageDescription}

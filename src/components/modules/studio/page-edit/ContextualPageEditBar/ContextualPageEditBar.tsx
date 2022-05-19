@@ -1,10 +1,9 @@
 import React, { useContext } from "react";
-import { BsLayoutSidebar } from "react-icons/bs";
 import { ArrowLeftIcon } from "@heroicons/react/outline";
 import Link from "../../../../elements/Link";
-import { useSpinDelay } from "spin-delay";
 import { PageEditContext } from "../../../../../context/page-edit-context";
 import { twMerge } from "tailwind-merge";
+import LayoutSidebarIcon from "../../../../elements/Icon/LayoutSidebarIcon";
 
 interface ContextualPageEditBarProps {
   sideBarOpen: boolean;
@@ -21,11 +20,6 @@ const ContextualPageEditBar = ({
 }: ContextualPageEditBarProps) => {
   const { isEditing } = useContext(PageEditContext);
 
-  const saving = useSpinDelay(isSaving, {
-    delay: 0,
-    minDuration: 500,
-  });
-
   return (
     <div className="block z-50 w-full sticky top-0 bg-[rgba(255,255,255,.97)]">
       <div className="flex items-center">
@@ -35,7 +29,7 @@ const ContextualPageEditBar = ({
               className="py-0 px-2 h-8 leading-8 text-gray-500 hover:text-brand-black hover:bg-gray-150 rounded"
               onClick={toggleSideBar}
             >
-              <BsLayoutSidebar className="w-5 h-5" />
+              <LayoutSidebarIcon className="w-5 h-5" />
             </button>
           </div>
         )}
@@ -54,7 +48,7 @@ const ContextualPageEditBar = ({
             </Link>
 
             <div className="text-gray-400 ml-5">
-              {isEditing ? <></> : saving || isSaving ? "儲存中..." : "已儲存"}
+              {isEditing ? <></> : isSaving ? "儲存中..." : "已儲存"}
             </div>
           </div>
         </div>

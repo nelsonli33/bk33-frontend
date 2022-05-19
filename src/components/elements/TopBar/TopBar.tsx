@@ -7,6 +7,7 @@ import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import Link from "next/link";
 import { useAppDispatch } from "../../../store/hooks";
 import { showModal } from "../../../store/modal/slice";
+import { MODAL_TYPES } from "../Modal/ModalRoot";
 
 import UserProfileMenu from "./components/UserMenu";
 
@@ -31,7 +32,7 @@ export default function TopBar({ sticky, title }: TopBarProps) {
         onClick={() =>
           dispatch(
             showModal({
-              modalType: "LOGIN",
+              modalType: MODAL_TYPES.login,
             })
           )
         }
@@ -43,7 +44,7 @@ export default function TopBar({ sticky, title }: TopBarProps) {
         onClick={() =>
           dispatch(
             showModal({
-              modalType: "REGISTER",
+              modalType: MODAL_TYPES.register,
             })
           )
         }

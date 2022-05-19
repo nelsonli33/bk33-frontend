@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect, useRef, useState, createElement } from "react";
 import {
   RegisterOptions,
-  UseFormGetValues,
   UseFormRegister,
   UseFormWatch,
 } from "react-hook-form";
 import { twMerge } from "tailwind-merge";
+import { useIsAfterInitialMount } from "../../../hooks/use-is-after-initial-mount";
 import { classNames } from "../../../utilities/css";
 import { Error } from "../../types";
 import Label from "../Label";
@@ -37,6 +37,10 @@ type InputMode =
   | "email"
   | "url";
 
+interface SelectTextOnFocus {
+  selectTextOnFocus?: true;
+}
+
 interface Readonly {
   readonly?: true;
 }
@@ -49,11 +53,6 @@ interface Interactive {
   onChange(value: string, id: string): void;
 }
 
-export type MutuallyExclusiveInteractionProps =
-  | Interactive
-  | Readonly
-  | Disabled;
-
 interface NonMutuallyExclusiveProps {
   /** Text to display before value */
   prefix?: React.ReactNode;
@@ -65,6 +64,8 @@ interface NonMutuallyExclusiveProps {
   label: string;
   /** Visually hide the label */
   labelHidden?: boolean;
+  /** Make label font weight light */
+  labelLight?: boolean;
   /** Label type */
   labelType?: "normal" | "floating-label";
   /** Disable the input */
@@ -79,6 +80,10 @@ interface NonMutuallyExclusiveProps {
   id: string;
   /** Default value for the input */
   defaultValue?: string;
+  /** Disable editing of the input */
+  readOnly?: boolean;
+  /** Initial value for the input */
+  value?: string;
   /** Enable automatic completion by the browser */
   autoComplete?: boolean | string;
   /** Mimics the behavior of the native HTML attribute, limiting the maximum value */
@@ -87,45 +92,82 @@ interface NonMutuallyExclusiveProps {
   maxLength?: number;
   /** Minimum character length for an input */
   minLength?: number;
+  /** A regular expression to check the value against */
+  pattern?: string;
   /** Indicates whether or not the character count should be displayed */
   showCharacterCount?: boolean;
   /** Choose the keyboard that should be used on mobile devices */
   inputMode?: InputMode;
+  /** Indicates whether or not the entire value should be selected on focus. */
+  selectTextOnFocus?: boolean;
+  /** Automatically focus the input */
+  autoFocus?: boolean;
+  /** Force the focus state on the input */
+  focused?: boolean;
   /** register for React hook form */
   register?: UseFormRegister<any>;
   /** register options for React hook form */
   registerOptions?: RegisterOptions;
   /** watch for React hook form */
   watch?: UseFormWatch<any>;
+  /** Callback fired when input is focused */
+  onFocus?: (event?: React.FocusEvent<HTMLElement>) => void;
+  /** Callback fired when focus is removed */
+  onBlur?(): void;
   /** Callback fired when key down */
   onKeyDown?(event?: React.KeyboardEvent): void;
 }
 
-export type TextFieldProps = NonMutuallyExclusiveProps &
-  NonMutuallyExclusiveProps;
+export type MutuallyExclusiveInteractionProps =
+  | Interactive
+  | Readonly
+  | Disabled;
 
-export default function TextField({
+export type TextFieldProps = NonMutuallyExclusiveProps &
+  MutuallyExclusiveInteractionProps;
+
+const TextField = ({
   placeholder,
   label,
   labelType = "normal",
+  labelLight,
   labelHidden,
-  type,
+  type = "text",
   error,
   name,
   id,
   autoComplete,
+  disabled,
+  readOnly,
+  value,
   showCharacterCount,
+  inputMode,
   maxLength,
   minLength,
+  pattern,
   prefix,
   suffix,
+  autoFocus,
+  focused,
+  selectTextOnFocus,
   register,
   registerOptions,
   defaultValue,
   watch,
+  onFocus,
+  onBlur,
   onKeyDown,
-}: TextFieldProps) {
+}: TextFieldProps) => {
   const ptOffset = "0.89743rem";
+  const [focus, setFocus] = useState(Boolean(focused));
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const input = inputRef.current;
+    if (!input || focused === undefined) return;
+    focused ? input.focus() : input.blur();
+  }, [focused]);
 
   const watchValue = watch ? watch(id) : null;
 
@@ -161,14 +203,7 @@ export default function TextField({
       <span
         className={twMerge(
           error ? "text-red-600" : "text-gray-500",
-          `peer-placeholder-shown:text-base
-            peer-placeholder-shown:top-[${ptOffset}]
-            peer-focus:text-xs
-            peer-focus:top-[0.35882rem]
-            transition-all
-            duration-[125ms]
-            block pointer-events-none whitespace-nowrap overflow-hidden 
-            sm:text-xs absolute px-4 left-0 top-[0.35882rem]`
+          `floating-label block pointer-events-none whitespace-nowrap overflow-hidden absolute px-4 left-0 transition-transform duration-125 origin-top-left`
         )}
       >
         {label}
@@ -177,12 +212,12 @@ export default function TextField({
 
   const LabelMarkup =
     labelType === "normal" ? (
-      <Label id={id} name={label} error={error} />
+      <Label id={id} name={label} error={error} light={labelLight} />
     ) : null;
 
   const wrapperClassName = twMerge(
     `block w-full focus-within:ring-1 relative flex items-center overflow-hidden 
-    border border-gray-350 rounded`,
+    border border-gray-350 rounded textbox`,
     error
       ? "border-red-500 focus-within:ring-red-600 focus-within:border-red-600"
       : "focus-within:ring-brand-black focus-within:border-brand-black"
@@ -191,31 +226,54 @@ export default function TextField({
   const inputClassName = twMerge(
     `block flex-1 w-full border-none focus-within:ring-0 placeholder-gray-400`,
     labelType === "floating-label" &&
-      `peer rounded-lg p-0  text-gray-900 placeholder-transparent h-13 leading-[1.23453] pt-[${ptOffset}] px-[.93176rem] pb-0`
+      `textfield rounded-lg p-0  text-gray-900 placeholder-transparent h-13 leading-[1.23453] pt-[${ptOffset}] px-[.93176rem] pb-0`
   );
 
-  const inputMarkup = (
-    <input
-      type={inputType || "text"}
-      name={name}
-      id={id}
-      maxLength={maxLength}
-      minLength={minLength}
-      autoComplete={normalizeAutoComplete(autoComplete)}
-      className={inputClassName}
-      placeholder={labelType === "floating-label" ? label : placeholder}
-      onKeyDown={onKeyDown}
-      defaultValue={defaultValue}
-      {...register(`${id}`, registerOptions)}
-    />
-  );
+  const handleOnFocus = (event: React.FocusEvent<HTMLElement>) => {
+    if (selectTextOnFocus) {
+      const input = inputRef.current;
+      input?.select();
+    }
+
+    if (onFocus) {
+      onFocus(event);
+    }
+  };
+
+  const { ref, ...rest } = register(`${id}`, registerOptions);
+
+  const input = createElement("input", {
+    name,
+    id,
+    className: inputClassName,
+    defaultValue,
+    disabled,
+    readOnly,
+    autoFocus,
+    value,
+    placeholder: labelType === "floating-label" ? label : placeholder,
+    autoComplete: normalizeAutoComplete(autoComplete),
+    ref: (e) => {
+      ref(e);
+      inputRef.current = e;
+    },
+    minLength,
+    maxLength,
+    pattern,
+    inputMode,
+    type: inputType,
+    onFocus: handleOnFocus,
+    onBlur,
+    onKeyDown,
+    ...rest,
+  });
 
   return (
     <div className="flex flex-col">
       {!labelHidden && LabelMarkup}
       <div className={wrapperClassName}>
         {prefixMarkup}
-        {inputMarkup}
+        {input}
         {!labelHidden && floatingLabelMarkup}
         {suffixMarkup}
         {characterCountMarkup}
@@ -225,7 +283,7 @@ export default function TextField({
       )}
     </div>
   );
-}
+};
 
 function normalizeAutoComplete(autoComplete?: boolean | string) {
   if (autoComplete === true) {
@@ -236,3 +294,5 @@ function normalizeAutoComplete(autoComplete?: boolean | string) {
   }
   return autoComplete;
 }
+
+export default TextField;

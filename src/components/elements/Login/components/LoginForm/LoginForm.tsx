@@ -1,10 +1,13 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { LoginRequest } from "../../../../../api/models/types";
+import {
+  LoginRequest,
+  ServerErrorResponse,
+} from "../../../../../api/models/types";
 import TextField from "../../../TextField";
 import { useLogin } from "../../../../../hooks/api/auth";
 import InlineError from "../../../InlineError";
-import { ServerErrorResponse } from "../../../../types";
+
 import Spinner from "../../../Spinner/Spinner";
 
 type FormData = LoginRequest & {};

@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface ModalState {
   modalVisibility: boolean;
-  modalType: "REGISTER" | "LOGIN" | "";
+  modalType: string;
   modalProps?: {};
 }
 

@@ -34,9 +34,7 @@ const CategorySelector = ({
         className={classNames(
           `flex items-center justify-between py-0 px-4 leading-8
         text-brand-black  text-sm cursor-pointer hover:bg-gray-100`,
-          activeCat &&
-            activeCat.id === cat.id &&
-            "text-brand-green-light font-bold"
+          activeCat && activeCat.id === cat.id && "text-brand-green font-bold"
         )}
       >
         <span className="text-overflow">{cat.name}</span>
@@ -46,7 +44,7 @@ const CategorySelector = ({
               "w-5 h-5 text-gray-500",
               activeCat &&
                 activeCat.id === cat.id &&
-                "text-brand-green-light font-bold"
+                "text-brand-green font-bold"
             )}
           />
         )}
@@ -121,7 +119,7 @@ const CategorySelector = ({
 
   return (
     <>
-      <Label content="內容分類" />
+      <Label name="內容分類" />
       {isLoading ? (
         loadingMarkup
       ) : (
@@ -135,7 +133,7 @@ const CategorySelector = ({
           </div>
           <div className="flex items-center mt-4">
             <span className="inline-block text-sm"> 目前已選擇的分類：</span>
-            <span className="inline-block text-sm text-brand-green-light font-bold">
+            <span className="inline-block text-sm text-brand-green font-bold">
               {currentActiveCategoriesName}
             </span>
           </div>

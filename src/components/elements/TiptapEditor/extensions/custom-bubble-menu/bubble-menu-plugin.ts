@@ -90,6 +90,10 @@ export class BubbleMenuView {
       capture: true,
     });
 
+    this.view.dom.addEventListener("keydown", this.keydownHandler, {
+      capture: true,
+    });
+
     this.view.dom.addEventListener("dragstart", this.dragstartHandler);
     // this.editor.on("focus", this.focusHandler);
     this.editor.on("blur", this.blurHandler);
@@ -100,6 +104,7 @@ export class BubbleMenuView {
   }
 
   mousedownHandler = () => {
+    this.enabled = false;
     this.preventHide = true;
   };
 
@@ -107,14 +112,20 @@ export class BubbleMenuView {
     this.focusHandler();
   };
 
-  dragstartHandler = () => {
-    this.hide();
+  keydownHandler = (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.shiftKey && isArrowKey(e.keyCode)) {
+      this.focusHandler();
+    }
   };
 
   focusHandler = () => {
     this.enabled = true;
     // we use `setTimeout` to make sure `selection` is already updated
     setTimeout(() => this.update(this.editor.view));
+  };
+
+  dragstartHandler = () => {
+    this.hide();
   };
 
   blurHandler = ({ event }: { event: FocusEvent }) => {
@@ -248,8 +259,11 @@ export class BubbleMenuView {
     this.element.removeEventListener("mouseup", this.mouseupHandler, {
       capture: true,
     });
+    this.element.removeEventListener("keydown", this.keydownHandler, {
+      capture: true,
+    });
     this.view.dom.removeEventListener("dragstart", this.dragstartHandler);
-    this.editor.off("focus", this.focusHandler);
+    // this.editor.off("focus", this.focusHandler);
     this.editor.off("blur", this.blurHandler);
   }
 }
@@ -263,3 +277,14 @@ export const BubbleMenuPlugin = (options: BubbleMenuPluginProps) => {
     view: (view) => new BubbleMenuView({ view, ...options }),
   });
 };
+
+function isArrowKey(keyCode): boolean {
+  switch (keyCode) {
+    case 37:
+    case 38:
+    case 39:
+    case 40:
+      return true;
+  }
+  return false;
+}

@@ -7,4 +7,7 @@ export const PageEditContext = createContext({
   isEditorFocus: false,
   setEditorFocusTrue: () => {},
   setEditorFocusFalse: () => {},
+  frozen: false,
+  setFrozenTrue: () => {},
+  setFrozenFalse: () => {},
 });

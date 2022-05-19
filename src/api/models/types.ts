@@ -73,7 +73,7 @@ export type TableOfContent = {
 
 export type Chapter = {
   id: number;
-  bookId: number;
+  book_id: number;
   title: string;
   pages: Page[];
 };
@@ -140,11 +140,32 @@ export type UpdateBookResponse = {
 
 export type CreateChapterRequest = {
   title: string;
-  below_chapter_id?: number;
+  before_chapter_id?: number;
+  after_chapter_id?: number;
 };
 
 export type CreateChapterResponse = {
   chapter: Chapter;
+  page: Page;
+};
+
+export type UpdateChapterRequest = {
+  title: string;
+};
+
+export type UpdateChapterResponse = {
+  chapter: Chapter;
+};
+
+export type CreatePageRequest = {
+  book_id: number;
+  chapter_id: number;
+  title: string;
+  before_page_id?: number;
+  after_page_id?: number;
+};
+
+export type CreatePageResponse = {
   page: Page;
 };
 
@@ -153,7 +174,7 @@ export type GetPageResponse = {
 };
 
 export type SavePageRequest = {
-  title?: number;
+  title?: string;
   description?: string;
   body?: string;
   character_count?: number;

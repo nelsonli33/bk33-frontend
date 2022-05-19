@@ -1,6 +1,15 @@
 let plugin = require("tailwindcss/plugin");
 const defaultTheme = require("tailwindcss/defaultTheme");
 
+function withOpacityValue(variable) {
+  return ({ opacityValue }) => {
+    if (opacityValue === undefined) {
+      return `rgb(var(${variable}))`;
+    }
+    return `rgb(var(${variable}) / ${opacityValue})`;
+  };
+}
+
 module.exports = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx}",
@@ -14,13 +23,14 @@ module.exports = {
           350: "#b0b0b0",
         },
         transparent: "rgba(255,255,255,0)",
+
         brand: {
-          black: "#181b1f",
+          black: "rgba(0,0,0,.84)",
           linen: "#f7f0e9",
           green: {
             light: "#029352",
             "light-hover": "rgba(93,238,176,0.07)",
-            DEFAULT: "#008563",
+            DEFAULT: "#2e7d6d",
             dark: "#005446",
             50: "#f2f9f7",
             100: "#e6f3ef",
@@ -51,6 +61,21 @@ module.exports = {
         weak: "#444444",
         danger: "#d72c0d",
         skeleton: "#e4e5e7",
+      },
+      textColor: {
+        "brand-primary": withOpacityValue("--color-text-brand-primary"),
+        "brand-green": withOpacityValue("--color-text-brand-green"),
+        destructive: withOpacityValue("--color-text-destructive"),
+        "destructive-hover": withOpacityValue("--color-text-destructive-hover"),
+      },
+      backgroundColor: {
+        destructive: withOpacityValue("--color-background-destructive"),
+        "destructive-active": withOpacityValue(
+          "--color-background-destructive-active"
+        ),
+        "destructive-hover": withOpacityValue(
+          "--color-background-destructive-hover"
+        ),
       },
       opacity: {
         45: ".45",
@@ -96,11 +121,21 @@ module.exports = {
           "50%": { opacity: ".7" },
         },
       },
+      strokeWidth: {
+        1.5: "1.575",
+      },
+      transitionDuration: {
+        125: "125ms",
+      },
     },
   },
   plugins: [
     plugin(function ({ addVariant }) {
       addVariant("last-not-first", "&:last-child:not(:first-child)");
+      addVariant(
+        "peer-not-placeholder-shown",
+        ".peer:not(:placeholder-shown) ~ .peer-not-placeholder-shown"
+      );
     }),
     require("@tailwindcss/forms"),
   ],
