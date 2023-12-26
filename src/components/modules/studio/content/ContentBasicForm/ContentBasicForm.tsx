@@ -104,7 +104,7 @@ const ContentBasicForm = ({
             error={errors?.title && errors.title.message}
             register={register}
             registerOptions={formValidation.title}
-            defaultValue={(book && book.title) || ""}
+            value={(book && book.title) || ""}
             maxLength={60}
           />
         </div>

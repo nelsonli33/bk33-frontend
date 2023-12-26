@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { classNames } from "../../../../../../../utilities/css";
-import { useEditor, EditorContent, BubbleMenu } from "@tiptap/react";
+import {
+  useEditor,
+  EditorContent,
+  BubbleMenu,
+  EditorEvents,
+} from "@tiptap/react";
 import Document from "@tiptap/extension-document";
 import Paragraph from "@tiptap/extension-paragraph";
 import Text from "@tiptap/extension-text";
@@ -14,7 +19,15 @@ import { GrBold } from "react-icons/gr";
 import { BsInfoLg } from "react-icons/bs";
 import { RiListOrdered, RiListUnordered } from "react-icons/ri";
 
-const ContentDescriptionEditor = () => {
+interface ContentDescriptionEditorProps {
+  content?: object | string;
+  onUpdate?: (props: EditorEvents["update"]) => void;
+}
+
+const ContentDescriptionEditor = ({
+  content,
+  onUpdate,
+}: ContentDescriptionEditorProps) => {
   const editor = useEditor({
     extensions: [
       Document,
@@ -33,6 +46,18 @@ const ContentDescriptionEditor = () => {
       },
     },
   });
+
+  useEffect(() => {
+    if (editor && content) {
+      editor.commands.setContent(content);
+    }
+  }, [editor, content]);
+
+  useEffect(() => {
+    if (editor) {
+      onUpdate && editor.on("update", onUpdate);
+    }
+  }, [editor, onUpdate]);
 
   return (
     <>

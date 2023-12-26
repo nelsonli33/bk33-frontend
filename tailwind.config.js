@@ -61,6 +61,7 @@ module.exports = {
         weak: "#444444",
         danger: "#d72c0d",
         skeleton: "#e4e5e7",
+        destructive: withOpacityValue("--color-background-destructive"),
       },
       textColor: {
         "brand-primary": withOpacityValue("--color-text-brand-primary"),

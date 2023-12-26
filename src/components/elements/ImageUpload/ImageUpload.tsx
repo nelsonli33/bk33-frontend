@@ -7,7 +7,6 @@ export default function ImageUpload() {
 
   const onUploadProgress = (event) => {
     const percentCompletedRet = Math.round((event.loaded * 100) / event.total);
-    console.log(percentCompletedRet);
     setPercentCompleted(percentCompletedRet);
   };
 

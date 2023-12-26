@@ -21,9 +21,12 @@ export const authorClient = axios.create({
 });
 
 export const serializeQuery = (query) => {
-  return Object.keys(query)
-    .map(
-      (key) => `${encodeURIComponent(key)}=${encodeURIComponent(query[key])}`
-    )
-    .join("&");
+  return query
+    ? Object.keys(query)
+        .map(
+          (key) =>
+            `${encodeURIComponent(key)}=${encodeURIComponent(query[key])}`
+        )
+        .join("&")
+    : "";
 };

@@ -11,6 +11,11 @@ import Tippy from "@tippyjs/react";
 import { twMerge } from "tailwind-merge";
 import Spinner from "../../../../../../elements/Spinner";
 import { PageEditContext } from "../../../../../../../context/page-edit-context";
+import {
+  ChapterAddBelowIcon,
+  DocumentAddBelowIcon,
+} from "../../../../../../elements/Icon";
+import { useRouter } from "next/router";
 
 interface PageEditToolbarProps {
   bookId: number;
@@ -18,6 +23,7 @@ interface PageEditToolbarProps {
 }
 
 const PageEditToolbar = ({ bookId, selectedItem }: PageEditToolbarProps) => {
+  const router = useRouter();
   const tippyJsInstance = useRef() as any;
 
   const { setFrozenTrue, setFrozenFalse } = useContext(PageEditContext);
@@ -38,29 +44,55 @@ const PageEditToolbar = ({ bookId, selectedItem }: PageEditToolbarProps) => {
     {
       code: "newpage",
       name: "新增頁面",
-      icon: DocumentIcon,
+      icon: DocumentAddBelowIcon,
       isLoading: isCreatePageLoading,
       onAction: () => {
-        createPage({
-          book_id: selectedItem.bookId,
-          chapter_id: selectedItem.chapterId,
-          title: "頁面",
-          before_page_id: selectedItem.beforePageId,
-          after_page_id: selectedItem.afterPageId,
-        });
+        createPage(
+          {
+            book_id: selectedItem.bookId,
+            chapter_id: selectedItem.chapterId,
+            title: "頁面",
+            before_page_id: selectedItem.beforePageId,
+            after_page_id: selectedItem.afterPageId,
+          },
+          {
+            onSuccess: (response) => {
+              router.push({
+                pathname: "/studio/contents/[content_id]/pages/[page_id]",
+                query: {
+                  content_id: response.page.book_id,
+                  page_id: response.page.id,
+                },
+              });
+            },
+          }
+        );
       },
     },
     {
       code: "newchapter",
       name: "新增章節",
-      icon: DocumentDuplicateIcon,
+      icon: ChapterAddBelowIcon,
       isLoading: isCreateChapterLoading,
       onAction: () => {
-        createChapter({
-          title: "未命名分類",
-          before_chapter_id: selectedItem.beforeChapterId,
-          after_chapter_id: selectedItem.afterChapterId,
-        });
+        createChapter(
+          {
+            title: "未命名分類",
+            before_chapter_id: selectedItem.beforeChapterId,
+            after_chapter_id: selectedItem.afterChapterId,
+          },
+          {
+            onSuccess: (response) => {
+              router.push({
+                pathname: "/studio/contents/[content_id]/pages/[page_id]",
+                query: {
+                  content_id: response.page.book_id,
+                  page_id: response.page.id,
+                },
+              });
+            },
+          }
+        );
       },
     },
   ];

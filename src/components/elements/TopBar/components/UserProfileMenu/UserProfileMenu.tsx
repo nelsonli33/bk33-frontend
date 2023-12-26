@@ -3,7 +3,12 @@ import Avatar from "../../../Avatar";
 import { classNames } from "../../../../../utilities/css";
 import { Menu, Transition } from "@headlessui/react";
 import Link from "../../../Link";
-const UserProfileMenu = () => {
+import { UserBasic } from "../../../../../api/models/types";
+
+export interface UserProfileMenuProps {
+  user: UserBasic;
+}
+const UserProfileMenu = ({ user }: UserProfileMenuProps) => {
   return (
     <>
       {/* Profile dropdown */}

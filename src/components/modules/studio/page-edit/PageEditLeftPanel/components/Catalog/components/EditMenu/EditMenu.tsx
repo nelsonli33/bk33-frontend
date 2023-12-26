@@ -5,10 +5,12 @@ import { useCreateChapter } from "../../../../../../../../../hooks/api/author/ch
 import { useAppDispatch } from "../../../../../../../../../store/hooks";
 import {
   TrashIcon,
-  PencilAltIcon,
   DocumentIcon,
+  PencilIcon,
   DocumentDuplicateIcon,
+  PencilAltIcon,
 } from "@heroicons/react/outline";
+import { VscEdit } from "react-icons/vsc";
 import { showModal } from "../../../../../../../../../store/modal/slice";
 import { MODAL_TYPES } from "../../../../../../../../elements/studio/Modal/StudioModalRoot";
 import Divider from "../../../../../../../../elements/Divider";
@@ -16,6 +18,11 @@ import { twMerge } from "tailwind-merge";
 import Spinner from "../../../../../../../../elements/Spinner";
 import { ActiveItem } from "../../types";
 import { useCreatePage } from "../../../../../../../../../hooks/api/author/page";
+import {
+  ChapterAddBelowIcon,
+  DocumentAddBelowIcon,
+} from "../../../../../../../../elements/Icon";
+import { useRouter } from "next/router";
 
 export interface EditMenuProps {
   book: Book;
@@ -25,6 +32,8 @@ export interface EditMenuProps {
 
 const EditMenu = ({ book, tippyJsInstance, activeItem }: EditMenuProps) => {
   const dispatch = useAppDispatch();
+
+  const router = useRouter();
 
   const {
     mutate: createChapter,
@@ -57,50 +66,102 @@ const EditMenu = ({ book, tippyJsInstance, activeItem }: EditMenuProps) => {
     {
       code: "newpage",
       name: "新增頁面",
-      icon: DocumentIcon,
+      icon: DocumentAddBelowIcon,
       isLoading: isCreatePageLoading,
       onAction: (activeItem: ActiveItem) => {
         if (activeItem.type === "page") {
-          createPage({
-            book_id: activeItem.bookId,
-            chapter_id: activeItem.chapterId,
-            title: "頁面",
-            before_page_id: activeItem.beforePageId,
-            after_page_id: activeItem.afterPageId,
-          });
+          createPage(
+            {
+              book_id: activeItem.bookId,
+              chapter_id: activeItem.chapterId,
+              title: "頁面",
+              before_page_id: activeItem.beforePageId,
+              after_page_id: activeItem.afterPageId,
+            },
+            {
+              onSuccess: (response) => {
+                router.push({
+                  pathname: "/studio/contents/[content_id]/pages/[page_id]",
+                  query: {
+                    content_id: response.page.book_id,
+                    page_id: response.page.id,
+                  },
+                });
+              },
+            }
+          );
         }
 
         if (activeItem.type === "chapter") {
-          createPage({
-            book_id: activeItem.bookId,
-            chapter_id: activeItem.id,
-            title: "頁面",
-            before_page_id: activeItem.beforePageId,
-            after_page_id: activeItem.afterPageId,
-          });
+          createPage(
+            {
+              book_id: activeItem.bookId,
+              chapter_id: activeItem.id,
+              title: "頁面",
+              before_page_id: activeItem.beforePageId,
+              after_page_id: activeItem.afterPageId,
+            },
+            {
+              onSuccess: (response) => {
+                router.push({
+                  pathname: "/studio/contents/[content_id]/pages/[page_id]",
+                  query: {
+                    content_id: response.page.book_id,
+                    page_id: response.page.id,
+                  },
+                });
+              },
+            }
+          );
         }
       },
     },
     {
       code: "newchapter",
       name: "新增章節",
-      icon: DocumentDuplicateIcon,
+      icon: ChapterAddBelowIcon,
       isLoading: isCreateChapterLoading,
       onAction: (activeItem: ActiveItem) => {
         if (activeItem.type === "page") {
-          createChapter({
-            title: "未命名分類",
-            before_chapter_id: activeItem.beforeChapterId,
-            after_chapter_id: activeItem.afterChapterId,
-          });
+          createChapter(
+            {
+              title: "未命名分類",
+              before_chapter_id: activeItem.beforeChapterId,
+              after_chapter_id: activeItem.afterChapterId,
+            },
+            {
+              onSuccess: (response) => {
+                router.push({
+                  pathname: "/studio/contents/[content_id]/pages/[page_id]",
+                  query: {
+                    content_id: response.page.book_id,
+                    page_id: response.page.id,
+                  },
+                });
+              },
+            }
+          );
         }
 
         if (activeItem.type === "chapter") {
-          createChapter({
-            title: "未命名分類",
-            before_chapter_id: activeItem.beforeChapterId,
-            after_chapter_id: activeItem.afterChapterId,
-          });
+          createChapter(
+            {
+              title: "未命名分類",
+              before_chapter_id: activeItem.beforeChapterId,
+              after_chapter_id: activeItem.afterChapterId,
+            },
+            {
+              onSuccess: (response) => {
+                router.push({
+                  pathname: "/studio/contents/[content_id]/pages/[page_id]",
+                  query: {
+                    content_id: response.page.book_id,
+                    page_id: response.page.id,
+                  },
+                });
+              },
+            }
+          );
         }
       },
     },

@@ -35,7 +35,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
       >
         {icon && <span className="inline-block">{icon}</span>}
-        {loading ? <Spinner /> : rest.children}
+        {loading ? <Spinner primary={variant === "primary"} /> : rest.children}
       </button>
     );
   }

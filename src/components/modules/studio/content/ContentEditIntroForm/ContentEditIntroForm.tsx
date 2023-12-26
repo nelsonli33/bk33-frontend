@@ -1,12 +1,32 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import Divider from "../../../../elements/Divider";
 import TakeawaySkillEdit from "../TakeawaySkillEdit";
 import TextField from "../../../../elements/TextField";
 import ContentDescriptionEditor from "./components/ContentDescriptionEditor";
 import CoverUpload from "./components/CoverUpload";
+import { Book } from "../../../../../api/models/types";
+import Price from "./components/Price";
+import Button from "../../../../elements/Button";
+import {
+  usePublishBook,
+  useUpdateBook,
+} from "../../../../../hooks/api/author/book";
+import { Router, useRouter } from "next/router";
 
-const ContentEditIntroForm = () => {
+export interface ContentEditIntroFormProps {
+  book: Book;
+}
+
+const ContentEditIntroForm = ({ book }: ContentEditIntroFormProps) => {
+  const router = useRouter();
+  const [synopsis, setSynopsis] = useState(book.synopsis);
+  const [coverUrl, setCoverUrl] = useState(book.cover);
+
+  const { mutate: updateBook, isLoading: updateBookLoading } = useUpdateBook(
+    book.id
+  );
+
   const {
     register,
     control,
@@ -16,13 +36,42 @@ const ContentEditIntroForm = () => {
     setFocus,
   } = useForm({
     defaultValues: {
-      takeaway_skill: [{ value: "" }],
+      title: book.title,
+      subtitle: book.subtitle,
+      price: book.price,
+      takeaway_skill: book.acquisition.map((item) => ({ value: item })),
     },
     mode: "onTouched",
   });
 
+  const onSubmit = (values) => {
+    const acquisition = values.takeaway_skill
+      .filter((el) => el.value !== "")
+      .map((el) => el.value);
+
+    updateBook(
+      {
+        title: values.title,
+        subtitle: values.subtitle,
+        price: values.price,
+        synopsis: synopsis,
+        acquisition: acquisition,
+        cover: coverUrl,
+      },
+      {
+        onSuccess: () => {
+          router.push("/studio/contents");
+        },
+      }
+    );
+  };
+
+  const handleSynopsisUpdate = useCallback(({ editor }) => {
+    setSynopsis(editor.getHTML());
+  }, []);
+
   return (
-    <form className="space-y-12">
+    <form className="space-y-12" onSubmit={handleSubmit(onSubmit)}>
       <div>
         <h3 className="mb-6">基本資訊</h3>
         <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
@@ -51,10 +100,13 @@ const ContentEditIntroForm = () => {
             />
           </div>
           <div className="sm:col-span-6">
-            <ContentDescriptionEditor />
+            <ContentDescriptionEditor
+              content={book.synopsis || ""}
+              onUpdate={handleSynopsisUpdate}
+            />
           </div>
           <div className="sm:col-span-6">
-            <CoverUpload />
+            <CoverUpload coverUrl={coverUrl} onUpdate={setCoverUrl} />
           </div>
         </div>
       </div>
@@ -63,14 +115,7 @@ const ContentEditIntroForm = () => {
         <h3 className="mb-6">定價</h3>
         <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
           <div className="sm:col-span-2">
-            <TextField
-              label="售價"
-              type="number"
-              id="price"
-              prefix={"NT$"}
-              register={register}
-              autoComplete="off"
-            />
+            <Price control={control} />
           </div>
         </div>
       </div>
@@ -91,6 +136,9 @@ const ContentEditIntroForm = () => {
           </div>
         </div>
       </div>
+      <Button type="submit" variant="primary" loading={updateBookLoading}>
+        儲存並上架
+      </Button>
     </form>
   );
 };

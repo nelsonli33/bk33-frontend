@@ -9,10 +9,14 @@ async function fetchData(setTopics) {
 }
 
 export default function CategoryFilter() {
-  const [topics, setTopics] = useState([]);
+  const [topics, setTopics] = useState([
+    { id: 1, name: "文學小說" },
+    { id: 2, name: "商業智慧" },
+    { id: 3, name: "領導管理" },
+  ]);
 
   useEffect(() => {
-    fetchData(setTopics);
+    // fetchData(setTopics);
   }, []);
 
   return (

@@ -46,10 +46,10 @@ const RenamePageModal = ({ page }: RenamePageModalProps) => {
   });
 
   useEffect(() => {
-    if (isSuccess && !isSaving) {
+    if (isSuccess && !isLoading) {
       dispatch(hideModal());
     }
-  }, [isSuccess, isSaving]);
+  }, [isSuccess, isLoading]);
 
   useEffect(() => {
     setFocus("title");
@@ -63,7 +63,7 @@ const RenamePageModal = ({ page }: RenamePageModalProps) => {
       primaryAction={{
         content: "重新命名",
         onAction: updatePageName,
-        loading: isSaving,
+        loading: isLoading,
       }}
     >
       <form method="post" autoComplete="off" onSubmit={updatePageName}>
@@ -74,7 +74,6 @@ const RenamePageModal = ({ page }: RenamePageModalProps) => {
           labelLight={true}
           defaultValue={page.title}
           focused={true}
-          selectTextOnFocus={true}
           register={register}
         />
       </form>

@@ -15,6 +15,7 @@ import {
   LOADING_DURATION_FAST,
   LOADING_DURATION_NORMAL,
 } from "../../../global/constants";
+import { waitFor } from "../../../utilities/wait";
 import { authorBookKeys } from "./book";
 
 export const authoPageKeys = {
@@ -49,26 +50,16 @@ export const useGetPage = (pageId: number) => {
 
 export const useCreatePage = () => {
   const queryClient = useQueryClient();
-  const router = useRouter();
   const mutation = useMutation<
     CreatePageResponse,
     AxiosError,
     CreatePageRequest
   >((body) => AuthorPageApi.createPage(body), {
-    onSuccess(response) {
-      setTimeout(() => {
-        queryClient
-          .invalidateQueries(authorBookKeys.detail(response.page.book_id))
-          .then(() => {
-            router.push({
-              pathname: "/studio/contents/[content_id]/pages/[page_id]",
-              query: {
-                content_id: response.page.book_id,
-                page_id: response.page.id,
-              },
-            });
-          });
-      }, LOADING_DURATION_NORMAL);
+    onSuccess: async (response) => {
+      await waitFor(LOADING_DURATION_NORMAL);
+      await queryClient.invalidateQueries(
+        authorBookKeys.detail(response.page.book_id)
+      );
     },
   });
 
@@ -113,6 +104,7 @@ export const useDeletePage = (pageId: number, bookId: number) => {
       onSuccess: () => {
         setTimeout(() => {
           queryClient.invalidateQueries(authorBookKeys.detail(bookId));
+          queryClient.removeQueries(authoPageKeys.detail(pageId));
         }, LOADING_DURATION_NORMAL);
       },
     }

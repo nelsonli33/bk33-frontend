@@ -12,6 +12,11 @@ export type ServerErrorResponse = {
   };
 };
 
+export type PaginationParams = {
+  page?: number;
+  limit?: number;
+};
+
 /**
  * Storefront related api
  */
@@ -29,6 +34,7 @@ export type RegisterUserRequest = {
 export type User = {
   id: number;
   name: string;
+  title: string;
   uid: string;
   email: string;
   avatar: string;
@@ -38,6 +44,17 @@ export type User = {
   facebook_url: string;
   website_url: string;
   youtube_url: string;
+};
+
+export type UserBasic = {
+  name: string;
+  uid: string;
+  email: string;
+  avatar: string;
+};
+
+export type GetUserMeResponse = {
+  user: UserBasic;
 };
 
 export type GetUserProfileResponse = {
@@ -94,10 +111,11 @@ export type Book = {
   id: number;
   user_id: number;
   title: string;
+  subtitle: string;
   priceType: number;
   price: number;
   synopsis: string;
-  acquisition: string;
+  acquisition: string[];
   cover: string;
   categories: CategoryData[];
   toc: TableOfContent;
@@ -106,6 +124,18 @@ export type Book = {
   character_count: number;
   created_at: string;
   updated_at: string;
+};
+
+export type File = {
+  id: number;
+  filename: string;
+  extension: string;
+  url: string;
+  size: number;
+  original_filename: string;
+  mime_type: string;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type CreateBookRequest = {
@@ -121,12 +151,17 @@ export type GetBookResponse = {
   book: Book;
 };
 
+export type GetBookListResponse = {
+  books: Book[];
+};
+
 export type GetAuthorBookCategoriesResponse = {
   categories: CategoryTreeData[];
 };
 
 export type UpdateBookRequest = {
   title: string;
+  subtitle: string;
   category_ids?: number[];
   price?: number;
   synopsis?: string;
@@ -182,4 +217,8 @@ export type SavePageRequest = {
 
 export type SavePageResponse = {
   page: Page;
+};
+
+export type UploadFileResponse = {
+  file: File;
 };

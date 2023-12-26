@@ -161,7 +161,7 @@ const TextField = ({
   const ptOffset = "0.89743rem";
   const [focus, setFocus] = useState(Boolean(focused));
 
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement>();
 
   useEffect(() => {
     const input = inputRef.current;
@@ -169,7 +169,7 @@ const TextField = ({
     focused ? input.focus() : input.blur();
   }, [focused]);
 
-  const watchValue = watch ? watch(id) : null;
+  const watchValue: string = watch ? watch(id) : value;
 
   const inputType = type === "currency" ? "text" : type;
 
@@ -250,7 +250,7 @@ const TextField = ({
     disabled,
     readOnly,
     autoFocus,
-    value,
+    value: watchValue,
     placeholder: labelType === "floating-label" ? label : placeholder,
     autoComplete: normalizeAutoComplete(autoComplete),
     ref: (e) => {

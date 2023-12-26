@@ -229,6 +229,11 @@
 
 .mini-editor p {
   @apply text-base;
+  @apply mt-1.5;
+}
+
+.mini-editor > * + * {
+  @apply mt-2;
 }
 
 /**

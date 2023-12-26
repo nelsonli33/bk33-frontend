@@ -5,7 +5,7 @@ import { API_GET_BOOK } from "../../../global/constants";
 async function fetchData(setBooks) {
   const res = await fetch(API_GET_BOOK);
   const data = await res.json();
-  setBooks(data);
+  setBooks(data.books);
 }
 
 export default function CatalogList() {
@@ -26,11 +26,12 @@ export default function CatalogList() {
                 className="block group relative w-full  overflow-hidden h-auto after:content-[''] after:transition
         after:absolute after:inset-0 after:z-20 after:h-full after:w-full after:bg-black after:opacity-[0%] hover:after:opacity-[15%]"
               >
-                <img
-                  className="group-hover:scale-105 transition-transform overflow-hidden rounded"
-                  src={book.cover_url}
-                  alt="product image"
-                />
+                <div className="max-w-[100px] mx-auto">
+                  <img
+                    src="https://avenuesingapore.com/wp-content/uploads/2019/09/AVENUE-HALLOWEEN-20191026-KV-1080x1350.jpg"
+                    className="rounded"
+                  />
+                </div>
               </a>
             </Link>
           </div>
@@ -42,10 +43,12 @@ export default function CatalogList() {
                 </h2>
               </div>
               <div>
-                <p className="leading-6">{book.short_description}</p>
+                <p className="text-sm text-gray-600">{book.subtitle}</p>
               </div>
               <div className="mt-1">
-                <span className="text-sm text-gray-600">{book.author}</span>
+                <span className="text-sm text-gray-800">
+                  王磊 (Thoughtworks 中國區 CTO)
+                </span>
               </div>
             </div>
             <div>
@@ -95,7 +98,9 @@ export default function CatalogList() {
                 </span>
               </div>
               <div className="flex items-center mt-1">
-                <span className="text-sm text-gray-500">{`${book.reading_count} 人閱讀`}</span>
+                <span className="text-sm text-gray-500">{`${
+                  book.reading_count != undefined ? book.reading_count : 10
+                } 人閱讀`}</span>
               </div>
             </div>
           </div>

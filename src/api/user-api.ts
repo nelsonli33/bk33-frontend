@@ -2,6 +2,12 @@ import { client } from "./axios-client";
 import { UpdateUserProfileRequest } from "./models/types";
 
 class UserApi {
+  async getUserMe() {
+    return await client.get(`/v1/user/me`).then((response) => {
+      return response.data;
+    });
+  }
+
   async getUserProfile() {
     return await client.get(`/v1/user/profile`).then((response) => {
       return response.data;

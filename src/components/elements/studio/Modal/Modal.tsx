@@ -103,7 +103,7 @@ export default function Modal({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Dialog.Overlay className="fixed inset-0 transition-opacity pointer-events-none bg-black bg-opacity-50" />
+            <Dialog.Overlay className="fixed inset-0 transition-opacity  bg-black bg-opacity-50" />
           </Transition.Child>
 
           <Transition.Child

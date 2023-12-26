@@ -157,7 +157,7 @@ export default function Page() {
         let marginRight = `${-145 + index * 30 < 0 ? -145 + index * 30 : 0}px`;
 
         let options = {
-          threshold: [0.986765],
+          threshold: [0.970965],
           rootMargin: `0px ${marginRight} 0px 0px`,
         };
 

@@ -8,7 +8,7 @@ import { LockIcon } from "../../../elements/Icon";
 async function fetchData(setChapters) {
   const res = await fetch(API_GET_CHAPTERS);
   const data = await res.json();
-  setChapters(data);
+  setChapters(data.book.toc.chapters);
 }
 
 export default function TableOfContent() {
@@ -17,6 +17,8 @@ export default function TableOfContent() {
   useEffect(() => {
     fetchData(setChapters);
   }, []);
+
+  console.log(chapters);
 
   // const chapterMarkup = useMemo(
   //   () =>
@@ -73,7 +75,7 @@ export default function TableOfContent() {
               </svg>
             </Disclosure.Button>
             <Disclosure.Panel className="space-y-1">
-              {item.lessons.map((subItem) => (
+              {item.pages.map((subItem) => (
                 <Disclosure.Button
                   key={subItem.id}
                   as="a"

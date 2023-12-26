@@ -9,7 +9,8 @@ import { useAppDispatch } from "../../../store/hooks";
 import { showModal } from "../../../store/modal/slice";
 import { MODAL_TYPES } from "../Modal/ModalRoot";
 
-import UserProfileMenu from "./components/UserMenu";
+import UserProfileMenu from "./components/UserProfileMenu";
+import Auth from "./components/Auth";
 
 const navigation = [
   { id: "1", name: "首頁", href: "#", icon: <AiOutlineHome /> },
@@ -22,38 +23,6 @@ export interface TopBarProps {
 }
 
 export default function TopBar({ sticky, title }: TopBarProps) {
-  const dispatch = useAppDispatch();
-  const isLoggedIn = false;
-
-  const authMarkup = (
-    <div className="flex items-center space-x-4">
-      <button
-        className="btn-secondary px-5 py-2 text-sm"
-        onClick={() =>
-          dispatch(
-            showModal({
-              modalType: MODAL_TYPES.login,
-            })
-          )
-        }
-      >
-        登入
-      </button>
-      <button
-        className="btn-primary px-5 py-2 text-sm"
-        onClick={() =>
-          dispatch(
-            showModal({
-              modalType: MODAL_TYPES.register,
-            })
-          )
-        }
-      >
-        註冊
-      </button>
-    </div>
-  );
-
   return (
     <Disclosure as="nav" className="bg-white shadow">
       {({ open }) => (
@@ -99,7 +68,7 @@ export default function TopBar({ sticky, title }: TopBarProps) {
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                {!isLoggedIn ? authMarkup : <UserProfileMenu />}
+                <Auth />
               </div>
             </div>
           </div>

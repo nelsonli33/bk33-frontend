@@ -4,9 +4,10 @@ import { twMerge } from "tailwind-merge";
 interface SpinnerProps {
   size?: "large" | "small";
   className?: string;
+  primary?: boolean;
 }
 
-const Spinner = ({ size, className }: SpinnerProps) => {
+const Spinner = ({ size, className, primary }: SpinnerProps) => {
   const spinnerSVGMarkup =
     size === "large" ? (
       <svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
@@ -19,7 +20,8 @@ const Spinner = ({ size, className }: SpinnerProps) => {
     );
 
   const svgClassName = twMerge(
-    size === "large" ? "w-11 h-11 fill-brand-black" : "w-5 h-5 fill-gray-200",
+    size === "large" ? "w-11 h-11" : "w-5 h-5",
+    primary ? "fill-gray-200" : "fill-brand-black",
     "animate-spin-fast inline-block",
     className
   );

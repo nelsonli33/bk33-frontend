@@ -24,7 +24,11 @@ export default function TakeawaySkillEdit({
   });
 
   useEffect(() => {
-    if (controlledFields[controlledFields.length - 1].value) {
+    if (
+      controlledFields &&
+      controlledFields.length > 0 &&
+      controlledFields[controlledFields.length - 1].value
+    ) {
       append({ value: "" }, { shouldFocus: false });
     }
   }, [controlledFields]);

@@ -9,6 +9,7 @@ import { useLogin } from "../../../../../hooks/api/auth";
 import InlineError from "../../../InlineError";
 
 import Spinner from "../../../Spinner/Spinner";
+import Button from "../../../Button";
 
 type FormData = LoginRequest & {};
 
@@ -75,13 +76,14 @@ export default function LoginForm() {
           />
         </div>
         <div>
-          <button
+          <Button
             type="submit"
-            className="w-full btn-primary px-6 py-3"
-            disabled={isLoading}
+            loading={isLoading}
+            variant="primary"
+            className="w-full px-6 py-3"
           >
-            {isLoading ? <Spinner /> : "登入"}
-          </button>
+            登入
+          </Button>
         </div>
       </div>
     </form>

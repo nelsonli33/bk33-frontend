@@ -8,6 +8,7 @@ import {
   CreateChapterResponse,
 } from "../../../api/models/types";
 import { LOADING_DURATION_NORMAL } from "../../../global/constants";
+import { waitFor } from "../../../utilities/wait";
 import { authorBookKeys } from "./book";
 
 export const authorChapterKeys = {
@@ -21,24 +22,15 @@ export const authorChapterKeys = {
 
 export const useCreateChapter = (bookId: number) => {
   const queryClient = useQueryClient();
-  const router = useRouter();
-
   const mutation = useMutation<
     CreateChapterResponse,
     AxiosError,
     CreateChapterRequest
   >((body) => authorChapterApi.createChapter(bookId, body), {
-    onSuccess(response) {
-      setTimeout(() => {
-        queryClient
-          .invalidateQueries(authorBookKeys.detail(bookId))
-          .then(() => {
-            router.push({
-              pathname: "/studio/contents/[content_id]/pages/[page_id]",
-              query: { content_id: bookId, page_id: response.page.id },
-            });
-          });
-      }, LOADING_DURATION_NORMAL);
+    onSuccess: async () => {
+      await waitFor(LOADING_DURATION_NORMAL);
+      await queryClient.invalidateQueries(authorBookKeys.detail(bookId));
+      // then will fired second onSuccess for router push ref.PageEdit
     },
   });
 

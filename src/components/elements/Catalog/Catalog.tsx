@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { API_GET_BOOK } from "../../global/constants";
+import { API_GET_BOOK } from "../../../global/constants";
 import CardOne from "./components/CardOne";
 
 async function fetchData(setBooks) {
